@@ -620,6 +620,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   moveSpeed: 2.5
   rotationSpeed: 1
+  whatIsAimMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &1034171516
 GameObject:
   m_ObjectHideFlags: 0
