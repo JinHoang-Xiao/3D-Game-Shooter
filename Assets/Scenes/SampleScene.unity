@@ -531,8 +531,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937501374}
-  - component: {fileID: 937501373}
   - component: {fileID: 937501376}
+  - component: {fileID: 937501373}
   - component: {fileID: 937501375}
   m_Layer: 0
   m_Name: Tank
@@ -618,8 +618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93dfe6d7d0bef7489b3e2ad44fb17e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  moveSpeed: 1
-  rb: {fileID: 937501375}
+  moveSpeed: 2.5
+  rotationSpeed: 1
 --- !u!1 &1034171516
 GameObject:
   m_ObjectHideFlags: 0
