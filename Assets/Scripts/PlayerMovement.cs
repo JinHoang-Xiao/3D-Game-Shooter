@@ -4,22 +4,29 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls controls;
     public CharacterController characterController;
+    private Animator animator;
 
     [Header("Movement Data")]
     [SerializeField] private float moveSpeed = 5f;
     public Vector3 movementDirection;
 
-    [SerializeField] private float gravityScale = 9.81f;
+    [Header("Aim Data")]
+    [SerializeField] private Transform aim;
+    [SerializeField] private LayerMask aimLayerMask;
+    private Vector3 lookingDirection; 
 
     private float verticalVelocity;
+    [SerializeField] private float gravityScale = 9.81f;
 
-
+  
     private Vector2 moveInput;
     private Vector2 aimInput;
 
     private void Awake()
     {
         controls = new PlayerControls();
+
+        controls.Player.Attack.performed += context => Shoot();
         controls.Player.Move.performed += context => moveInput = context.ReadValue<Vector2>();
         controls.Player.Move.canceled += context => moveInput = Vector2.zero;
 
@@ -28,11 +35,38 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Start()
     {
-
+      animator = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
         ApplyMovement();
+        AimTowardsMouse();
+        AnimatorControllers();
+    }
+    private void Shoot()
+    {
+        animator.SetTrigger("Fire");
+    }
+    private void AnimatorControllers()
+    {
+        float xVelocity = Vector3.Dot(movementDirection.normalized, transform.right);
+        float zVelocity = Vector3.Dot(movementDirection.normalized,transform.forward);
+        animator.SetFloat("xVelocity", xVelocity);
+        animator.SetFloat("zVelocity", zVelocity);
+    }
+    private void AimTowardsMouse()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(aimInput);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimLayerMask))
+        {
+            lookingDirection = hitInfo.point - transform.position;
+            lookingDirection.y = 0f;
+            lookingDirection.Normalize();
+            transform.forward = lookingDirection;
+
+            aim.position = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
+        }
     }
     private void ApplyMovement()
     {
