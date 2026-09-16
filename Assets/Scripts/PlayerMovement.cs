@@ -1,41 +1,36 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
+    private Player player;
     private PlayerControls controls;
-    public CharacterController characterController;
+    private CharacterController characterController;
     private Animator animator;
 
     [Header("Movement Data")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed;
     public Vector3 movementDirection;
+    private float verticalVelocity;
+    private bool isRunning;
 
     [Header("Aim Data")]
     [SerializeField] private Transform aim;
     [SerializeField] private LayerMask aimLayerMask;
-    private Vector3 lookingDirection; 
+    private Vector3 lookingDirection;
 
-    private float verticalVelocity;
-    [SerializeField] private float gravityScale = 9.81f;
+    
 
-  
     private Vector2 moveInput;
     private Vector2 aimInput;
 
-    private void Awake()
-    {
-        controls = new PlayerControls();
-
-        controls.Player.Attack.performed += context => Shoot();
-        controls.Player.Move.performed += context => moveInput = context.ReadValue<Vector2>();
-        controls.Player.Move.canceled += context => moveInput = Vector2.zero;
-
-        controls.Player.Aim.performed += context => aimInput = context.ReadValue<Vector2>();
-        controls.Player.Aim.canceled += context => aimInput = Vector2.zero;
-    }
     private void Start()
     {
-      animator = GetComponentInChildren<Animator>();
+        player = GetComponent<Player>();
+        characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+
+        AssignInputEvents();
     }
     private void Update()
     {
@@ -43,14 +38,11 @@ public class PlayerMovement : MonoBehaviour
         AimTowardsMouse();
         AnimatorControllers();
     }
-    private void Shoot()
-    {
-        animator.SetTrigger("Fire");
-    }
+
     private void AnimatorControllers()
     {
         float xVelocity = Vector3.Dot(movementDirection.normalized, transform.right);
-        float zVelocity = Vector3.Dot(movementDirection.normalized,transform.forward);
+        float zVelocity = Vector3.Dot(movementDirection.normalized, transform.forward);
         animator.SetFloat("xVelocity", xVelocity);
         animator.SetFloat("zVelocity", zVelocity);
     }
@@ -84,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterController.isGrounded == false)
         {
-            verticalVelocity = verticalVelocity - gravityScale * Time.deltaTime;
+            verticalVelocity = verticalVelocity - 9.81f * Time.deltaTime;
             movementDirection.y = verticalVelocity;
         }
         else
@@ -93,13 +85,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void AssignInputEvents()
     {
-        controls.Enable();
+        controls = player.controls;
+
+        controls.Player.Move.performed += context => moveInput = context.ReadValue<Vector2>();
+        controls.Player.Move.canceled += context => moveInput = Vector2.zero;
+
+        controls.Player.Aim.performed += context => aimInput = context.ReadValue<Vector2>();
+        controls.Player.Aim.canceled += context => aimInput = Vector2.zero;
     }
-    private void OnDisable()
-    {
-        controls.Disable();
-    }
+   
 }
+
 
