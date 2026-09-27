@@ -39,7 +39,7 @@ public class WeaponVisualController : MonoBehaviour
     private void Update()
     {
         CheckWeaponSwitch();
-        if (Input.GetKeyDown(KeyCode.R) && anim != null && rig != null)
+        if (Input.GetKeyDown(KeyCode.R) && busyGrabbingWeapon == false)
         {
             anim.SetTrigger("Reload");
             PauseRig();
@@ -84,7 +84,15 @@ public class WeaponVisualController : MonoBehaviour
         PauseRig();
         anim.SetFloat("WeaponGrabType", (float)grabType);
         anim.SetTrigger("WeaponGrab");
+        SetBusyGrabbingWeaponTo(true);
     }
+
+    public void SetBusyGrabbingWeaponTo(bool busy)
+    {
+        busyGrabbingWeapon = busy;
+        anim.SetBool("BusyGrabbingWeapon", busyGrabbingWeapon); 
+    }
+
 
     public void ReturnRigWeightToOne() => rigShouldBeIncreased = true;
     public void ReturnWeightToLeftHandIK() => shouldIncreaseLeftHandIKWeight = true;
