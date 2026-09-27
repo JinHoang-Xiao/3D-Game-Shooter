@@ -786,11 +786,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1384015809691224348}
   - {fileID: 883231225}
   - {fileID: 1957846388}
   - {fileID: 991918276}
   - {fileID: 105970758}
+  - {fileID: 1384015809691224348}
   m_Father: {fileID: 7087970510489817308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &935532603
@@ -921,7 +921,9 @@ MonoBehaviour:
   shotgun: {fileID: 105970758}
   sniper: {fileID: 1384015809691224348}
   rigIncreaseStep: 2
-  leftHand: {fileID: 587583009}
+  leftHandIK: {fileID: 13913188}
+  leftHandIK_Target: {fileID: 587583009}
+  leftHandIK_IncreaseStep: 5
 --- !u!1 &983448499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,13 +1157,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332837586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36066753, y: 0.49277377, z: -0.4139376, w: -0.67509156}
-  m_LocalPosition: {x: 0.0019, y: 0.2224, z: 0.0465}
+  m_LocalRotation: {x: 0.46847275, y: 0.3915953, z: -0.5641529, w: -0.55580395}
+  m_LocalPosition: {x: -0.023, y: 0.234, z: 0.089}
   m_LocalScale: {x: 0.10000002, y: 0.10000001, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 105970758}
-  m_LocalEulerAnglesHint: {x: -4.532, y: -75.227, z: 66.522}
+  m_LocalEulerAnglesHint: {x: -4.526, y: -75.216, z: 94.342}
 --- !u!114 &1332837588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2239,7 +2241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1789769563279968713
 Transform:
   m_ObjectHideFlags: 0
