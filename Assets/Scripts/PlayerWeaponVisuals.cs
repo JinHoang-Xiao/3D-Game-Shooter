@@ -49,7 +49,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         {
             anim.SetTrigger("Reload");
             ReduceRigWeight();
-        }
+        } 
 
         UpdateRigWeight();
         UpdateLeftHandIKWeight();
