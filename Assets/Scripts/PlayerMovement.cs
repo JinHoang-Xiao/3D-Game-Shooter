@@ -10,17 +10,25 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Data")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float runSpeed;
+    [SerializeField] private float turnspeed;
+    private float speed;
     private float verticalVelocity;
+
     public Vector3 movementDirection;
     private Vector2 moveInput;
+
     private bool isRunning;
 
   
     private void Start()
     {
         player = GetComponent<Player>();
+
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
+        speed = moveSpeed;
 
         AssignInputEvents();
     }
@@ -35,8 +43,12 @@ public class PlayerMovement : MonoBehaviour
     {
         float xVelocity = Vector3.Dot(movementDirection.normalized, transform.right);
         float zVelocity = Vector3.Dot(movementDirection.normalized, transform.forward);
+
         animator.SetFloat("xVelocity", xVelocity);
         animator.SetFloat("zVelocity", zVelocity);
+
+        bool playRunAnimation = isRunning && movementDirection.magnitude > 0;
+        animator.SetBool("isRunning", playRunAnimation);
     }
     private void ApplyRotation()
     {
@@ -44,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
         lookingDirection.y = 0f;
         lookingDirection.Normalize();
 
-        transform.forward = lookingDirection;
+        Quaternion desiredRotation = Quaternion.LookRotation(lookingDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
     }
     private void ApplyMovement()
     {
@@ -53,8 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (movementDirection.magnitude > 0)
         {
-            characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
-
+            characterController.Move(movementDirection * Time.deltaTime * speed);
         }
     }
 
@@ -78,7 +90,16 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Move.performed += context => moveInput = context.ReadValue<Vector2>();
         controls.Player.Move.canceled += context => moveInput = Vector2.zero;
 
-        
+        controls.Player.Run.performed += context =>
+        {
+                speed = runSpeed;
+                isRunning = true;
+        };
+        controls.Player.Run.canceled += context =>
+        {
+            speed = moveSpeed;
+            isRunning = false;
+        };
     }
    
 }
