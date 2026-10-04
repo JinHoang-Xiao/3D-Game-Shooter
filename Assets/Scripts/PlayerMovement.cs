@@ -15,8 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float speed;
     private float verticalVelocity;
 
-    public Vector3 movementDirection;
-    private Vector2 moveInput;
+    public Vector2 moveInput { get; private set; }
+    private Vector3 movementDirection;
 
     private bool isRunning;
 
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ApplyRotation()
     {
-        Vector3 lookingDirection = player.aim.GetmousePosition() - transform.position;
+        Vector3 lookingDirection = player.aim.GetMouseHitInfo().point - transform.position;
         lookingDirection.y = 0f;
         lookingDirection.Normalize();
 
