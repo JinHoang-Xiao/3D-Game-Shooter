@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerWeaponCotroller : MonoBehaviour
 {
+    private const float REFERENCE_BULLET_SPEED = 20f; // Tham chiếu tốc độ viên đạn để điều chỉnh tốc độ bắn
+
     private Player player;
 
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform gunPoint;
+
+    
 
     [SerializeField] private Transform weaponHolder;
 
@@ -23,7 +27,10 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
 
-        newBullet.GetComponent<Rigidbody>().linearVelocity = BulletDirection() * bulletSpeed;
+        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
+
+        rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed; // Điều chỉnh khối lượng của viên đạn dựa trên tốc độ bắn để duy trì quán tính
+        rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
 
         Destroy(newBullet, 8f);
 

@@ -75,12 +75,14 @@ public class PlayerMovement : MonoBehaviour
         if (characterController.isGrounded == false)
         {
             verticalVelocity = verticalVelocity - 9.81f * Time.deltaTime;
-            movementDirection.y = verticalVelocity;
+            
         }
         else
         {
             verticalVelocity = -.5f * Time.deltaTime;
         }
+        Vector3 gravityVector = new Vector3(0,verticalVelocity*Time.deltaTime, 0);
+        characterController.Move(gravityVector);
     }
 
     private void AssignInputEvents()
