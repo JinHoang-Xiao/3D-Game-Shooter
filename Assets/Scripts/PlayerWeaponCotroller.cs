@@ -24,7 +24,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
     private void Shoot()
     {
         
-
+         
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
