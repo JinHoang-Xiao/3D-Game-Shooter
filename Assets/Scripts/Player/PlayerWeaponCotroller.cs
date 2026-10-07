@@ -1,13 +1,18 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerWeaponCotroller : MonoBehaviour
 {
+    private Player player;
     private const float REFERENCE_BULLET_SPEED = 20f; // Tham chiếu tốc độ viên đạn để điều chỉnh tốc độ bắn
 
-    private Player player;
 
+
+    [SerializeField] private Weapon currentWeapon; // Tham chiếu đến vũ khí hiện tại của người chơi
+    
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform gunPoint;
@@ -16,15 +21,51 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     [SerializeField] private Transform weaponHolder;
 
+
+    [Header("Inventory")]
+    [SerializeField] private int maxSlots = 2;
+    [SerializeField] private List<Weapon> weaponSlots = new List<Weapon>();
+
     private void Start()
     {
         player = GetComponent<Player>();
-        player.controls.Player.Attack.performed += ctx => Shoot();
+        AssignInputEvents();
+
+        currentWeapon.ammo = currentWeapon.maxAmmo;
     }
+
+    private void EquipWeapon(int i)
+    {
+        currentWeapon = weaponSlots[i];
+    }
+    public void PickupWeapon(Weapon newweapon)
+    {
+        if(weaponSlots.Count >= maxSlots)
+        {
+            Debug.Log("Inventory is full. Cannot pick up more weapons.");
+            return;
+        }
+        weaponSlots.Add(newweapon);
+    }
+    private void DropWeapon()
+    {
+        if(weaponSlots.Count <= 1)
+        {
+            return;
+        } 
+        weaponSlots.Remove(currentWeapon);
+        currentWeapon = weaponSlots[0];
+    }
+
+
     private void Shoot()
     {
-        
-         
+        if(currentWeapon.CanShoot() == false)
+        {
+            Debug.Log("Out of ammo!");
+            return;
+        }
+
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
@@ -57,7 +98,24 @@ public class PlayerWeaponCotroller : MonoBehaviour
     
     public Transform GunPoint() => gunPoint;
 
-    /*   private void OnDrawGizmos()
+    #region Input Events
+    private void AssignInputEvents()
+    {
+        PlayerControls controls = player.controls;
+
+        controls.Player.Attack.performed += ctx => Shoot();
+
+        controls.Player.EquipSlot1.performed += ctx => EquipWeapon(0);
+        controls.Player.EquipSlot2.performed += ctx => EquipWeapon(1);
+
+        controls.Player.DropCurrentWeapon.performed += ctx => DropWeapon();
+
+        controls.Player.Reload.performed += ctx => player.weaponVisuals.PlayReloadAnimation();
+    }
+    #endregion
+}
+
+/*   private void OnDrawGizmos()
    {
        // Chỉ vẽ Gizmos khi player đã được khởi tạo (tránh lỗi NullReference)
        if (player == null || player.aim == null) return;
@@ -73,4 +131,3 @@ public class PlayerWeaponCotroller : MonoBehaviour
            Gizmos.DrawLine(gunPoint.position, gunPoint.position + BulletDirection() * 25);
        }
    }*/
-}
