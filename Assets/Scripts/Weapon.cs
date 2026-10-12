@@ -1,3 +1,4 @@
+using UnityEngine;
 
 public enum WeaponType
 {
@@ -17,6 +18,11 @@ public class Weapon
     public int magazineCapacity; // sức chứa tối đa của băng đạn
     public int totalReserveAmmo; // tổng số lượng đạn dự trữ
 
+    [Range(1, 3)]
+    public float reloadSpeed = 1; // nhân vật thay đạn vũ khí nhanh bao nhiêu
+    [Range(1, 3)]
+    public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
+
 
     public bool CanShoot()
     {
@@ -34,7 +40,7 @@ public class Weapon
     }
     public bool CanReload()
     {
-        if(bulletInMagazine == magazineCapacity) // kiểm tra nếu băng đạn đã đầy
+        if (bulletInMagazine == magazineCapacity) // kiểm tra nếu băng đạn đã đầy
         {
             return false; // không thể nạp đạn nếu băng đạn đã đầy
         }
@@ -51,7 +57,7 @@ public class Weapon
 
         int bulletsToReload = magazineCapacity;
 
-        if(bulletsToReload > totalReserveAmmo)
+        if (bulletsToReload > totalReserveAmmo)
         {
             bulletsToReload = totalReserveAmmo;
         }
