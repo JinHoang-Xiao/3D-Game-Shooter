@@ -14,7 +14,7 @@ public enum WeaponType
 public class Weapon
 {
     public WeaponType weaponType; // loại vũ khí
-    public int bulletInMagazine; // số lượng đạn hiện có trong băng đạn
+    public int bulletsInMagazine; // số lượng đạn hiện có trong băng đạn
     public int magazineCapacity; // sức chứa tối đa của băng đạn
     public int totalReserveAmmo; // tổng số lượng đạn dự trữ
 
@@ -23,24 +23,39 @@ public class Weapon
     [Range(1, 3)]
     public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
 
+    [Space]
+    public float fireRate = 1; // Đạn mỗi giây (bullets per second)
+    private float lastShootTime;
 
     public bool CanShoot()
     {
-        return HaveEnoughBullets();
+        if(HaveEnoughBullets() && ReadyToFire())
+        {
+            bulletsInMagazine--;
+            return true;
+        }
+        return false;
     }
 
-    private bool HaveEnoughBullets()
+    private bool ReadyToFire()
     {
-        if (bulletInMagazine > 0)
+        if (Time.time >lastShootTime +1 /  fireRate)
         {
-            bulletInMagazine--; // giảm số lượng đạn khi bắn
-            return true; // vũ khí có thể bắn nếu còn đạn
+            lastShootTime = Time.time;
+            return true;
         }
-        return false; // vũ khí không thể bắn nếu hết đạn
+        return false;
     }
+
+
+
+
+
+
+    #region Reload methods
     public bool CanReload()
     {
-        if (bulletInMagazine == magazineCapacity) // kiểm tra nếu băng đạn đã đầy
+        if (bulletsInMagazine == magazineCapacity) // kiểm tra nếu băng đạn đã đầy
         {
             return false; // không thể nạp đạn nếu băng đạn đã đầy
         }
@@ -53,7 +68,7 @@ public class Weapon
     }
     public void RefillBullets()
     {
-        totalReserveAmmo += bulletInMagazine; // thêm số lượng đạn còn lại trong băng đạn vào tổng số lượng đạn dự trữ
+        totalReserveAmmo += bulletsInMagazine; // thêm số lượng đạn còn lại trong băng đạn vào tổng số lượng đạn dự trữ
 
         int bulletsToReload = magazineCapacity;
 
@@ -63,11 +78,13 @@ public class Weapon
         }
 
         totalReserveAmmo -= bulletsToReload;
-        bulletInMagazine = bulletsToReload;
+        bulletsInMagazine = bulletsToReload;
 
         if (totalReserveAmmo < 0)
         {
             totalReserveAmmo = 0; // đảm bảo số lượng đạn dự trữ không âm
         }
     }
+    private bool HaveEnoughBullets() => bulletsInMagazine > 0;
+    #endregion
 }

@@ -9,13 +9,10 @@ public class PlayerWeaponCotroller : MonoBehaviour
     private Player player;
     private const float REFERENCE_BULLET_SPEED = 20f; // Tham chiếu tốc độ viên đạn để điều chỉnh tốc độ bắn
 
-
-
     [SerializeField] private Weapon currentWeapon; // Tham chiếu đến vũ khí hiện tại của người chơi
-    
+    private bool weaponReady;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
-    [SerializeField] private Transform gunPoint;
 
     
 
@@ -35,15 +32,17 @@ public class PlayerWeaponCotroller : MonoBehaviour
     }
 
 
-    #region Slots Manager - Pickup/Equip/Drop Weapon
+    #region Slots Manager - Pickup/Equip/Drop/Ready Weapon
 
     private void EquipStartingWeapon() => EquipWeapon(0);
     
     private void EquipWeapon(int i)
     {
+        SetWeaponReady(false);
+
         currentWeapon = weaponSlots[i];
 
-        player.weaponVisuals.SwitchOffWeaponModels();
+        player.weaponVisuals.SwitchOffWeaponModels(); // Tắt hình ảnh vũ khí khi thay đổi vũ khí để không bị kỳ khi thay đổi cầm vũ khí khác
         player.weaponVisuals.PlayWeaponEquipAnimation();
     }
     public void PickupWeapon(Weapon newweapon)
@@ -65,10 +64,17 @@ public class PlayerWeaponCotroller : MonoBehaviour
         weaponSlots.Remove(currentWeapon);
         EquipWeapon(0);
     }
+
+    public void SetWeaponReady(bool ready) => weaponReady = ready;
+    public bool WeaponReady() => weaponReady;
+
     #endregion
 
     private void Shoot()
     {
+        if (WeaponReady() == false)
+            return;
+
         if(currentWeapon.CanShoot() == false)
         {
             Debug.Log("Out of ammo!");
@@ -78,15 +84,21 @@ public class PlayerWeaponCotroller : MonoBehaviour
         GameObject newBullet = ObjectPool.instance.GetBullet();
         //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
 
-        newBullet.transform.position = gunPoint.position;
-        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
+        newBullet.transform.position = GunPoint().position;
+        newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed; // Điều chỉnh khối lượng của viên đạn dựa trên tốc độ bắn để duy trì quán tính
         rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
 
-        GetComponentInChildren<Animator>().SetTrigger("Fire");
+        player.weaponVisuals.PlayFireAnimation();
+    }
+
+    private void Reload()
+    {
+        SetWeaponReady(false);
+        player.weaponVisuals.PlayReloadAnimation();
     }
 
     public Vector3 BulletDirection()
@@ -94,16 +106,14 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         Transform aim = player.aim.Aim();
 
-        Vector3 direction = (aim.position - gunPoint.position).normalized;
+        Vector3 direction = (aim.position - GunPoint().position).normalized;
 
         if (player.aim.CanAimPrecisly() == false && player.aim.Target() == null)
         {
             direction.y = 0;
         }
 
-        //weaponHolder.LookAt(aim);
-        //gunPoint.LookAt(aim); TODO: Xem xét việc sử dụng LookAt để hướng vũ khí và điểm bắn về phía mục tiêu, nhưng cần kiểm tra kỹ lưỡng để tránh các vấn đề về xoay không mong muốn.
-
+       
         return direction;
     }
 
@@ -122,7 +132,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
         return null;
     }    
 
-    public Transform GunPoint() => gunPoint;
+    public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModel().gunPoint;
 
     #region Input Events
     private void AssignInputEvents()
@@ -138,12 +148,13 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         controls.Player.Reload.performed += ctx =>
         {
-            if (currentWeapon.CanReload())
+            if (currentWeapon.CanReload() && WeaponReady())
             {
-                player.weaponVisuals.PlayReloadAnimation();
+                Reload();
             }
         };
     }
+
     #endregion
 }
 

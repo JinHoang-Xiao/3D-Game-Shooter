@@ -18,10 +18,11 @@ public class ObjectPool : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+    }
 
-
+    private void Start()
+    {
         bulletPool = new Queue<GameObject>();
-
         CreateInitialPool();
     }
 
@@ -29,6 +30,7 @@ public class ObjectPool : MonoBehaviour
     {
         if (bulletPool.Count == 0)
             CreateNewBullet();
+
         GameObject bulletToGet = bulletPool.Dequeue();
         bulletToGet.SetActive(true);
         bulletToGet.transform.parent = null;
@@ -49,7 +51,6 @@ public class ObjectPool : MonoBehaviour
         for(int i =0; i < poolSize; i++)
         {
             CreateNewBullet();
-
         }
     }
 
