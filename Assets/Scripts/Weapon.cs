@@ -42,14 +42,17 @@ public class Weapon
     public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
 
     [Header("Spread")]
-    public float baseSpread;
-    public float currentSpread = 2;
+    public float baseSpread = 1;
     public float maximumSpread = 3;
+    private float currentSpread = 2;
 
     public float spreadIncreaseRate = .15f;
 
     private float lastSpreadUpdateTime;
     private float spreadCoolDown = 1;
+
+
+    #region Spread Methods
 
     public Vector3 ApplySpread(Vector3 originalDirection)
     {
@@ -80,7 +83,9 @@ public class Weapon
     {
         currentSpread = Mathf.Clamp(currentSpread + spreadIncreaseRate, baseSpread, maximumSpread);
     }
-    
+
+    #endregion
+
     public bool CanShoot()
     {
         if(HaveEnoughBullets() && ReadyToFire())
