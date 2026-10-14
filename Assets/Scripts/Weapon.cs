@@ -1,3 +1,6 @@
+using Cinemachine;
+using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public enum WeaponType
@@ -9,24 +12,75 @@ public enum WeaponType
     Rifle,
 }
 
+public enum ShootType
+{
+    Single,
+    Auto
+}
+
 
 [System.Serializable] // làm cho lớp Weapon có thể được lưu trữ và hiển thị trong Unity Inspector
 public class Weapon
 {
     public WeaponType weaponType; // loại vũ khí
+
+    [Header("Shoot specifics")]
+    public ShootType shootType;
+    public float fireRate = 1; // Đạn mỗi giây (bullets per second)
+    private float lastShootTime;
+
+
+    [Header("Magazine details")]
     public int bulletsInMagazine; // số lượng đạn hiện có trong băng đạn
     public int magazineCapacity; // sức chứa tối đa của băng đạn
     public int totalReserveAmmo; // tổng số lượng đạn dự trữ
+
 
     [Range(1, 3)]
     public float reloadSpeed = 1; // nhân vật thay đạn vũ khí nhanh bao nhiêu
     [Range(1, 3)]
     public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
 
-    [Space]
-    public float fireRate = 1; // Đạn mỗi giây (bullets per second)
-    private float lastShootTime;
+    [Header("Spread")]
+    public float baseSpread;
+    public float currentSpread = 2;
+    public float maximumSpread = 3;
 
+    public float spreadIncreaseRate = .15f;
+
+    private float lastSpreadUpdateTime;
+    private float spreadCoolDown = 1;
+
+    public Vector3 ApplySpread(Vector3 originalDirection)
+    {
+        UpdateSpread();
+
+        float randomizedValue = Random.Range(-currentSpread, currentSpread);
+
+        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue, randomizedValue);
+
+        return spreadRotation * originalDirection;
+    }
+
+    private void UpdateSpread()
+    {
+        
+        if(Time.time > lastSpreadUpdateTime + spreadCoolDown)
+        {
+            currentSpread = baseSpread;
+        }
+        else
+        {
+            IncreaseSpread();
+        }
+        lastSpreadUpdateTime = Time.time;
+    }
+
+    private void IncreaseSpread()
+    {
+        currentSpread = Mathf.Clamp(currentSpread + spreadIncreaseRate, baseSpread, maximumSpread);
+    }
+    
     public bool CanShoot()
     {
         if(HaveEnoughBullets() && ReadyToFire())
@@ -46,9 +100,6 @@ public class Weapon
         }
         return false;
     }
-
-
-
 
 
 

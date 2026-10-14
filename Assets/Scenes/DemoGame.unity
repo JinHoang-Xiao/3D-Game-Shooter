@@ -674,12 +674,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   weapon:
     weaponType: 3
+    shootType: 0
+    fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
-    fireRate: 1
 --- !u!4 &204660604
 Transform:
   m_ObjectHideFlags: 0
@@ -1681,12 +1682,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   weapon:
     weaponType: 2
+    shootType: 0
+    fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
-    fireRate: 1
 --- !u!4 &713032080
 Transform:
   m_ObjectHideFlags: 0
@@ -2081,31 +2083,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponCotroller
   currentWeapon:
     weaponType: 0
+    shootType: 0
+    fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
-    fireRate: 1
   bulletPrefab: {fileID: 781499979398271465, guid: e4d05de89632c1f41bb11b74456196ee, type: 3}
   bulletSpeed: 20
   weaponHolder: {fileID: 890665470}
   maxSlots: 2
   weaponSlots:
   - weaponType: 0
+    shootType: 0
+    fireRate: 5
     bulletsInMagazine: 100
     magazineCapacity: 9999999
     totalReserveAmmo: 9999999
     reloadSpeed: 2
     equipmentSpeed: 1
-    fireRate: 5
-  - weaponType: 4
+  - weaponType: 2
+    shootType: 1
+    fireRate: 3
     bulletsInMagazine: 10
     magazineCapacity: 10
     totalReserveAmmo: 30
     reloadSpeed: 1
     equipmentSpeed: 1
-    fireRate: 1
 --- !u!114 &935532608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,12 +2414,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   weapon:
     weaponType: 1
+    shootType: 0
+    fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
-    fireRate: 1
 --- !u!4 &1165163046
 Transform:
   m_ObjectHideFlags: 0

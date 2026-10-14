@@ -89,15 +89,15 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = player.controls;
 
-        controls.Player.Move.performed += context => moveInput = context.ReadValue<Vector2>();
-        controls.Player.Move.canceled += context => moveInput = Vector2.zero;
+        controls.Character.Move.performed += context => moveInput = context.ReadValue<Vector2>();
+        controls.Character.Move.canceled += context => moveInput = Vector2.zero;
 
-        controls.Player.Run.performed += context =>
+        controls.Character.Run.performed += context =>
         {
                 speed = runSpeed;
                 isRunning = true;
         };
-        controls.Player.Run.canceled += context =>
+        controls.Character.Run.canceled += context =>
         {
             speed = moveSpeed;
             isRunning = false;

@@ -11,6 +11,9 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     [SerializeField] private Weapon currentWeapon; // Tham chiếu đến vũ khí hiện tại của người chơi
     private bool weaponReady;
+    private bool isShooting;
+
+    [Header("Bullet details")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
 
@@ -21,7 +24,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     [Header("Inventory")]
     [SerializeField] private int maxSlots = 2;
-    [SerializeField] private List<Weapon> weaponSlots = new List<Weapon>();
+    [SerializeField] private List<Weapon> weaponSlots;
 
     private void Start()
     {
@@ -29,6 +32,12 @@ public class PlayerWeaponCotroller : MonoBehaviour
         AssignInputEvents();
 
         Invoke("EquipStartingWeapon", .1f);
+    }
+
+    private void Update()
+    {
+        if(isShooting)
+            Shoot();
     }
 
 
@@ -77,8 +86,11 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         if(currentWeapon.CanShoot() == false)
         {
-            Debug.Log("Out of ammo!");
             return;
+        }
+        if (currentWeapon.shootType == ShootType.Single)
+        {
+            isShooting = false;
         }
 
         GameObject newBullet = ObjectPool.instance.GetBullet();
@@ -89,8 +101,10 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
+        Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
+
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed; // Điều chỉnh khối lượng của viên đạn dựa trên tốc độ bắn để duy trì quán tính
-        rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
+        rbNewBullet.linearVelocity = bulletDirection * bulletSpeed;
 
         player.weaponVisuals.PlayFireAnimation();
     }
@@ -139,14 +153,15 @@ public class PlayerWeaponCotroller : MonoBehaviour
     {
         PlayerControls controls = player.controls;
 
-        controls.Player.Attack.performed += ctx => Shoot();
+        controls.Character.Attack.performed += ctx => isShooting = true;
+        controls.Character.Attack.canceled += ctx => isShooting = false;
 
-        controls.Player.EquipSlot1.performed += ctx => EquipWeapon(0);
-        controls.Player.EquipSlot2.performed += ctx => EquipWeapon(1);
+        controls.Character.EquipSlot1.performed += ctx => EquipWeapon(0);
+        controls.Character.EquipSlot2.performed += ctx => EquipWeapon(1);
 
-        controls.Player.DropCurrentWeapon.performed += ctx => DropWeapon();
+        controls.Character.DropCurrentWeapon.performed += ctx => DropWeapon();
 
-        controls.Player.Reload.performed += ctx =>
+        controls.Character.Reload.performed += ctx =>
         {
             if (currentWeapon.CanReload() && WeaponReady())
             {

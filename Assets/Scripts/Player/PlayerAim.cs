@@ -190,7 +190,7 @@ public class PlayerAim : MonoBehaviour
     {
         controls = player.controls;
 
-        controls.Player.Aim.performed += context => mouseInput = context.ReadValue<Vector2>();
-        controls.Player.Aim.canceled += context => mouseInput = Vector2.zero;
+        controls.Character.Aim.performed += context => mouseInput = context.ReadValue<Vector2>();
+        controls.Character.Aim.canceled += context => mouseInput = Vector2.zero;
     }
 }
