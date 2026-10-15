@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Search;
@@ -38,6 +39,11 @@ public class PlayerWeaponCotroller : MonoBehaviour
     {
         if(isShooting)
             Shoot();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            currentWeapon.ToggleBurst();
+        }
     }
 
 
@@ -79,19 +85,49 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     #endregion
 
+    private IEnumerator BurstFire()
+    {
+        SetWeaponReady(false);
+
+        for(int i = 1; i <= currentWeapon.bulletsPerShot; i++)
+        {
+            FireSingleBullet();
+
+            yield return new WaitForSeconds(currentWeapon.burstFireDelay);
+
+            if(i >= currentWeapon.bulletsPerShot)
+            {
+                SetWeaponReady(true);
+            }
+        }
+    }
+
     private void Shoot()
     {
         if (WeaponReady() == false)
             return;
 
-        if(currentWeapon.CanShoot() == false)
+        if (currentWeapon.CanShoot() == false)
+            return;
+
+        player.weaponVisuals.PlayFireAnimation();
+
+        if (currentWeapon.shootType == ShootType.Single)
+            isShooting = false;
+
+        if(currentWeapon.BurstActivated() == true)
         {
+            StartCoroutine(BurstFire());
             return;
         }
-        if (currentWeapon.shootType == ShootType.Single)
-        {
-            isShooting = false;
-        }
+
+        FireSingleBullet();
+    }
+
+    private void FireSingleBullet()
+    {
+        currentWeapon.bulletsInMagazine--;
+
 
         GameObject newBullet = ObjectPool.instance.GetBullet();
         //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
@@ -105,8 +141,6 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed; // Điều chỉnh khối lượng của viên đạn dựa trên tốc độ bắn để duy trì quán tính
         rbNewBullet.linearVelocity = bulletDirection * bulletSpeed;
-
-        player.weaponVisuals.PlayFireAnimation();
     }
 
     private void Reload()

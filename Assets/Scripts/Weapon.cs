@@ -26,8 +26,19 @@ public class Weapon
 
     [Header("Shoot specifics")]
     public ShootType shootType;
+    public int bulletsPerShot;
+    public float defaultFireRate;
     public float fireRate = 1; // Đạn mỗi giây (bullets per second)
     private float lastShootTime;
+
+
+    [Header("Burst fire")]
+    public bool burstAvalible;
+    public bool burstActive;
+
+    public int burstBulletsPerShot;
+    public float burstFireRate;
+    public float burstFireDelay = 0.1f;
 
 
     [Header("Magazine details")]
@@ -40,6 +51,7 @@ public class Weapon
     public float reloadSpeed = 1; // nhân vật thay đạn vũ khí nhanh bao nhiêu
     [Range(1, 3)]
     public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
+
 
     [Header("Spread")]
     public float baseSpread = 1;
@@ -86,15 +98,45 @@ public class Weapon
 
     #endregion
 
-    public bool CanShoot()
+
+    #region Burst Methods
+
+    public bool BurstActivated()
     {
-        if(HaveEnoughBullets() && ReadyToFire())
+        if(weaponType == WeaponType.Shotgun)
         {
-            bulletsInMagazine--;
+            burstFireDelay = 0;
             return true;
         }
-        return false;
+
+        return burstActive;
     }
+
+    public void ToggleBurst()
+    {
+        if (burstAvalible == false)
+        {
+            return;
+        }
+
+        burstActive = !burstActive;
+
+        if(burstActive)
+        {
+            bulletsPerShot = burstBulletsPerShot;
+            fireRate = burstFireRate;
+        }
+        else
+        {
+            bulletsPerShot = 1;
+            fireRate = defaultFireRate;
+        }
+    }
+
+
+    #endregion
+
+    public bool CanShoot() => HaveEnoughBullets() && ReadyToFire();
 
     private bool ReadyToFire()
     {
