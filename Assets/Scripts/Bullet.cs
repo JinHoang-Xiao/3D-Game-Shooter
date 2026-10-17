@@ -2,9 +2,68 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletImpact;
+    private BoxCollider cd;
+    private Rigidbody rb;
+    private MeshRenderer meshRenderer;
+    private TrailRenderer trailRenderer;
 
-    private Rigidbody rb=> GetComponent<Rigidbody>();
+
+    [SerializeField] private GameObject bulletImpactFX;
+
+
+    private Vector3 startPosition;
+    private float flyDistance;
+    private bool bulletDisabled;
+
+    private void Awake()
+    {
+        cd = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        trailRenderer = GetComponent<TrailRenderer>();
+    }
+
+    public void BulletSetup(float flyDistance)
+    {
+        bulletDisabled = false;
+        cd.enabled = true;
+        meshRenderer.enabled = true;
+
+        trailRenderer.time = .2f;
+        startPosition = transform.position;
+        this.flyDistance = flyDistance + .5f; // .5f được cộng vào flyDistance để tính thêm độ dài phần đầu tia laser ( xem method UpdateAimVisuals() o PlayerAim.cs)
+    }
+
+    private void Update()
+    {
+        FadeTrailIfNeeded();
+        DisablledBulletIfNeeded();
+        ReturnToPoolIfNeeded();
+    }
+
+    private void ReturnToPoolIfNeeded()
+    {
+        if (trailRenderer.time < 0)
+        {
+            ObjectPool.instance.ReturnBullet(gameObject);
+        }
+    }
+    private void DisablledBulletIfNeeded()
+    {
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
+        {
+            cd.enabled = false;
+            meshRenderer.enabled = false;
+            bulletDisabled = true;
+        }
+    }
+    private void FadeTrailIfNeeded()
+    {
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5f)
+        {
+            trailRenderer.time -= 2 * Time.deltaTime; // 2 là hệ số dùng để giảm trailRenderer.time theo thời gian
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -17,7 +76,7 @@ public class Bullet : MonoBehaviour
         if (collision.contacts.Length > 0)
         {
             ContactPoint contact = collision.contacts[0];
-            GameObject newImpactFx = Instantiate(bulletImpact, contact.point, Quaternion.LookRotation(contact.normal));
+            GameObject newImpactFx = Instantiate(bulletImpactFX, contact.point, Quaternion.LookRotation(contact.normal));
             Destroy(newImpactFx, 1f);
         }
     }

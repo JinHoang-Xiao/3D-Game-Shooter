@@ -51,6 +51,11 @@ public class Weapon
     public float reloadSpeed = 1; // nhân vật thay đạn vũ khí nhanh bao nhiêu
     [Range(1, 3)]
     public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
+    [Range(2, 12)]
+    public float gunDistance = 4;
+    [Range(3, 8)]
+    public float cameraDistance = 6;
+
 
 
     [Header("Spread")]

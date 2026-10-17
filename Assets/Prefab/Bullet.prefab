@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6e69ea6a09d824e955b1c709ce3027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  bulletImpact: {fileID: 5432177796803804911, guid: ed91729e42a1b334caad5ec74eece2bd, type: 3}
+  bulletImpactFX: {fileID: 5432177796803804911, guid: ed91729e42a1b334caad5ec74eece2bd, type: 3}
 --- !u!96 &1763605612150607646
 TrailRenderer:
   serializedVersion: 4

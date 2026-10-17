@@ -59,6 +59,8 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         player.weaponVisuals.SwitchOffWeaponModels(); // Tắt hình ảnh vũ khí khi thay đổi vũ khí để không bị kỳ khi thay đổi cầm vũ khí khác
         player.weaponVisuals.PlayWeaponEquipAnimation();
+
+        CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
     public void PickupWeapon(Weapon newweapon)
     {
@@ -136,6 +138,9 @@ public class PlayerWeaponCotroller : MonoBehaviour
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
+
+        Bullet bulletScript = newBullet.GetComponent<Bullet>();
+        bulletScript.BulletSetup(currentWeapon.gunDistance);
 
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
 
