@@ -39,7 +39,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         UpdateLeftHandIKWeight();
     }
 
-    public void PlayFireAnimation() => anim.SetTrigger("Fire"); 
+    public void PlayFireAnimation() => anim.SetTrigger("Fire");
 
     public void PlayReloadAnimation()
     {
@@ -72,10 +72,10 @@ public class PlayerWeaponVisuals : MonoBehaviour
 
         SwithOffBackupWeaponModels();
 
-        if(player.weapon.HasOnlyOneWeapon() == false)
+        if (player.weapon.HasOnlyOneWeapon() == false)
         {
             SwithOnBackupWeaponModels();
-        } 
+        }
 
         SwitchAnimationLayer(animationIndex);
         CurrentWeaponModel().gameObject.SetActive(true);
@@ -91,20 +91,53 @@ public class PlayerWeaponVisuals : MonoBehaviour
 
     private void SwithOffBackupWeaponModels()
     {
-        foreach(BackupWeaponModel backupModel in backupWeaponModels)
+        foreach (BackupWeaponModel backupModel in backupWeaponModels)
         {
-            backupModel.gameObject.SetActive(false);
-        }    
+            backupModel.Activate(false);
+        }
     }
     public void SwithOnBackupWeaponModels()
     {
-        WeaponType weaponType = player.weapon.BackupWeapon().weaponType;
+        SwithOffBackupWeaponModels();
+
+        BackupWeaponModel lowHangWeapon = null;
+        BackupWeaponModel backHangWeapon1 = null;
+        BackupWeaponModel backHangWeapon2 = null;
+        BackupWeaponModel sideHangWeapon = null;
 
         foreach (BackupWeaponModel backupModel in backupWeaponModels)
         {
-            if(backupModel.weaponType == weaponType)
-            backupModel.gameObject.SetActive(true);
+
+            if (backupModel.weaponType == player.weapon.CurrentWeapon().weaponType)
+                continue;
+
+
+            if (player.weapon.WeaponInSlots(backupModel.weaponType) != null)
+            {
+                if (backupModel.HangTypeIs(HangType.LowBackHang))
+                {
+                    lowHangWeapon = backupModel;
+                }
+                if (backupModel.HangTypeIs(HangType.BackHang1))
+                {
+                    backHangWeapon1 = backupModel;
+                }
+                if (backupModel.HangTypeIs(HangType.BackHang2))
+                {
+                    backHangWeapon2 = backupModel;
+                }
+                if (backupModel.HangTypeIs(HangType.SideHang))
+                {
+                    sideHangWeapon = backupModel;
+                }
+
+            }
         }
+
+        lowHangWeapon?.Activate(true);
+        backHangWeapon1?.Activate(true);
+        backHangWeapon2?.Activate(true);
+        sideHangWeapon?.Activate(true);
     }
 
     private void SwitchAnimationLayer(int layerIndex)

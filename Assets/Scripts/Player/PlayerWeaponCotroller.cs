@@ -39,11 +39,6 @@ public class PlayerWeaponCotroller : MonoBehaviour
     {
         if(isShooting)
             Shoot();
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            currentWeapon.ToggleBurst();
-        }
     }
 
 
@@ -53,6 +48,11 @@ public class PlayerWeaponCotroller : MonoBehaviour
     
     private void EquipWeapon(int i)
     {
+        if(i >= weaponSlots.Count)
+        {
+            return;
+        }
+
         SetWeaponReady(false);
 
         currentWeapon = weaponSlots[i];
@@ -172,18 +172,17 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
 
-    public Weapon CurrentWeapon() => currentWeapon;
-
-    public Weapon BackupWeapon()
+    public Weapon WeaponInSlots(WeaponType weaponType)
     {
         foreach(Weapon weapon in weaponSlots)
         {
-            if (weapon != currentWeapon)
+            if (weapon.weaponType == weaponType)
                 return weapon;
         }
-
         return null;
-    }    
+    }
+
+    public Weapon CurrentWeapon() => currentWeapon;
 
     public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModel().gunPoint;
 
@@ -197,6 +196,9 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         controls.Character.EquipSlot1.performed += ctx => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += ctx => EquipWeapon(1);
+        controls.Character.EquipSlot3.performed += ctx => EquipWeapon(2);
+        controls.Character.EquipSlot4.performed += ctx => EquipWeapon(3);
+        controls.Character.EquipSlot5.performed += ctx => EquipWeapon(4);
 
         controls.Character.DropCurrentWeapon.performed += ctx => DropWeapon();
 
@@ -207,6 +209,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
                 Reload();
             }
         };
+        controls.Character.ToggleWeaponMode.performed += ctx => currentWeapon.ToggleBurst();
     }
 
     #endregion
