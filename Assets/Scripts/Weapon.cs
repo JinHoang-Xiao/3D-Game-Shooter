@@ -1,6 +1,3 @@
-using Cinemachine;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public enum WeaponType
@@ -24,49 +21,83 @@ public class Weapon
 {
     public WeaponType weaponType; // loại vũ khí
 
-    [Header("Shoot specifics")]
+    #region Regular mode variables
     public ShootType shootType;
-    public int bulletsPerShot;
-    public float defaultFireRate;
-    public float fireRate = 1; // Đạn mỗi giây (bullets per second)
+    public int bulletsPerShot { get; private set; }
+
+    private float defaultFireRate;
+    private float fireRate = 1; // Đạn mỗi giây (bullets per second)
     private float lastShootTime;
+    #endregion
 
-
-    [Header("Burst fire")]
-    public bool burstAvalible;
+    #region Burst mode variables
+    private bool burstAvalible;
     public bool burstActive;
 
-    public int burstBulletsPerShot;
-    public float burstFireRate;
-    public float burstFireDelay = 0.1f;
-
+    private int burstBulletsPerShot;
+    private float burstFireRate;
+    public float burstFireDelay { get; private set; }
+    #endregion
 
     [Header("Magazine details")]
     public int bulletsInMagazine; // số lượng đạn hiện có trong băng đạn
     public int magazineCapacity; // sức chứa tối đa của băng đạn
     public int totalReserveAmmo; // tổng số lượng đạn dự trữ
 
+    #region Weapon generic info variables
+    public float reloadSpeed { get; private set; } // nhân vật thay đạn vũ khí nhanh bao nhiêu
+    public float equipmentSpeed { get; private set; } // nhân vật mang vũ khí nhanh bao nhiêu
+    public float gunDistance { get; private set; }
+    public float cameraDistance { get; private set; }
+    #endregion
 
-    [Range(1, 3)]
-    public float reloadSpeed = 1; // nhân vật thay đạn vũ khí nhanh bao nhiêu
-    [Range(1, 3)]
-    public float equipmentSpeed = 1; // nhân vật mang vũ khí nhanh bao nhiêu
-    [Range(2, 12)]
-    public float gunDistance = 4;
-    [Range(3, 8)]
-    public float cameraDistance = 6;
-
-
-
+    #region Weapon spread variables
     [Header("Spread")]
-    public float baseSpread = 1;
-    public float maximumSpread = 3;
+    private float baseSpread = 1;
+    private float maximumSpread = 3;
     private float currentSpread = 2;
 
-    public float spreadIncreaseRate = .15f;
+    private float spreadIncreaseRate = .15f;
 
     private float lastSpreadUpdateTime;
     private float spreadCoolDown = 1;
+    #endregion
+
+    public Weapon(Weapon_Data weaponData)
+    {
+        bulletsInMagazine = weaponData.bulletsInMagazine;
+        magazineCapacity = weaponData.magazineCapacity;
+        totalReserveAmmo = weaponData.totalReserveAmmo;
+
+
+        fireRate = weaponData.fireRate;
+        weaponType = weaponData.weaponType;
+
+
+        bulletsPerShot = weaponData.bulletsPerShot;
+        shootType = weaponData.shootType;
+
+
+        burstAvalible = weaponData.burstAvalible;
+        burstActive = weaponData.burstActive;
+        burstBulletsPerShot = weaponData.burstBulletsPerShot;
+        burstFireRate = weaponData.burstFireRate;
+        burstFireDelay = weaponData.burstFireDelay;
+
+
+        baseSpread = weaponData.baseSpread;
+        maximumSpread = weaponData.maxSpread;
+        spreadIncreaseRate = weaponData.spreadIncreaseRate;
+
+
+        reloadSpeed = weaponData.reloadSpeed;
+        equipmentSpeed = weaponData.equipmentSpeed;
+        gunDistance = weaponData.gunDistance;
+        cameraDistance = weaponData.cameraDistance;
+
+
+        defaultFireRate = fireRate;
+    }
 
 
     #region Spread Methods
@@ -84,8 +115,8 @@ public class Weapon
 
     private void UpdateSpread()
     {
-        
-        if(Time.time > lastSpreadUpdateTime + spreadCoolDown)
+
+        if (Time.time > lastSpreadUpdateTime + spreadCoolDown)
         {
             currentSpread = baseSpread;
         }
@@ -108,7 +139,7 @@ public class Weapon
 
     public bool BurstActivated()
     {
-        if(weaponType == WeaponType.Shotgun)
+        if (weaponType == WeaponType.Shotgun)
         {
             burstFireDelay = 0;
             return true;
@@ -126,7 +157,7 @@ public class Weapon
 
         burstActive = !burstActive;
 
-        if(burstActive)
+        if (burstActive)
         {
             bulletsPerShot = burstBulletsPerShot;
             fireRate = burstFireRate;
@@ -145,7 +176,7 @@ public class Weapon
 
     private bool ReadyToFire()
     {
-        if (Time.time >lastShootTime +1 /  fireRate)
+        if (Time.time > lastShootTime + 1 / fireRate)
         {
             lastShootTime = Time.time;
             return true;

@@ -10,15 +10,17 @@ public class PlayerWeaponCotroller : MonoBehaviour
     private Player player;
     private const float REFERENCE_BULLET_SPEED = 20f; // Tham chiếu tốc độ viên đạn để điều chỉnh tốc độ bắn
 
+
+    [SerializeField] private Weapon_Data defaultWeaponData;
     [SerializeField] private Weapon currentWeapon; // Tham chiếu đến vũ khí hiện tại của người chơi
     private bool weaponReady;
     private bool isShooting;
+
 
     [Header("Bullet details")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
 
-    
 
     [SerializeField] private Transform weaponHolder;
 
@@ -26,6 +28,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
     [Header("Inventory")]
     [SerializeField] private int maxSlots = 2;
     [SerializeField] private List<Weapon> weaponSlots;
+
 
     private void Start()
     {
@@ -44,8 +47,13 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     #region Slots Manager - Pickup/Equip/Drop/Ready Weapon
 
-    private void EquipStartingWeapon() => EquipWeapon(0);
-    
+    private void EquipStartingWeapon()
+    {
+        weaponSlots[0] = new Weapon(defaultWeaponData);
+
+        EquipWeapon(0);
+    }
+
     private void EquipWeapon(int i)
     {
         if(i >= weaponSlots.Count)
@@ -62,14 +70,17 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
-    public void PickupWeapon(Weapon newweapon)
+    public void PickupWeapon(Weapon_Data newWeaponData)
     {
         if(weaponSlots.Count >= maxSlots)
         {
             Debug.Log("Inventory is full. Cannot pick up more weapons.");
             return;
         }
-        weaponSlots.Add(newweapon);
+
+        Weapon newWeapon = new Weapon(newWeaponData);
+
+        weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwithOnBackupWeaponModels();
     }
     private void DropWeapon()
