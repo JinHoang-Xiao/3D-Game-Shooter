@@ -2126,21 +2126,21 @@ MonoBehaviour:
     shootType: 1
     bulletsPerShot: 5
     defaultFireRate: 1
-    fireRate: 1
+    fireRate: 10
     burstAvalible: 0
     burstActive: 0
     burstBulletsPerShot: 0
     burstFireRate: 0
     burstFireDelay: 0
-    bulletsInMagazine: 30
-    magazineCapacity: 30
-    totalReserveAmmo: 90
+    bulletsInMagazine: 900
+    magazineCapacity: 900
+    totalReserveAmmo: 900
     reloadSpeed: 1
     equipmentSpeed: 1
     gunDistance: 6
     cameraDistance: 6
-    baseSpread: 15
-    maximumSpread: 15
+    baseSpread: 1
+    maximumSpread: 3
     spreadIncreaseRate: 0.15
   - weaponType: 3
     shootType: 0
@@ -2159,8 +2159,8 @@ MonoBehaviour:
     equipmentSpeed: 1
     gunDistance: 3
     cameraDistance: 6
-    baseSpread: 1
-    maximumSpread: 3
+    baseSpread: 15
+    maximumSpread: 15
     spreadIncreaseRate: 0.15
   - weaponType: 1
     shootType: 0

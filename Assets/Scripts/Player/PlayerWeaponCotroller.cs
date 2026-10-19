@@ -131,8 +131,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
         currentWeapon.bulletsInMagazine--;
 
 
-        GameObject newBullet = ObjectPool.instance.GetBullet();
-        //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
+        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab); //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
 
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
@@ -141,6 +140,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
         bulletScript.BulletSetup(currentWeapon.gunDistance);
+
 
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
 
