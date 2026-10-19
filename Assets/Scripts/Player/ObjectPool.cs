@@ -8,9 +8,7 @@ public class ObjectPool : MonoBehaviour
 
     [SerializeField] private int poolSize = 10;
 
-    private Dictionary<GameObject, Queue<GameObject>> poolDictionary = 
-        new Dictionary<GameObject, Queue<GameObject>>();
-
+    private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
 
     private void Awake()
     {
@@ -32,7 +30,6 @@ public class ObjectPool : MonoBehaviour
             CreateNewObject(prefab); // neu tat ca vat the dang duoc su dung thi tao mot vat the moi
         }
 
-
         GameObject objectToGet = poolDictionary[prefab].Dequeue();
         objectToGet.SetActive(true);
         objectToGet.transform.parent = null;
@@ -40,12 +37,12 @@ public class ObjectPool : MonoBehaviour
         return objectToGet;
     }
 
-    public void ReturnObject(GameObject objectToReturn,float delay = .001f)
-    { 
-        StartCoroutine(DelayReturn(delay, objectToReturn)); 
+    public void ReturnObject(GameObject objectToReturn, float delay = .001f)
+    {
+        StartCoroutine(DelayReturn(delay, objectToReturn));
     }
 
-    private IEnumerator DelayReturn(float delay,GameObject objectToReturn)
+    private IEnumerator DelayReturn(float delay, GameObject objectToReturn)
     {
         yield return new WaitForSeconds(delay);
 
