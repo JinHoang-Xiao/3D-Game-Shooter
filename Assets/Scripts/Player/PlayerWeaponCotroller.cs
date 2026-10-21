@@ -72,13 +72,23 @@ public class PlayerWeaponCotroller : MonoBehaviour
     }
     public void PickupWeapon(Weapon_Data newWeaponData)
     {
-        if(weaponSlots.Count >= maxSlots)
+        Weapon newWeapon = new Weapon(newWeaponData);
+
+        if(WeaponInSlots(newWeapon.weaponType) != null)
         {
-            Debug.Log("Inventory is full. Cannot pick up more weapons.");
+            WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletsInMagazine;
             return;
         }
 
-        Weapon newWeapon = new Weapon(newWeaponData);
+        if(weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
+        {
+            int weaponIndex = weaponSlots.IndexOf(currentWeapon);
+
+            //player.weaponVisuals.SwitchOffWeaponModels();
+            weaponSlots[weaponIndex] = newWeapon;
+            EquipWeapon(weaponIndex);
+            return;
+        }
 
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwithOnBackupWeaponModels();
