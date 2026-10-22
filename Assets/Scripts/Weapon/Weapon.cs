@@ -26,7 +26,7 @@ public class Weapon
     public int bulletsPerShot { get; private set; }
 
     private float defaultFireRate;
-    private float fireRate = 1; // Đạn mỗi giây (bullets per second)
+    public float fireRate = 1; // Đạn mỗi giây (bullets per second)
     private float lastShootTime;
     #endregion
 
@@ -63,6 +63,8 @@ public class Weapon
     private float spreadCoolDown = 1;
     #endregion
 
+    public Weapon_Data weaponData { get; private set; } // dữ liệu cho vũ khí mặc định
+
     public Weapon(Weapon_Data weaponData)
     {
         bulletsInMagazine = weaponData.bulletsInMagazine;
@@ -97,6 +99,7 @@ public class Weapon
 
 
         defaultFireRate = fireRate;
+        this.weaponData = weaponData;
     }
 
 

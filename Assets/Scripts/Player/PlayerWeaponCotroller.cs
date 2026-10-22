@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerWeaponCotroller : MonoBehaviour
@@ -29,6 +26,8 @@ public class PlayerWeaponCotroller : MonoBehaviour
     [SerializeField] private int maxSlots = 2;
     [SerializeField] private List<Weapon> weaponSlots;
 
+    [SerializeField] private GameObject weaponPickupPrefab;
+
 
     private void Start()
     {
@@ -40,7 +39,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     private void Update()
     {
-        if(isShooting)
+        if (isShooting)
             Shoot();
     }
 
@@ -56,7 +55,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     private void EquipWeapon(int i)
     {
-        if(i >= weaponSlots.Count)
+        if (i >= weaponSlots.Count)
         {
             return;
         }
@@ -70,22 +69,23 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
         CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
-    public void PickupWeapon(Weapon_Data newWeaponData)
+    public void PickupWeapon(Weapon newWeapon)
     {
-        Weapon newWeapon = new Weapon(newWeaponData);
 
-        if(WeaponInSlots(newWeapon.weaponType) != null)
+        if (WeaponInSlots(newWeapon.weaponType) != null)
         {
             WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletsInMagazine;
             return;
         }
 
-        if(weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
+        if (weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
         {
             int weaponIndex = weaponSlots.IndexOf(currentWeapon);
 
             //player.weaponVisuals.SwitchOffWeaponModels();
             weaponSlots[weaponIndex] = newWeapon;
+
+            CreateWeaponOnTheGround();
             EquipWeapon(weaponIndex);
             return;
         }
@@ -95,12 +95,21 @@ public class PlayerWeaponCotroller : MonoBehaviour
     }
     private void DropWeapon()
     {
-        if(HasOnlyOneWeapon())
+        if (HasOnlyOneWeapon())
         {
             return;
-        } 
+        }
+
+        CreateWeaponOnTheGround();
+
         weaponSlots.Remove(currentWeapon);
         EquipWeapon(0);
+    }
+
+    private void CreateWeaponOnTheGround()
+    {
+        GameObject droppedWeapon = ObjectPool.instance.GetObject(weaponPickupPrefab);
+        droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
     public void SetWeaponReady(bool ready) => weaponReady = ready;
@@ -112,13 +121,13 @@ public class PlayerWeaponCotroller : MonoBehaviour
     {
         SetWeaponReady(false);
 
-        for(int i = 1; i <= currentWeapon.bulletsPerShot; i++)
+        for (int i = 1; i <= currentWeapon.bulletsPerShot; i++)
         {
             FireSingleBullet();
 
             yield return new WaitForSeconds(currentWeapon.burstFireDelay);
 
-            if(i >= currentWeapon.bulletsPerShot)
+            if (i >= currentWeapon.bulletsPerShot)
             {
                 SetWeaponReady(true);
             }
@@ -138,7 +147,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
         if (currentWeapon.shootType == ShootType.Single)
             isShooting = false;
 
-        if(currentWeapon.BurstActivated() == true)
+        if (currentWeapon.BurstActivated() == true)
         {
             StartCoroutine(BurstFire());
             return;
@@ -187,7 +196,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
             direction.y = 0;
         }
 
-       
+
         return direction;
     }
 
@@ -195,7 +204,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     public Weapon WeaponInSlots(WeaponType weaponType)
     {
-        foreach(Weapon weapon in weaponSlots)
+        foreach (Weapon weapon in weaponSlots)
         {
             if (weapon.weaponType == weaponType)
                 return weapon;
