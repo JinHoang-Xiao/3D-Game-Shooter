@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float chaseSpeed;
     public float turnSpeed;
     private bool manualMovement;
+    private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
     private int currentPatrolIndex; 
@@ -37,11 +39,25 @@ public class Enemy : MonoBehaviour
         InitializePatrolPoints();
     }
 
-
-
     protected virtual void Update()
     {
 
+    }
+
+    public virtual void GetHit()
+    {
+        
+    }
+    public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        StartCoroutine(HitImpactCoroutine(force, hitPoint, rb));
+    }
+
+    private IEnumerator HitImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        yield return new WaitForSeconds(.1f);
+
+        rb.AddForceAtPosition(force, hitPoint,ForceMode.Impulse);
     }
 
     protected virtual void OnDrawGizmos()
@@ -52,6 +68,10 @@ public class Enemy : MonoBehaviour
     public void ActivateManualMovement(bool manualMovement) => this.manualMovement = manualMovement;
 
     public bool ManualMovementActive() => manualMovement;
+
+    public void ActivateManualRotation(bool manualRotation) => this.manualRotation = manualRotation;
+
+    public bool ManualRotationActive() => manualRotation;
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 
