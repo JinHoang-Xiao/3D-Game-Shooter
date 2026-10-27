@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,11 +14,13 @@ public struct AttackData
 }
 
 public enum AttackType_Melee { Close, Charge }
-public enum EnemyMelee_Type { Regular, Shield, Dodge }
+
+public enum EnemyMelee_Type { Regular, Shield, Dodge, AxeThrow }
 
 
 public class Enemy_Melee : Enemy
 {
+    #region States
     public IdleState_Melee idleState { get; private set; }
     public MoveState_Melee moveState { get; private set; }
     public RecoveryState_Melee recoveryState { get; private set; }
@@ -28,12 +29,23 @@ public class Enemy_Melee : Enemy
     public DeadState_Melee deadState { get; private set; }
     public AbilityState_Melee abilityState { get; private set; }
 
+    #endregion
+
 
     [Header("Enemy Settings")]
     public EnemyMelee_Type meleeType;
     public Transform shieldTransform;
     public float dodgeCooldown;
-    private float lastTimeDodge;
+    private float lastTimeDodge = -10;
+
+
+    [Header("Axe throw ability")]
+    public GameObject axePrefab;
+    public float axeFlySpeed;
+    public float axeAimTimer;
+    public float axeThrowCooldown;
+    private float lastTimeAxeThrown;
+    public Transform axeStartPoint;
 
 
     [Header("Attack Data")]
@@ -69,12 +81,27 @@ public class Enemy_Melee : Enemy
     {
         base.Update();
         stateMachine.currentState.Update();
+
+        if(ShouldEnterBattleMode())
+        {
+            EnterBattleMode();
+        }
     }
 
-    public void TriggerAbility()
+    public override void EnterBattleMode()
     {
+        if (inBattleMode)
+            return;
+
+        base.EnterBattleMode();
+        stateMachine.ChangeState(recoveryState);
+    }
+
+    public override void AbilityTrigger()
+    {
+        base.AbilityTrigger();
+
         moveSpeed = moveSpeed * .6f;
-        Debug.Log("Create Axe");
         pulledWeapon.gameObject.SetActive(false);
     }
 
@@ -114,11 +141,40 @@ public class Enemy_Melee : Enemy
         if (Vector3.Distance(transform.position, player.position) < 2f)
             return;
 
-        if (Time.time > dodgeCooldown + lastTimeDodge)
+        float dodgeAnimationDuration = GetAnimationClipDuration("Dodge Roll");
+
+        if (Time.time > dodgeCooldown + dodgeAnimationDuration + lastTimeDodge)
         {
             lastTimeDodge = Time.time;
             anim.SetTrigger("Dodge");
         }
+    }
+
+    public bool CanThrowAxe()
+    {
+        if (meleeType != EnemyMelee_Type.AxeThrow)
+            return false;
+
+        if (Time.time > lastTimeAxeThrown + axeThrowCooldown)
+        {
+            lastTimeAxeThrown = Time.time;
+            return true;
+        }
+
+        return false;
+    }
+
+    private float GetAnimationClipDuration(string clipName)
+    {
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name == clipName)
+                return clip.length;
+        }
+        Debug.Log(clipName + " animation not found!");
+        return 0;
     }
 
     protected override void OnDrawGizmos()

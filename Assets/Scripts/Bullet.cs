@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
 
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
 
-        EnemyShield shield = collision.gameObject.GetComponent<EnemyShield>();
+        Enemy_Shield shield = collision.gameObject.GetComponent<Enemy_Shield>();
 
         if (shield != null)
         {
@@ -91,7 +91,7 @@ public class Bullet : MonoBehaviour
 
 
             enemy.GetHit();
-            enemy.HitImpact(force, collision.contacts[0].point, hitRigidbody);
+            enemy.DeathImpact(force, collision.contacts[0].point, hitRigidbody);
         }
     }
 

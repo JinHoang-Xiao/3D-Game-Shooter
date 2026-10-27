@@ -36,6 +36,11 @@ public class DeadState_Melee : EnemyState
 
 
         // Khi nào cần thì mở lên
+        DisableInteractionIfShould();
+    }
+
+    private void DisableInteractionIfShould()
+    {
         if (stateTimer < 0 && interactionDisabled == false)
         {
             interactionDisabled = true;
