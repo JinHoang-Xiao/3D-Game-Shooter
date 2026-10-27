@@ -12,6 +12,8 @@ public class ChaseState_Melee : EnemyState
 
     public override void Enter()
     {
+        //CheckChaseAnimation();
+
         base.Enter();
 
         enemy.agent.speed = enemy.chaseSpeed;
@@ -48,4 +50,12 @@ public class ChaseState_Melee : EnemyState
 
         return false;
     }
+
+    /*private void CheckChaseAnimation()
+    {
+        if(enemy.melee_Type == EnemyMelee_Type.Shield && enemy.shieldTransform == null)
+        {
+            enemy.anim.SetFloat("ChaseIndex", 0);
+        }
+    }*/
 }

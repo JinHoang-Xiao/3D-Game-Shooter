@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,6 +15,7 @@ public struct AttackData
 }
 
 public enum AttackType_Melee { Close, Charge }
+public enum EnemyMelee_Type { Regular, Shield, Dodge }
 
 
 public class Enemy_Melee : Enemy
@@ -24,9 +26,17 @@ public class Enemy_Melee : Enemy
     public ChaseState_Melee chaseState { get; private set; }
     public AttackState_Melee attackState { get; private set; }
     public DeadState_Melee deadState { get; private set; }
+    public AbilityState_Melee abilityState { get; private set; }
 
 
-    [Header("Attack data")]
+    [Header("Enemy Settings")]
+    public EnemyMelee_Type meleeType;
+    public Transform shieldTransform;
+    public float dodgeCooldown;
+    private float lastTimeDodge;
+
+
+    [Header("Attack Data")]
     public AttackData attackData;
     public List<AttackData> attackList;
 
@@ -44,23 +54,45 @@ public class Enemy_Melee : Enemy
         chaseState = new ChaseState_Melee(this, stateMachine, "Chase");
         attackState = new AttackState_Melee(this, stateMachine, "Attack");
         deadState = new DeadState_Melee(this, stateMachine, "Idle"); //Idle Animation này chỉ là tạm thời; chúng ta dùng ragdoll.
+        abilityState = new AbilityState_Melee(this, stateMachine, "AxeThrow");
     }
 
     protected override void Start()
     {
         base.Start();
-
         stateMachine.Initialize(idleState);
+
+        InitializeSpeciality();
     }
+
     protected override void Update()
     {
         base.Update();
         stateMachine.currentState.Update();
     }
 
+    public void TriggerAbility()
+    {
+        moveSpeed = moveSpeed * .6f;
+        Debug.Log("Create Axe");
+        pulledWeapon.gameObject.SetActive(false);
+    }
+
+    private void InitializeSpeciality()
+    {
+        if (meleeType == EnemyMelee_Type.Shield)
+        {
+            anim.SetFloat("ChaseIndex", 1);
+            shieldTransform.gameObject.SetActive(true);
+        }
+    }
+
     public override void GetHit()
     {
-        stateMachine.ChangeState(deadState);
+        base.GetHit();
+
+        if (healthPoints <= 0)
+            stateMachine.ChangeState(deadState);
     }
 
     public void PullWeapon()
@@ -70,6 +102,24 @@ public class Enemy_Melee : Enemy
     }
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
+
+    public void ActivateDodgeRoll()
+    {
+        if (meleeType != EnemyMelee_Type.Dodge)
+            return;
+
+        if (stateMachine.currentState != chaseState)
+            return;
+
+        if (Vector3.Distance(transform.position, player.position) < 2f)
+            return;
+
+        if (Time.time > dodgeCooldown + lastTimeDodge)
+        {
+            lastTimeDodge = Time.time;
+            anim.SetTrigger("Dodge");
+        }
+    }
 
     protected override void OnDrawGizmos()
     {

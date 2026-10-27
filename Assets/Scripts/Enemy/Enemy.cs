@@ -1,15 +1,16 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] protected int healthPoints = 20;
 
-    [Header("Idle data")]
+    [Header("Idle Data")]
     public float idleTime;
     public float aggresionRange;
 
-    [Header("Move data")]
+    [Header("Move Data")]
     public float moveSpeed;
     public float chaseSpeed;
     public float turnSpeed;
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
     private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
-    private int currentPatrolIndex; 
+    private int currentPatrolIndex;
 
 
     public Transform player { get; private set; }
@@ -46,8 +47,9 @@ public class Enemy : MonoBehaviour
 
     public virtual void GetHit()
     {
-        
+        healthPoints = Mathf.Max(0, healthPoints - 1);
     }
+
     public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
         StartCoroutine(HitImpactCoroutine(force, hitPoint, rb));
@@ -57,7 +59,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
 
-        rb.AddForceAtPosition(force, hitPoint,ForceMode.Impulse);
+        rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
 
     protected virtual void OnDrawGizmos()
@@ -76,7 +78,7 @@ public class Enemy : MonoBehaviour
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 
     public bool PlayerInAggresionRange() => Vector3.Distance(transform.position, player.position) < aggresionRange;
-    
+
     public Vector3 GetPatrolDestination()
     {
         Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;

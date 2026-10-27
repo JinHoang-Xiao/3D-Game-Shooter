@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
-    public void BulletSetup(float flyDistance,float impactForce)
+    public void BulletSetup(float flyDistance, float impactForce)
     {
         this.impactForce = impactForce;
 
@@ -71,20 +71,28 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        CreateImpactFx(collision);
+        ReturnBulletToPool();
+
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
 
+        EnemyShield shield = collision.gameObject.GetComponent<EnemyShield>();
+
+        if (shield != null)
+        {
+            shield.ReduceDuarbility();
+            return;
+        }
+
         if (enemy != null)
-        { 
+        {
             Vector3 force = rb.linearVelocity.normalized * impactForce;
             Rigidbody hitRigidbody = collision.collider.attachedRigidbody;
 
 
             enemy.GetHit();
-            enemy.HitImpact(force, collision.contacts[0].point,hitRigidbody);
+            enemy.HitImpact(force, collision.contacts[0].point, hitRigidbody);
         }
-
-        CreateImpactFx(collision);
-        ReturnBulletToPool();
     }
 
     private void ReturnBulletToPool() => ObjectPool.instance.ReturnObject(gameObject);
@@ -98,7 +106,7 @@ public class Bullet : MonoBehaviour
             GameObject newImpactFx = ObjectPool.instance.GetObject(bulletImpactFX);
             newImpactFx.transform.position = contact.point;
 
-            ObjectPool.instance.ReturnObject(newImpactFx,1);
+            ObjectPool.instance.ReturnObject(newImpactFx, 1);
         }
     }
 }
