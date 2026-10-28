@@ -141,7 +141,7 @@ public class Enemy_Melee : Enemy
         if (Vector3.Distance(transform.position, player.position) < 2f)
             return;
 
-        float dodgeAnimationDuration = GetAnimationClipDuration("Dodge Roll");
+        float dodgeAnimationDuration = GetAnimationClipDuration("Dodge roll");
 
         if (Time.time > dodgeCooldown + dodgeAnimationDuration + lastTimeDodge)
         {
