@@ -55,10 +55,6 @@ public class Enemy_Melee : Enemy
     public AttackData attackData;
     public List<AttackData> attackList;
 
-
-    [SerializeField] private Transform hiddenWeapon;
-    [SerializeField] private Transform pulledWeapon;
-
     protected override void Awake()
     {
         base.Awake();
@@ -88,7 +84,7 @@ public class Enemy_Melee : Enemy
         base.Update();
         stateMachine.currentState.Update();
 
-        if(ShouldEnterBattleMode())
+        if (ShouldEnterBattleMode())
         {
             EnterBattleMode();
         }
@@ -108,15 +104,21 @@ public class Enemy_Melee : Enemy
         base.AbilityTrigger();
 
         moveSpeed = moveSpeed * .6f;
-        pulledWeapon.gameObject.SetActive(false);
+        EnableWeaponModel(false);
     }
 
     private void InitializeSpeciality()
     {
+        if (meleeType == EnemyMelee_Type.AxeThrow)
+        {
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Throw);
+        }
+
         if (meleeType == EnemyMelee_Type.Shield)
         {
             anim.SetFloat("ChaseIndex", 1);
             shieldTransform.gameObject.SetActive(true);
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.OneHand);
         }
     }
 
@@ -128,10 +130,9 @@ public class Enemy_Melee : Enemy
             stateMachine.ChangeState(deadState);
     }
 
-    public void PullWeapon()
+    public void EnableWeaponModel(bool active)
     {
-        hiddenWeapon.gameObject.SetActive(false);
-        pulledWeapon.gameObject.SetActive(true);
+        visuals.currentWeaponModel.gameObject.SetActive(active);
     }
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
