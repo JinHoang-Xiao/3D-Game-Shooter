@@ -48,8 +48,8 @@ public class Enemy_Visuals : MonoBehaviour
         if (corruptionCrystals == null || corruptionCrystals.Length == 0)
             return;
 
-        // Chọn ngẫu nhiên số crystal: từ 0 đến tổng số vị trí.
-        corruptionAmount = Random.Range(0, corruptionCrystals.Length + 1);
+        /* Chọn crytals random vì code dưới là random từng vị trí xuất hiện
+           corruptionAmount = Random.Range(0, 9); // Hoặc từ 0 đến tất cả vị trí có (0, corruptionCrystals.Length + 1);*/
 
         List<int> avaliableIndexes = new List<int>();
 
