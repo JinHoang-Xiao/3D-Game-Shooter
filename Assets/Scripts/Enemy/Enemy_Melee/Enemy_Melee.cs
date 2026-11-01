@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct AttackData
+public struct AttackData_EnemyMelee
 {
     public string attackName;
     public float attackRange;
@@ -21,7 +21,7 @@ public enum EnemyMelee_Type { Regular, Shield, Dodge, AxeThrow }
 public class Enemy_Melee : Enemy
 {
 
-    private Enemy_Visuals visuals;
+    public Enemy_Visuals visuals { get; private set; }
 
     #region States
     public IdleState_Melee idleState { get; private set; }
@@ -52,8 +52,8 @@ public class Enemy_Melee : Enemy
 
 
     [Header("Attack Data")]
-    public AttackData attackData;
-    public List<AttackData> attackList;
+    public AttackData_EnemyMelee attackData;
+    public List<AttackData_EnemyMelee> attackList;
 
     protected override void Awake()
     {
@@ -74,9 +74,11 @@ public class Enemy_Melee : Enemy
     {
         base.Start();
         stateMachine.Initialize(idleState);
+        ResetCoolDown();
 
-        InitializeSpeciality();
+        InitializePerk();
         visuals.SetupLook();
+        UpdateAttackData();
     }
 
     protected override void Update()
@@ -107,7 +109,18 @@ public class Enemy_Melee : Enemy
         EnableWeaponModel(false);
     }
 
-    private void InitializeSpeciality()
+    public void UpdateAttackData()
+    {
+        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+
+        if (currentWeapon.weaponData != null)
+        {
+            attackList = new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackData);
+            turnSpeed = currentWeapon.weaponData.turnSpeed;
+        }
+    }
+
+    private void InitializePerk()
     {
         if (meleeType == EnemyMelee_Type.AxeThrow)
         {
@@ -119,6 +132,11 @@ public class Enemy_Melee : Enemy
             anim.SetFloat("ChaseIndex", 1);
             shieldTransform.gameObject.SetActive(true);
             visuals.SetupWeaponType(Enemy_MeleeWeaponType.OneHand);
+        }
+
+        if (meleeType == EnemyMelee_Type.Dodge)
+        {
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Unarmed);
         }
     }
 
@@ -134,8 +152,6 @@ public class Enemy_Melee : Enemy
     {
         visuals.currentWeaponModel.gameObject.SetActive(active);
     }
-
-    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
 
     public void ActivateDodgeRoll()
     {
@@ -167,8 +183,13 @@ public class Enemy_Melee : Enemy
             lastTimeAxeThrown = Time.time;
             return true;
         }
-
         return false;
+    }
+
+    private void ResetCoolDown()
+    {
+        lastTimeDodge -= dodgeCooldown;
+        lastTimeAxeThrown -= axeThrowCooldown;
     }
 
     private float GetAnimationClipDuration(string clipName)
@@ -183,6 +204,8 @@ public class Enemy_Melee : Enemy
         Debug.Log(clipName + " animation not found!");
         return 0;
     }
+
+    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
 
     protected override void OnDrawGizmos()
     {

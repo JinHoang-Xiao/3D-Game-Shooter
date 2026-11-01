@@ -10,6 +10,7 @@ public class MoveState_Melee : EnemyState
     {
         enemy = enemyBase as Enemy_Melee;
     }
+
     public override void Enter()
     {
         base.Enter();
@@ -23,7 +24,6 @@ public class MoveState_Melee : EnemyState
     public override void Exit()
     {
         base.Exit();
-
     }
 
     public override void Update()

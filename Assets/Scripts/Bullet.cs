@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
         cd.enabled = true;
         meshRenderer.enabled = true;
 
-        trailRenderer.time = .2f;
+        trailRenderer.time = .25f;
         startPosition = transform.position;
         this.flyDistance = flyDistance + .5f; // .5f được cộng vào flyDistance để tính thêm độ dài phần đầu tia laser ( xem method UpdateAimVisuals() o PlayerAim.cs)
     }

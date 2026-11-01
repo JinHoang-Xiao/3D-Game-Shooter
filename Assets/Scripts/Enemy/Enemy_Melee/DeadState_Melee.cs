@@ -44,7 +44,6 @@ public class DeadState_Melee : EnemyState
         if (stateTimer < 0 && interactionDisabled == false)
         {
             interactionDisabled = true;
-
             ragdoll.RagdollActive(false);
             ragdoll.CollidersActive(false);
         }

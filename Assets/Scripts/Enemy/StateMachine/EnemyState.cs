@@ -12,7 +12,6 @@ public class EnemyState
 
     protected bool triggerCalled;
 
-
     public EnemyState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName)
     {
         this.enemyBase = enemyBase;
@@ -23,7 +22,6 @@ public class EnemyState
     public virtual void Enter()
     {
         enemyBase.anim.SetBool(animBoolName, true);
-
         triggerCalled = false;
     }
 

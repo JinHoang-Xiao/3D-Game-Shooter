@@ -18,9 +18,7 @@ public class Enemy : MonoBehaviour
     private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
-
     private Vector3[] patrolPointsPosition;
-
     private int currentPatrolIndex;
 
     public bool inBattleMode { get; private set; }
