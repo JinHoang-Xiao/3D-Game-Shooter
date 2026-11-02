@@ -1,21 +1,29 @@
- using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Enemy_Range : Enemy
 {
-    public Transform weaponHolder;
-    public Enemy_RangeWeaponType weaponType;
+    [Header("Cover System")]
+    public bool canUseCover = true;
+    public Transform lastCover;
 
-    public float fireRate = 1f; // bullets per second
-    public GameObject bulletPrefab;
+
+    [Header("Weapon Details")]
+    public Enemy_RangeWeaponType weaponType;
+    public Enemy_RangeWeaponData weaponData;
+
+    [Space]
     public Transform gunPoint;
-    public float bulletSpeed = 20f;
-    public int bulletsToShoot = 5; // bullets trong một lần bắn
-    public float weaponCooldown = 2f; // thời gian cooldown giữa các lần bắn
+    public Transform weaponHolder;
+    public GameObject bulletPrefab;
+
+    [SerializeField] List<Enemy_RangeWeaponData> availableWeaponData;
 
 
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
+    public RunToCoverState_Range runToCoverState { get; private set; }
 
     protected override void Awake()
     {
@@ -24,6 +32,7 @@ public class Enemy_Range : Enemy
         idleState = new IdleState_Range(this, stateMachine, "Idle");
         moveState = new MoveState_Range(this, stateMachine, "Move");
         battleState = new BattleState_Range(this, stateMachine, "Battle");
+        runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
     }
 
     protected override void Start()
@@ -32,6 +41,7 @@ public class Enemy_Range : Enemy
 
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
+        SetupWeapon();
     }
 
     protected override void Update()
@@ -55,8 +65,10 @@ public class Enemy_Range : Enemy
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
-        rbNewBullet.mass = 20 / bulletSpeed;
-        rbNewBullet.linearVelocity = bulletsDirection * bulletSpeed;
+        Vector3 bulletDirectionWithSpread = weaponData.ApplyWeaponSpread(bulletsDirection);
+
+        rbNewBullet.mass = 20 / weaponData.bulletSpeed;
+        rbNewBullet.linearVelocity = bulletDirectionWithSpread * weaponData.bulletSpeed;
     }
 
     public override void EnterBattleMode()
@@ -65,7 +77,36 @@ public class Enemy_Range : Enemy
             return;
 
         base.EnterBattleMode();
-        stateMachine.ChangeState(battleState);
 
+        if (canUseCover)
+            stateMachine.ChangeState(runToCoverState);
+        else
+            stateMachine.ChangeState(battleState);
+
+    }
+
+    private void SetupWeapon()
+    {
+        List<Enemy_RangeWeaponData> filteredData = new List<Enemy_RangeWeaponData>();
+
+        foreach (var weaponData in availableWeaponData)
+        {
+            if (weaponData.weaponType == weaponType)
+            {
+                filteredData.Add(weaponData);
+            }
+        }
+
+        if (filteredData.Count > 0)
+        {
+            int random = Random.Range(0, filteredData.Count);
+            weaponData = filteredData[random];
+        }
+        else
+        {
+            Debug.LogWarning("No available weapon data found!");
+        }
+
+        gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
     }
 }

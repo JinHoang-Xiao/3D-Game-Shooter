@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public enum Enemy_MeleeWeaponType { OneHand, Throw, Unarmed }
 public enum Enemy_RangeWeaponType { Pistol, Revolver, Shotgun, AutoRifle, Rifle }
@@ -16,11 +18,18 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private Texture[] colorTextures;
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
 
-    public void EnableWeaponTrail(bool enable)
+    [Header("Rig references")]
+    [SerializeField] private Transform leftHandIK;
+    [SerializeField] private Transform leftElbowIK;
+    [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
+    [SerializeField] private MultiAimConstraint weaponAimConstraint;
+
+
+    public void EnableWeaponTrail(bool enable) 
     {
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
 
-        currentWeaponScript.EnableTrailEffect(enable);
+        currentWeaponScript.EnableTrailEffect(enable); 
     }
 
     public void SetupLook()
@@ -101,6 +110,7 @@ public class Enemy_Visuals : MonoBehaviour
             if (weaponModel.weaponType == weaponType)
             {
                 SwitchAnimationLayer(((int)weaponModel.weaponHoldType));
+                SetUpLeftHandIK(weaponModel.leftHandTarget,weaponModel.leftElbowTarget);
                 return weaponModel.gameObject;
             }
         }
@@ -159,4 +169,20 @@ public class Enemy_Visuals : MonoBehaviour
         }
         anim.SetLayerWeight(layerIndex, 1);
     }
+
+    public void EnableIK(bool enableLeftHand, bool enableAim)
+    {
+        leftHandIKConstraint.weight = enableLeftHand ? 1 : 0;
+        weaponAimConstraint.weight = enableAim ? 1 : 0;
+    }
+
+    private void SetUpLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
+    {
+        leftHandIK.localPosition = leftHandTarget.localPosition;
+        leftHandIK.localRotation = leftHandTarget.localRotation;
+
+        leftElbowIK.localPosition = leftElbowTarget.localPosition;
+        leftElbowIK.localRotation = leftElbowTarget.localRotation;
+    }
+
 }
