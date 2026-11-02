@@ -1,13 +1,17 @@
-using UnityEngine;
+ using UnityEngine;
 
 public class Enemy_Range : Enemy
 {
     public Transform weaponHolder;
+    public Enemy_RangeWeaponType weaponType;
 
     public float fireRate = 1f; // bullets per second
     public GameObject bulletPrefab;
     public Transform gunPoint;
     public float bulletSpeed = 20f;
+    public int bulletsToShoot = 5; // bullets trong một lần bắn
+    public float weaponCooldown = 2f; // thời gian cooldown giữa các lần bắn
+
 
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
@@ -21,12 +25,15 @@ public class Enemy_Range : Enemy
         moveState = new MoveState_Range(this, stateMachine, "Move");
         battleState = new BattleState_Range(this, stateMachine, "Battle");
     }
+
     protected override void Start()
     {
         base.Start();
 
         stateMachine.Initialize(idleState);
+        visuals.SetupLook();
     }
+
     protected override void Update()
     {
         base.Update();

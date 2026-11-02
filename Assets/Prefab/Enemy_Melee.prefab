@@ -4863,6 +4863,7 @@ MonoBehaviour:
   - {fileID: 7866168534194656160}
   - {fileID: 2804068831824216272}
   meleeType: 2
+  weaponType: 0
   shieldTransform: {fileID: 5538466639488362498}
   dodgeCooldown: 0
   axePrefab: {fileID: 8084631674514449219, guid: 53751b78315c6354dadfb456adb310b1, type: 3}
@@ -4938,9 +4939,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Visuals
   weaponModels: []
-  weaponType: 0
   corruptionCrystals: []
-  corruptionAmount: 1
+  corruptionAmount: 6
   colorTextures:
   - {fileID: 2800000, guid: 690ed6947a18ab94baa60419410023a9, type: 3}
   - {fileID: 2800000, guid: 0869c6ffd3c3ddd458bca3573e7aee34, type: 3}
