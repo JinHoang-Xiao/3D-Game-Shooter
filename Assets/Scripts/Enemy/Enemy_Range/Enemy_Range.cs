@@ -1,10 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CoverPerk { Unavailable, CanTakeCover, CanTakeAndChangeCover }
+
 public class Enemy_Range : Enemy
 {
+    [Header("Enemy perks")]
+    public CoverPerk coverPerk;
+
+
+    [Header("Advance perk")]
+    public float advanceSpeed;
+    public float advanceStoppingDistance;
+
+
     [Header("Cover System")]
-    public bool canUseCover = true;
+    public float safeDistance;
     public CoverPoint currentCover { get; private set; }
     public CoverPoint lastCover { get; private set; }
 
@@ -19,6 +30,13 @@ public class Enemy_Range : Enemy
     public Transform weaponHolder;
     public GameObject bulletPrefab;
 
+    [Header("Aim details")]
+    public float slowAim = 4;
+    public float fastAim = 20;
+    public Transform aim;
+    public Transform playersBody;
+    public LayerMask whatToIgnore;
+
     [SerializeField] List<Enemy_RangeWeaponData> availableWeaponData;
 
     #region State
@@ -27,6 +45,7 @@ public class Enemy_Range : Enemy
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
+    public AdvancePlayerState_Range advancePlayerState { get; private set; }
 
     #endregion
 
@@ -38,11 +57,16 @@ public class Enemy_Range : Enemy
         moveState = new MoveState_Range(this, stateMachine, "Move");
         battleState = new BattleState_Range(this, stateMachine, "Battle");
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
+        advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
+
     }
 
     protected override void Start()
     {
         base.Start();
+
+        playersBody = player.GetComponent<Player>().playerBody;
+        aim.parent = null;
 
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
@@ -54,13 +78,14 @@ public class Enemy_Range : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+
     }
 
     #region Cover System
 
     public bool CanGetCover()
     {
-        if (canUseCover == false)
+        if (coverPerk == CoverPerk.Unavailable)
             return false;
 
         currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
@@ -133,7 +158,7 @@ public class Enemy_Range : Enemy
     {
         anim.SetTrigger("Shoot");
 
-        Vector3 bulletsDirection = ((player.position + Vector3.up) - gunPoint.position).normalized;
+        Vector3 bulletsDirection = (aim.position - gunPoint.position).normalized;
 
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab);
         newBullet.transform.position = gunPoint.position;
@@ -188,4 +213,36 @@ public class Enemy_Range : Enemy
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
     }
 
+    #region Enemy's aim region
+
+    public void UpdateAimPosition()
+    {
+        float aimSpeed = IsAimOnPlayer() ? fastAim : slowAim;
+        aim.position = Vector3.MoveTowards(aim.position, playersBody.position, aimSpeed * Time.deltaTime);
+    }
+
+    public bool IsAimOnPlayer()
+    {
+        float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
+
+        return distanceAimToPlayer < 2;
+    }
+
+    public bool IsSeeingPlayer()
+    {
+        Vector3 myPosition = transform.position + Vector3.up;
+        Vector3 directionToPlayer = playersBody.position - myPosition;
+
+        if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
+        {
+            if (hit.transform == player)
+            {
+                UpdateAimPosition();
+                return true;
+            }
+        }
+
+        return false;
+    }
+    #endregion
 }
