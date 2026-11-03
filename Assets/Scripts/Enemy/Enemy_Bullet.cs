@@ -10,9 +10,9 @@ public class Enemy_Bullet : Bullet
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
 
-        if (player != null)
-        {
-            Debug.Log("Shot the player!");
-        }
+        //if (player != null)
+        //{
+        //    Debug.Log("Shot the player!");
+        //}
     }
 }

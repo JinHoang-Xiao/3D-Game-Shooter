@@ -5,12 +5,14 @@ public class Enemy_Range : Enemy
 {
     [Header("Cover System")]
     public bool canUseCover = true;
-    public Transform lastCover;
+    public CoverPoint currentCover { get; private set; }
+    public CoverPoint lastCover { get; private set; }
 
 
     [Header("Weapon Details")]
     public Enemy_RangeWeaponType weaponType;
     public Enemy_RangeWeaponData weaponData;
+
 
     [Space]
     public Transform gunPoint;
@@ -19,11 +21,14 @@ public class Enemy_Range : Enemy
 
     [SerializeField] List<Enemy_RangeWeaponData> availableWeaponData;
 
+    #region State
 
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
+
+    #endregion
 
     protected override void Awake()
     {
@@ -50,6 +55,79 @@ public class Enemy_Range : Enemy
 
         stateMachine.currentState.Update();
     }
+
+    #region Cover System
+
+    public bool CanGetCover()
+    {
+        if (canUseCover == false)
+            return false;
+
+        currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
+
+        if (lastCover != currentCover && currentCover != null)
+            return true;
+
+        Debug.LogWarning("No cover found!");
+        return false;
+    }
+
+    private Transform AttemptToFindCover()
+    {
+        List<CoverPoint> collectedCoverPoints = new List<CoverPoint>();
+
+        foreach (Cover cover in CollectNearByCovers())
+        {
+            collectedCoverPoints.AddRange(cover.GetValidCoverPoints(transform));
+        }
+
+        CoverPoint closestCoverPoint = null;
+        float shortestDistance = float.MaxValue;
+
+        foreach (CoverPoint coverPoint in collectedCoverPoints)
+        {
+            float currentDistance = Vector3.Distance(transform.position, coverPoint.transform.position);
+            if (currentDistance < shortestDistance)
+            {
+                closestCoverPoint = coverPoint;
+                shortestDistance = currentDistance;
+            }
+        }
+
+        if (closestCoverPoint != null)
+        {
+            lastCover?.SetOccupied(false);
+            lastCover = currentCover;
+
+            currentCover = closestCoverPoint;
+            currentCover.SetOccupied(true);
+
+            return currentCover.transform;
+        }
+
+        return null;
+    }
+
+    private List<Cover> CollectNearByCovers()
+    {
+        float coverRadiusCheck = 30f;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, coverRadiusCheck);
+        List<Cover> collectedCovers = new List<Cover>();
+
+        foreach (Collider collider in hitColliders)
+        {
+            Cover cover = collider.GetComponent<Cover>();
+
+            if (cover != null && collectedCovers.Contains(cover) == false)
+            {
+                collectedCovers.Add(cover);
+            }
+        }
+
+        return collectedCovers;
+    }
+
+    #endregion
 
     public void FireSingleBullet()
     {
@@ -78,7 +156,7 @@ public class Enemy_Range : Enemy
 
         base.EnterBattleMode();
 
-        if (canUseCover)
+        if (CanGetCover())
             stateMachine.ChangeState(runToCoverState);
         else
             stateMachine.ChangeState(battleState);
@@ -109,4 +187,5 @@ public class Enemy_Range : Enemy
 
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
     }
+
 }
