@@ -20,20 +20,18 @@ public class ThrowGrenadeState_Range : EnemyState
 
         enemy.visuals.EnableWeaponModel(false);
         enemy.visuals.EnableIK(false, false);
-        //enemy.visuals.EnableSeconoderyWeaponModel(true);
+        enemy.visuals.EnableSeconoderyWeaponModel(true);
         //enemy.visuals.EnableGrenadeModel(true);
     }
-
 
     public override void Update()
     {
         base.Update();
 
-        //Vector3 playerPos = enemy.player.position + Vector3.up;
+        Vector3 playerPos = enemy.player.position + Vector3.up;
 
-        //enemy.FaceTarget(playerPos);
-        //enemy.aim.position = playerPos;
-        enemy.FaceTarget(enemy.player.position);
+        enemy.FaceTarget(playerPos);
+        enemy.aim.position = playerPos;
 
         if (triggerCalled)
             stateMachine.ChangeState(enemy.battleState);
