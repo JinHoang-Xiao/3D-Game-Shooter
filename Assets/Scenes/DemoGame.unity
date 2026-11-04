@@ -37331,6 +37331,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6807677687957723491, guid: bfea9641dfb13bc4fbb88350dc5ccc30, type: 3}
+      propertyPath: corruptionAmount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567612764565029169, guid: bfea9641dfb13bc4fbb88350dc5ccc30, type: 3}
+      propertyPath: coverPerk
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567612764565029169, guid: bfea9641dfb13bc4fbb88350dc5ccc30, type: 3}
+      propertyPath: grenadePerk
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567612764565029169, guid: bfea9641dfb13bc4fbb88350dc5ccc30, type: 3}
+      propertyPath: aggresionRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567612764565029169, guid: bfea9641dfb13bc4fbb88350dc5ccc30, type: 3}
+      propertyPath: advanceStoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8837595461895741041, guid: bfea9641dfb13bc4fbb88350dc5ccc30, type: 3}
       propertyPath: m_Name
       value: Enemy_Range
