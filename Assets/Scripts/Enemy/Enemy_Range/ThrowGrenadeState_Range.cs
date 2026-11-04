@@ -16,12 +16,12 @@ public class ThrowGrenadeState_Range : EnemyState
     {
         base.Enter();
 
-        //finishedThrowingGrenade = false;
+        finishedThrowingGrenade = false;
 
         enemy.visuals.EnableWeaponModel(false);
         enemy.visuals.EnableIK(false, false);
         enemy.visuals.EnableSeconoderyWeaponModel(true);
-        //enemy.visuals.EnableGrenadeModel(true);
+        enemy.visuals.EnableGrenadeModel(true);
     }
 
     public override void Update()
@@ -40,7 +40,7 @@ public class ThrowGrenadeState_Range : EnemyState
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
-        //finishedThrowingGrenade = true;
+        finishedThrowingGrenade = true;
         enemy.ThrowGrenade();
     }
 }
