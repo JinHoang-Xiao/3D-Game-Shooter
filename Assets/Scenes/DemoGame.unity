@@ -1430,7 +1430,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 24.529999, y: -4.633847, z: 9.910001}
+  m_LocalPosition: {x: 5.7800007, y: -3.6338477, z: 10.900001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4078,7 +4078,7 @@ Transform:
   m_GameObject: {fileID: 935532603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.85, y: 0, z: -7.04}
+  m_LocalPosition: {x: 32.77, y: 0, z: -6.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6925,7 +6925,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 935532606}
+  m_Follow: {fileID: 1337210167}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -6954,7 +6954,7 @@ Transform:
   m_GameObject: {fileID: 1640290634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 24.529999, y: -4.633847, z: 9.910001}
+  m_LocalPosition: {x: 5.7800007, y: -3.6338477, z: 10.900001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26496,7 +26496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Visuals
   corruptionCrystals: []
-  corruptionAmount: 5
+  corruptionAmount: 4
   colorTextures:
   - {fileID: 2800000, guid: 690ed6947a18ab94baa60419410023a9, type: 3}
   - {fileID: 2800000, guid: 0869c6ffd3c3ddd458bca3573e7aee34, type: 3}
@@ -49446,7 +49446,7 @@ Transform:
   m_GameObject: {fileID: 2140826624571923561}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.9, y: 0, z: -6.04}
+  m_LocalPosition: {x: 36.39, y: 0, z: -6.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55246,10 +55246,16 @@ MonoBehaviour:
   - {fileID: 1175729192233123045}
   - {fileID: 6598112501126868885}
   coverPerk: 0
+  unstoppablePerk: 0
+  grenadePerk: 1
+  grenadeCooldown: 2
   advanceSpeed: 3
   advanceStoppingDistance: 6
+  advanceDuration: 2.5
+  minCoverTime: 4
   safeDistance: 2
-  weaponType: 1
+  attackDelay: 0
+  weaponType: 3
   weaponData: {fileID: 0}
   gunPoint: {fileID: 1007725426}
   weaponHolder: {fileID: 5618324000575261881}

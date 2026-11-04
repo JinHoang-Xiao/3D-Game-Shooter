@@ -24,6 +24,10 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
     [SerializeField] private MultiAimConstraint weaponAimConstraint;
 
+    public void EnableWeaponModel(bool active)
+    {
+        currentWeaponModel.gameObject.SetActive(active);
+    }
 
     public void EnableWeaponTrail(bool enable) 
     {

@@ -12,6 +12,7 @@ public class BattleState_Range : EnemyState
     private float weaponCooldown;
 
     private float coverCheckTimer;
+    private bool firstTimeAttack = true;
 
     public BattleState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
@@ -22,19 +23,14 @@ public class BattleState_Range : EnemyState
     {
         base.Enter();
 
+        SetupValuesForFirstAttack();
+
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
 
-        bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
-        weaponCooldown = enemy.weaponData.GetWeaponCooldown();
-
         enemy.visuals.EnableIK(true, true);
-    }
 
-    public override void Exit()
-    {
-        base.Exit();
-        enemy.visuals.EnableIK(false, false);
+        stateTimer = enemy.attackDelay;
     }
 
     public override void Update()
@@ -44,15 +40,25 @@ public class BattleState_Range : EnemyState
         if (enemy.IsSeeingPlayer())
             enemy.FaceTarget(enemy.aim.position);
 
-        if (enemy.IsPlayerInAggressionRange() == false)
-        {
+        if (enemy.CanThrowGrenade())
+            stateMachine.ChangeState(enemy.throwGrenadeState);
+
+        if (MustAdvancePlayer())
             stateMachine.ChangeState(enemy.advancePlayerState);
-        }
 
         ChangeCoverIfShould();
 
+        if (stateTimer > 0)
+            return;
+
         if (WeaponOutOfBullets())
         {
+            if (enemy.IsUnstopppable() && UnstoppableWalkReady())
+            {
+                enemy.advanceDuration = weaponCooldown;
+                stateMachine.ChangeState(enemy.advancePlayerState);
+            }
+
             if (WeaponCooldownOver())
             {
                 AttemptToResetWeapon();
@@ -60,13 +66,41 @@ public class BattleState_Range : EnemyState
             return;
         }
 
+
         if (CanShoot() && enemy.IsAimOnPlayer())
         {
             Shoot();
         }
     }
 
-    private void ChangeCoverIfShould() 
+    private bool MustAdvancePlayer()
+    {
+        if (enemy.IsUnstopppable())
+            return false;
+
+        return enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover();
+    }
+
+
+    private bool UnstoppableWalkReady()
+    {
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.position);
+        bool outOfStoppingDistance = distanceToPlayer > enemy.advanceStoppingDistance;
+        bool unstoppableWalkOnCooldown =
+            Time.time < enemy.weaponData.maxWeaponCooldown + enemy.advancePlayerState.lastTimeAdvanced;
+
+        return outOfStoppingDistance && unstoppableWalkOnCooldown == false;
+    }
+
+    #region Cover System Region
+
+    private bool ReadyToLeaveCover()
+    {
+        return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeTookCover;
+    }
+
+
+    private void ChangeCoverIfShould()
     {
         if (enemy.coverPerk != CoverPerk.CanTakeAndChangeCover)
             return;
@@ -77,7 +111,7 @@ public class BattleState_Range : EnemyState
         {
             coverCheckTimer = .5f; // We do cover check each 0.5 seconds
 
-            if (IsPlayerInClearSight() || IsPlayerClose())
+            if (ReadyToChangeCover() && ReadyToLeaveCover())
             {
                 if (enemy.CanGetCover())
                     stateMachine.ChangeState(enemy.runToCoverState);
@@ -85,7 +119,13 @@ public class BattleState_Range : EnemyState
         }
     }
 
-    #region Cover System Region
+    private bool ReadyToChangeCover()
+    {
+        bool inDanger = IsPlayerInClearSight() || IsPlayerClose();
+        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.lastTimeAdvanced + enemy.advanceDuration;
+
+        return inDanger && advanceTimeIsOver;
+    }
 
     private bool IsPlayerClose()
     {
@@ -124,5 +164,15 @@ public class BattleState_Range : EnemyState
         lastTimeShot = Time.time;
         bulletsShot++;
     }
+    private void SetupValuesForFirstAttack()
+    {
+        if (firstTimeAttack)
+        {
+            firstTimeAttack = false;
+            bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
+            weaponCooldown = enemy.weaponData.GetWeaponCooldown();
+        }
+    }
+
     #endregion
 }

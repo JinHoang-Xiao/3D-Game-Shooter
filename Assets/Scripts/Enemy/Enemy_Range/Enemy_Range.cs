@@ -1,26 +1,42 @@
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public enum CoverPerk { Unavailable, CanTakeCover, CanTakeAndChangeCover }
+public enum UnstoppablePerk { Unavalible, Unstoppable }
+public enum GrenadePerk { Unavalible, CanThrowGrenade }
 
 public class Enemy_Range : Enemy
 {
     [Header("Enemy perks")]
     public CoverPerk coverPerk;
+    public UnstoppablePerk unstoppablePerk;
+    public GrenadePerk grenadePerk;
 
+    [Header("Grenade perk")]
+    //public GameObject grenadePrefab;
+    //public float impactPower;
+    //public float explosionTimer = .75f;
+    //public float timeToTarget = 1.2f;
+    public float grenadeCooldown;
+    private float lastTimeGrenadeThrown = -10;
+    //[SerializeField] private Transform grenadeStartPoint;
 
     [Header("Advance perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
+    public float advanceDuration = 2.5f;
 
 
     [Header("Cover System")]
+    public float minCoverTime;
     public float safeDistance;
     public CoverPoint currentCover { get; private set; }
     public CoverPoint lastCover { get; private set; }
 
 
     [Header("Weapon Details")]
+    public float attackDelay;
     public Enemy_RangeWeaponType weaponType;
     public Enemy_RangeWeaponData weaponData;
 
@@ -46,6 +62,7 @@ public class Enemy_Range : Enemy
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
     public AdvancePlayerState_Range advancePlayerState { get; private set; }
+    public ThrowGrenadeState_Range throwGrenadeState { get; private set; }
 
     #endregion
 
@@ -58,6 +75,7 @@ public class Enemy_Range : Enemy
         battleState = new BattleState_Range(this, stateMachine, "Battle");
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
         advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
+        throwGrenadeState = new ThrowGrenadeState_Range(this, stateMachine, "ThrowGrenade");
 
     }
 
@@ -67,6 +85,8 @@ public class Enemy_Range : Enemy
 
         playersBody = player.GetComponent<Player>().playerBody;
         aim.parent = null;
+
+        InitializePerk();
 
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
@@ -78,6 +98,61 @@ public class Enemy_Range : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+
+    }
+    public bool CanThrowGrenade()
+    {
+        if (grenadePerk == GrenadePerk.Unavalible)
+            return false;
+
+        if (Vector3.Distance(player.transform.position, transform.position) < safeDistance)
+            return false;
+
+        if (Time.time > grenadeCooldown + lastTimeGrenadeThrown)
+            return true;
+
+        return false;
+    }
+
+    public void ThrowGrenade()
+    {
+        lastTimeGrenadeThrown = Time.time;
+        Debug.Log("THROWING GRENADE");
+
+        //visuals.EnableGrenadeModel(false);
+
+        //GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab, grenadeStartPoint);
+        //Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
+
+        //if (stateMachine.currentState == deadState)
+        //{
+        //    newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer, impactPower);
+        //    return;
+        //}
+
+        //newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
+    }
+
+    protected override void InitializePerk()
+    {
+        if (IsUnstopppable())
+        {
+            advanceSpeed = 1;
+            anim.SetFloat("AdvanceAnimIndex", 1); // 1 is a slow walk animation
+        }
+    }
+
+    public override void EnterBattleMode()
+    {
+        if (inBattleMode)
+            return;
+
+        base.EnterBattleMode();
+
+        if (CanGetCover())
+            stateMachine.ChangeState(runToCoverState);
+        else
+            stateMachine.ChangeState(battleState);
 
     }
 
@@ -174,20 +249,6 @@ public class Enemy_Range : Enemy
         rbNewBullet.linearVelocity = bulletDirectionWithSpread * weaponData.bulletSpeed;
     }
 
-    public override void EnterBattleMode()
-    {
-        if (inBattleMode)
-            return;
-
-        base.EnterBattleMode();
-
-        if (CanGetCover())
-            stateMachine.ChangeState(runToCoverState);
-        else
-            stateMachine.ChangeState(battleState);
-
-    }
-
     private void SetupWeapon()
     {
         List<Enemy_RangeWeaponData> filteredData = new List<Enemy_RangeWeaponData>();
@@ -245,4 +306,6 @@ public class Enemy_Range : Enemy
         return false;
     }
     #endregion
+
+    public bool IsUnstopppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
 }
