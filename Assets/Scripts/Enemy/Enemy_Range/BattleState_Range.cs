@@ -138,7 +138,7 @@ public class BattleState_Range : EnemyState
 
         if (Physics.Raycast(enemy.transform.position + Vector3.up * 0.2f, directionToPlayer, out RaycastHit hit))
         {
-            return hit.collider.gameObject.GetComponentInParent<Player>();
+            return hit.transform.parent == enemy.player;
         }
 
         return false;
