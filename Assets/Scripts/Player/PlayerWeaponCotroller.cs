@@ -109,7 +109,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
 
     private void CreateWeaponOnTheGround()
     {
-        GameObject droppedWeapon = ObjectPool.instance.GetObject(weaponPickupPrefab);
+        GameObject droppedWeapon = ObjectPool.instance.GetObject(weaponPickupPrefab, transform);
         droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
@@ -163,15 +163,14 @@ public class PlayerWeaponCotroller : MonoBehaviour
         currentWeapon.bulletsInMagazine--;
 
 
-        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab); //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
+        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, GunPoint()); //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
 
-        newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance,bulletImpactForce);
+        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
 
 
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());

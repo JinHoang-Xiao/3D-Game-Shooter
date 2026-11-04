@@ -33,6 +33,7 @@ public class Bullet : MonoBehaviour
         cd.enabled = true;
         meshRenderer.enabled = true;
 
+        trailRenderer.Clear();
         trailRenderer.time = .25f;
         startPosition = transform.position;
         this.flyDistance = flyDistance + .5f; // .5f được cộng vào flyDistance để tính thêm độ dài phần đầu tia laser ( xem method UpdateAimVisuals() o PlayerAim.cs)
@@ -71,7 +72,7 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        CreateImpactFx(collision);
+        CreateImpactFx();
         ReturnBulletToPool();
 
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
@@ -97,16 +98,9 @@ public class Bullet : MonoBehaviour
 
     protected void ReturnBulletToPool() => ObjectPool.instance.ReturnObject(gameObject);
 
-    protected void CreateImpactFx(Collision collision)
+    protected void CreateImpactFx()
     {
-        if (collision.contacts.Length > 0)
-        {
-            ContactPoint contact = collision.contacts[0];
-
-            GameObject newImpactFx = ObjectPool.instance.GetObject(bulletImpactFX);
-            newImpactFx.transform.position = contact.point;
-
-            ObjectPool.instance.ReturnObject(newImpactFx, 1);
-        }
+        GameObject newImpactFx = ObjectPool.instance.GetObject(bulletImpactFX, transform);
+        ObjectPool.instance.ReturnObject(newImpactFx, 1);
     }
 }
