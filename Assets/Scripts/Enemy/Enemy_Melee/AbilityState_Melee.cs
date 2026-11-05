@@ -1,11 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityState_Melee : EnemyState
 {
+
     private Enemy_Melee enemy;
     private Vector3 movementDirection;
+
     private const float MAX_MOVEMENT_DISTANCE = 20;
+
     private float moveSpeed;
+
 
     public AbilityState_Melee(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
@@ -48,10 +54,10 @@ public class AbilityState_Melee : EnemyState
         if (triggerCalled)
             stateMachine.ChangeState(enemy.recoveryState);
     }
+
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
         enemy.ThrowAxe();
-
     }
 }

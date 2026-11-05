@@ -12,14 +12,12 @@ public struct AttackData_EnemyMelee
     public float animationSpeed;
     public AttackType_Melee attackType;
 }
-
 public enum AttackType_Melee { Close, Charge }
-
 public enum EnemyMelee_Type { Regular, Shield, Dodge, AxeThrow }
-
 
 public class Enemy_Melee : Enemy
 {
+
 
     #region States
     public IdleState_Melee idleState { get; private set; }
@@ -32,16 +30,13 @@ public class Enemy_Melee : Enemy
 
     #endregion
 
-
     [Header("Enemy Settings")]
     public EnemyMelee_Type meleeType;
     public Enemy_MeleeWeaponType weaponType;
 
-
     public Transform shieldTransform;
     public float dodgeCooldown;
     private float lastTimeDodge = -10;
-
 
     [Header("Axe throw ability")]
     public GameObject axePrefab;
@@ -51,7 +46,6 @@ public class Enemy_Melee : Enemy
     private float lastTimeAxeThrown;
     public Transform axeStartPoint;
 
-
     [Header("Attack Data")]
     public AttackData_EnemyMelee attackData;
     public List<AttackData_EnemyMelee> attackList;
@@ -60,13 +54,12 @@ public class Enemy_Melee : Enemy
     {
         base.Awake();
 
-
         idleState = new IdleState_Melee(this, stateMachine, "Idle");
         moveState = new MoveState_Melee(this, stateMachine, "Move");
         recoveryState = new RecoveryState_Melee(this, stateMachine, "Recovery");
         chaseState = new ChaseState_Melee(this, stateMachine, "Chase");
         attackState = new AttackState_Melee(this, stateMachine, "Attack");
-        deadState = new DeadState_Melee(this, stateMachine, "Idle"); //Idle Animation này chỉ là tạm thời; chúng ta dùng ragdoll.
+        deadState = new DeadState_Melee(this, stateMachine, "Idle"); // Idle anim is just a place holder,we use ragdoll
         abilityState = new AbilityState_Melee(this, stateMachine, "AxeThrow");
     }
 
@@ -74,18 +67,24 @@ public class Enemy_Melee : Enemy
     {
         base.Start();
         stateMachine.Initialize(idleState);
-        ResetCoolDown();
+        ResetCooldown();
 
         InitializePerk();
         visuals.SetupLook();
         UpdateAttackData();
     }
 
+
     protected override void Update()
     {
         base.Update();
         stateMachine.currentState.Update();
+
+
     }
+
+
+
 
     public override void EnterBattleMode()
     {
@@ -122,6 +121,7 @@ public class Enemy_Melee : Enemy
             weaponType = Enemy_MeleeWeaponType.Throw;
         }
 
+
         if (meleeType == EnemyMelee_Type.Shield)
         {
             anim.SetFloat("ChaseIndex", 1);
@@ -142,6 +142,7 @@ public class Enemy_Melee : Enemy
         if (healthPoints <= 0 && stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
+
 
     public void ActivateDodgeRoll()
     {
@@ -165,30 +166,29 @@ public class Enemy_Melee : Enemy
 
     public void ThrowAxe()
     {
-
         GameObject newAxe = ObjectPool.instance.GetObject(axePrefab, axeStartPoint);
 
         newAxe.GetComponent<Enemy_Axe>().AxeSetup(axeFlySpeed, player, axeAimTimer);
     }
-
     public bool CanThrowAxe()
     {
         if (meleeType != EnemyMelee_Type.AxeThrow)
             return false;
 
-        if (Time.time > lastTimeAxeThrown + axeThrowCooldown)
+        if (Time.time > axeThrowCooldown + lastTimeAxeThrown)
         {
             lastTimeAxeThrown = Time.time;
             return true;
         }
         return false;
     }
-
-    private void ResetCoolDown()
+    private void ResetCooldown()
     {
         lastTimeDodge -= dodgeCooldown;
         lastTimeAxeThrown -= axeThrowCooldown;
     }
+
+
 
     private float GetAnimationClipDuration(string clipName)
     {
@@ -199,7 +199,8 @@ public class Enemy_Melee : Enemy
             if (clip.name == clipName)
                 return clip.length;
         }
-        Debug.Log(clipName + " animation not found!");
+
+        Debug.Log(clipName + "animation not found!");
         return 0;
     }
 
@@ -211,5 +212,6 @@ public class Enemy_Melee : Enemy
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackData.attackRange);
+
     }
 }

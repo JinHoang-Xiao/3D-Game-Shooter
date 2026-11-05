@@ -1,8 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
-public enum CoverPerk { Unavailable, CanTakeCover, CanTakeAndChangeCover }
+public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover }
 public enum UnstoppablePerk { Unavalible, Unstoppable }
 public enum GrenadePerk { Unavalible, CanThrowGrenade }
 
@@ -12,7 +12,6 @@ public class Enemy_Range : Enemy
     public CoverPerk coverPerk;
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
-
 
     [Header("Grenade perk")]
     public GameObject grenadePrefab;
@@ -24,24 +23,22 @@ public class Enemy_Range : Enemy
     [SerializeField] private Transform grenadeStartPoint;
 
 
+
     [Header("Advance perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
     public float advanceDuration = 2.5f;
 
-
-    [Header("Cover System")]
+    [Header("Cover system")]
     public float minCoverTime;
     public float safeDistance;
     public CoverPoint currentCover { get; private set; }
     public CoverPoint lastCover { get; private set; }
 
-
-    [Header("Weapon Details")]
+    [Header("Weapon details")]
     public float attackDelay;
     public Enemy_RangeWeaponType weaponType;
     public Enemy_RangeWeaponData weaponData;
-
 
     [Space]
     public Transform gunPoint;
@@ -55,9 +52,10 @@ public class Enemy_Range : Enemy
     public Transform playersBody;
     public LayerMask whatToIgnore;
 
-    [SerializeField] List<Enemy_RangeWeaponData> availableWeaponData;
 
-    #region State
+    [SerializeField] List<Enemy_RangeWeaponData> avalibleWeaponData;
+
+    #region States
 
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
@@ -66,7 +64,6 @@ public class Enemy_Range : Enemy
     public AdvancePlayerState_Range advancePlayerState { get; private set; }
     public ThrowGrenadeState_Range throwGrenadeState { get; private set; }
     public DeadState_Range deadState { get; private set; }
-
     #endregion
 
     protected override void Awake()
@@ -79,8 +76,7 @@ public class Enemy_Range : Enemy
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
         advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
         throwGrenadeState = new ThrowGrenadeState_Range(this, stateMachine, "ThrowGrenade");
-        deadState = new DeadState_Range(this, stateMachine, "Idle"); // idle is a place holder,we using ragdoll
-
+        deadState = new DeadState_Range(this, stateMachine, "Idle");// idle is a place holder,we using ragdoll
     }
 
     protected override void Start()
@@ -102,8 +98,8 @@ public class Enemy_Range : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
-
     }
+
     public override void GetHit()
     {
         base.GetHit();
@@ -131,7 +127,7 @@ public class Enemy_Range : Enemy
         lastTimeGrenadeThrown = Time.time;
         visuals.EnableGrenadeModel(false);
 
-        GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab,grenadeStartPoint);
+        GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab, grenadeStartPoint);
         Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
 
         if (stateMachine.currentState == deadState)
@@ -139,8 +135,8 @@ public class Enemy_Range : Enemy
             newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer, impactPower);
             return;
         }
+
         newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
-        //GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab, grenadeStartPoint);
     }
 
     protected override void InitializePerk()
@@ -159,8 +155,11 @@ public class Enemy_Range : Enemy
 
         base.EnterBattleMode();
 
+
         if (CanGetCover())
+        {
             stateMachine.ChangeState(runToCoverState);
+        }
         else
             stateMachine.ChangeState(battleState);
 
@@ -170,7 +169,7 @@ public class Enemy_Range : Enemy
 
     public bool CanGetCover()
     {
-        if (coverPerk == CoverPerk.Unavailable)
+        if (coverPerk == CoverPerk.Unavalible)
             return false;
 
         currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
@@ -215,12 +214,13 @@ public class Enemy_Range : Enemy
             return currentCover.transform;
         }
 
+
         return null;
     }
 
     private List<Cover> CollectNearByCovers()
     {
-        float coverRadiusCheck = 30f;
+        float coverRadiusCheck = 30;
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, coverRadiusCheck);
         List<Cover> collectedCovers = new List<Cover>();
 
@@ -229,23 +229,20 @@ public class Enemy_Range : Enemy
             Cover cover = collider.GetComponent<Cover>();
 
             if (cover != null && collectedCovers.Contains(cover) == false)
-            {
                 collectedCovers.Add(cover);
-            }
         }
 
         return collectedCovers;
     }
 
     #endregion
-
     public void FireSingleBullet()
     {
         anim.SetTrigger("Shoot");
 
         Vector3 bulletsDirection = (aim.position - gunPoint.position).normalized;
 
-        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab,gunPoint);
+        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, gunPoint);
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
         newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
@@ -256,19 +253,18 @@ public class Enemy_Range : Enemy
 
         rbNewBullet.mass = 20 / weaponData.bulletSpeed;
         rbNewBullet.linearVelocity = bulletDirectionWithSpread * weaponData.bulletSpeed;
-    }
 
+    }
     private void SetupWeapon()
     {
         List<Enemy_RangeWeaponData> filteredData = new List<Enemy_RangeWeaponData>();
 
-        foreach (var weaponData in availableWeaponData)
+        foreach (var weaponData in avalibleWeaponData)
         {
             if (weaponData.weaponType == weaponType)
-            {
                 filteredData.Add(weaponData);
-            }
         }
+
 
         if (filteredData.Count > 0)
         {
@@ -276,9 +272,9 @@ public class Enemy_Range : Enemy
             weaponData = filteredData[random];
         }
         else
-        {
-            Debug.LogWarning("No available weapon data found!");
-        }
+            Debug.LogWarning("No avalible weapon data was found!");
+
+
 
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
     }
@@ -293,9 +289,9 @@ public class Enemy_Range : Enemy
 
     public bool IsAimOnPlayer()
     {
-        float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
+        float distnaceAimToPlayer = Vector3.Distance(aim.position, player.position);
 
-        return distanceAimToPlayer < 2;
+        return distnaceAimToPlayer < 2;
     }
 
     public bool IsSeeingPlayer()
@@ -314,7 +310,9 @@ public class Enemy_Range : Enemy
 
         return false;
     }
+
     #endregion
 
     public bool IsUnstopppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
+
 }

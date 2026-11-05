@@ -24,6 +24,7 @@ public class ThrowGrenadeState_Range : EnemyState
         enemy.visuals.EnableGrenadeModel(true);
     }
 
+
     public override void Update()
     {
         base.Update();

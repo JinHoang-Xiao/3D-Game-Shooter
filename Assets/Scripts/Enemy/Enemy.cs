@@ -1,16 +1,16 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int healthPoints = 20;
 
-    [Header("Idle Data")]
+    [Header("Idle data")]
     public float idleTime;
     public float aggresionRange;
 
-    [Header("Move Data")]
+    [Header("Move data")]
     public float walkSpeed = 1.5f;
     public float runSpeed = 3;
     public float turnSpeed;
@@ -28,7 +28,10 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent { get; private set; }
     public EnemyStateMachine stateMachine { get; private set; }
     public Enemy_Visuals visuals { get; private set; }
-    public Enemy_Ragdoll ragdoll { get; private set; } 
+
+    public Enemy_Ragdoll ragdoll { get; private set; }
+
+
 
     protected virtual void Awake()
     {
@@ -46,12 +49,12 @@ public class Enemy : MonoBehaviour
         InitializePatrolPoints();
     }
 
+
+
     protected virtual void Update()
     {
         if (ShouldEnterBattleMode())
-        {
             EnterBattleMode();
-        }
     }
 
     protected virtual void InitializePerk()
@@ -61,11 +64,12 @@ public class Enemy : MonoBehaviour
 
     protected bool ShouldEnterBattleMode()
     {
-        if (IsPlayerInAggressionRange() && !inBattleMode)
+        if (IsPlayerInAgrresionRange() && !inBattleMode)
         {
             EnterBattleMode();
             return true;
         }
+
         return false;
     }
 
@@ -77,15 +81,14 @@ public class Enemy : MonoBehaviour
     public virtual void GetHit()
     {
         EnterBattleMode();
-        healthPoints = Mathf.Max(0, healthPoints - 1);
+        healthPoints--;
     }
 
     public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
-        StartCoroutine(DeathImpactCoroutine(force, hitPoint, rb));
+        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
     }
-
-    private IEnumerator DeathImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
         yield return new WaitForSeconds(.1f);
 
@@ -98,18 +101,23 @@ public class Enemy : MonoBehaviour
 
         Vector3 currentEulerAngels = transform.rotation.eulerAngles;
 
+
         float yRotation = Mathf.LerpAngle(currentEulerAngels.y, targetRotation.eulerAngles.y, turnSpeed * Time.deltaTime);
 
         transform.rotation = Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
-    #region Animation events
 
+
+    #region Animation events
     public void ActivateManualMovement(bool manualMovement) => this.manualMovement = manualMovement;
     public bool ManualMovementActive() => manualMovement;
+
     public void ActivateManualRotation(bool manualRotation) => this.manualRotation = manualRotation;
     public bool ManualRotationActive() => manualRotation;
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
+
+
 
     public virtual void AbilityTrigger()
     {
@@ -130,7 +138,6 @@ public class Enemy : MonoBehaviour
 
         return destination;
     }
-
     private void InitializePatrolPoints()
     {
         patrolPointsPosition = new Vector3[patrolPoints.Length];
@@ -138,14 +145,13 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < patrolPoints.Length; i++)
         {
             patrolPointsPosition[i] = patrolPoints[i].position;
-            patrolPoints[i].gameObject.SetActive(false); 
+            patrolPoints[i].gameObject.SetActive(false);
         }
     }
 
     #endregion
 
-    public bool IsPlayerInAggressionRange() =>Vector3.Distance(transform.position, player.position) < aggresionRange;
-
+    public bool IsPlayerInAgrresionRange() => Vector3.Distance(transform.position, player.position) < aggresionRange;
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggresionRange);

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IdleState_Range : EnemyState
@@ -19,6 +21,7 @@ public class IdleState_Range : EnemyState
 
         if (enemy.weaponType == Enemy_RangeWeaponType.Pistol)
             enemy.visuals.EnableIK(false, false);
+
         stateTimer = enemy.idleTime;
     }
 
@@ -27,8 +30,6 @@ public class IdleState_Range : EnemyState
         base.Update();
 
         if (stateTimer < 0)
-        {
             stateMachine.ChangeState(enemy.moveState);
-        }
     }
 }

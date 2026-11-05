@@ -36,24 +36,22 @@ public class Bullet : MonoBehaviour
         trailRenderer.Clear();
         trailRenderer.time = .25f;
         startPosition = transform.position;
-        this.flyDistance = flyDistance + .5f; // .5f được cộng vào flyDistance để tính thêm độ dài phần đầu tia laser ( xem method UpdateAimVisuals() o PlayerAim.cs)
+        this.flyDistance = flyDistance + .5f; // magic number .5f is a length of tip of the laser ( Check method UpdateAimVisuals() on PlayerAim script) ;
     }
 
     protected virtual void Update()
     {
         FadeTrailIfNeeded();
-        DisablledBulletIfNeeded();
+        DisableBulletIfNeeded();
         ReturnToPoolIfNeeded();
     }
 
     protected void ReturnToPoolIfNeeded()
     {
         if (trailRenderer.time < 0)
-        {
             ReturnBulletToPool();
-        }
     }
-    protected void DisablledBulletIfNeeded()
+    protected void DisableBulletIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
@@ -65,9 +63,7 @@ public class Bullet : MonoBehaviour
     protected void FadeTrailIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5f)
-        {
-            trailRenderer.time -= 2 * Time.deltaTime; // 2 là hệ số dùng để giảm trailRenderer.time theo thời gian
-        }
+            trailRenderer.time -= 2 * Time.deltaTime; // magic number 2 is choosen trhou testing
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -76,12 +72,11 @@ public class Bullet : MonoBehaviour
         ReturnBulletToPool();
 
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
-
         Enemy_Shield shield = collision.gameObject.GetComponent<Enemy_Shield>();
 
         if (shield != null)
         {
-            shield.ReduceDuarbility();
+            shield.ReduceDurability();
             return;
         }
 
@@ -90,13 +85,14 @@ public class Bullet : MonoBehaviour
             Vector3 force = rb.linearVelocity.normalized * impactForce;
             Rigidbody hitRigidbody = collision.collider.attachedRigidbody;
 
-
             enemy.GetHit();
             enemy.DeathImpact(force, collision.contacts[0].point, hitRigidbody);
         }
     }
 
+
     protected void ReturnBulletToPool() => ObjectPool.instance.ReturnObject(gameObject);
+
 
     protected void CreateImpactFx()
     {

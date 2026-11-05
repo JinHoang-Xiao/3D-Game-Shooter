@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -7,10 +9,11 @@ public enum Enemy_RangeWeaponType { Pistol, Revolver, Shotgun, AutoRifle, Rifle 
 
 public class Enemy_Visuals : MonoBehaviour
 {
+
     public GameObject currentWeaponModel { get; private set; }
     public GameObject grenadeModel;
 
-    [Header("Corruption Visuals")]
+    [Header("Corruption visuals")]
     [SerializeField] private GameObject[] corruptionCrystals;
     [SerializeField] private int corruptionAmount;
 
@@ -28,7 +31,6 @@ public class Enemy_Visuals : MonoBehaviour
     private float weaponAimTargetWeight;
     private float rigChangeRate;
 
-
     private void Update()
     {
         leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
@@ -36,7 +38,6 @@ public class Enemy_Visuals : MonoBehaviour
     }
 
     public void EnableGrenadeModel(bool active) => grenadeModel?.SetActive(active);
-
     public void EnableWeaponModel(bool active)
     {
         currentWeaponModel?.gameObject.SetActive(active);
@@ -50,67 +51,55 @@ public class Enemy_Visuals : MonoBehaviour
     public void EnableWeaponTrail(bool enable)
     {
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
-
         currentWeaponScript.EnableTrailEffect(enable);
     }
+
 
     public void SetupLook()
     {
         SetupRandomColor();
         SetupRandomWeapon();
-        SetupRandomCorruption();
+        SetupRandomCorrution();
     }
 
-    private void SetupRandomCorruption()
+    private void SetupRandomCorrution()
     {
-        //if (corruptionCrystals == null || corruptionCrystals.Length == 0)
-        //    return;
-
-        /* Chọn crytals random vì code dưới là random từng vị trí xuất hiện
-           corruptionAmount = Random.Range(0, 9); // Hoặc từ 0 đến tất cả vị trí có (0, corruptionCrystals.Length + 1);*/
-
-        List<int> avaliableIndexes = new List<int>();
+        List<int> avalibleIndexs = new List<int>();
         corruptionCrystals = CollectCorruptionCrystals();
 
         for (int i = 0; i < corruptionCrystals.Length; i++)
         {
-            avaliableIndexes.Add(i);
+            avalibleIndexs.Add(i);
             corruptionCrystals[i].SetActive(false);
         }
 
         for (int i = 0; i < corruptionAmount; i++)
         {
-            if (avaliableIndexes.Count == 0)
+            if (avalibleIndexs.Count == 0)
                 break;
 
-            int randomIndex = Random.Range(0, avaliableIndexes.Count);
-            int objectIndex = avaliableIndexes[randomIndex];
+            int randomIndex = Random.Range(0, avalibleIndexs.Count);
+            int objectIndex = avalibleIndexs[randomIndex];
 
             corruptionCrystals[objectIndex].SetActive(true);
-            avaliableIndexes.RemoveAt(randomIndex);
+            avalibleIndexs.RemoveAt(randomIndex);
         }
     }
-
     private void SetupRandomWeapon()
     {
         bool thisEnemyIsMelee = GetComponent<Enemy_Melee>() != null;
         bool thisEnemyIsRange = GetComponent<Enemy_Range>() != null;
 
         if (thisEnemyIsRange)
-        {
             currentWeaponModel = FindRangeWeaponModel();
-        }
 
         if (thisEnemyIsMelee)
-        {
             currentWeaponModel = FindMeleeWeaponModel();
-        }
 
         currentWeaponModel.SetActive(true);
 
         OverrideAnimatorControllerIfCan();
     }
-
     private void SetupRandomColor()
     {
         int randomIndex = Random.Range(0, colorTextures.Length);
@@ -122,6 +111,7 @@ public class Enemy_Visuals : MonoBehaviour
         skinnedMeshRenderer.material = newMat;
     }
 
+
     private GameObject FindRangeWeaponModel()
     {
         Enemy_RangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_RangeWeaponModel>(true);
@@ -132,12 +122,12 @@ public class Enemy_Visuals : MonoBehaviour
             if (weaponModel.weaponType == weaponType)
             {
                 SwitchAnimationLayer(((int)weaponModel.weaponHoldType));
-                SetUpLeftHandIK(weaponModel.leftHandTarget, weaponModel.leftElbowTarget);
+                SetupLeftHandIK(weaponModel.leftHandTarget, weaponModel.leftElbowTarget);
                 return weaponModel.gameObject;
             }
         }
 
-        Debug.Log("No range weapon model found");
+        Debug.LogWarning("No range weapon model found");
         return null;
     }
 
@@ -152,6 +142,7 @@ public class Enemy_Visuals : MonoBehaviour
             if (weaponModel.weaponType == weaponType)
                 filteredWeaponModels.Add(weaponModel);
         }
+
 
         int randomIndex = Random.Range(0, filteredWeaponModels.Count);
         return filteredWeaponModels[randomIndex].gameObject;
@@ -169,6 +160,7 @@ public class Enemy_Visuals : MonoBehaviour
 
         return corruptionCrystals;
     }
+
     private GameObject FindSeconderyWeaponModel()
     {
         Enemy_SeconoderyRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SeconoderyRangeWeaponModel>(true);
@@ -186,13 +178,14 @@ public class Enemy_Visuals : MonoBehaviour
     private void OverrideAnimatorControllerIfCan()
     {
         AnimatorOverrideController overrideController =
-            currentWeaponModel.GetComponent<Enemy_WeaponModel>()?.overrideController;
+                    currentWeaponModel.GetComponent<Enemy_WeaponModel>()?.overrideController;
 
         if (overrideController != null)
         {
             GetComponentInChildren<Animator>().runtimeAnimatorController = overrideController;
         }
     }
+
 
     private void SwitchAnimationLayer(int layerIndex)
     {
@@ -202,17 +195,24 @@ public class Enemy_Visuals : MonoBehaviour
         {
             anim.SetLayerWeight(i, 0);
         }
+
         anim.SetLayerWeight(layerIndex, 1);
     }
 
     public void EnableIK(bool enableLeftHand, bool enableAim, float changeRate = 10)
     {
+        if (leftHandIKConstraint == null)
+        {
+            Debug.LogWarning("No IK assigned");
+            return;
+        }
+
         rigChangeRate = changeRate;
         leftHandTargetWeight = enableLeftHand ? 1 : 0;
         weaponAimTargetWeight = enableAim ? 1 : 0;
     }
 
-    private void SetUpLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
+    private void SetupLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
     {
         leftHandIK.localPosition = leftHandTarget.localPosition;
         leftHandIK.localRotation = leftHandTarget.localRotation;
@@ -220,6 +220,7 @@ public class Enemy_Visuals : MonoBehaviour
         leftElbowIK.localPosition = leftElbowTarget.localPosition;
         leftElbowIK.localRotation = leftElbowTarget.localRotation;
     }
+
     private float AdjustIKWeight(float currentWeight, float targetWeight)
     {
         if (Mathf.Abs(currentWeight - targetWeight) > 0.05f)
@@ -227,6 +228,5 @@ public class Enemy_Visuals : MonoBehaviour
         else
             return targetWeight;
     }
-
 
 }

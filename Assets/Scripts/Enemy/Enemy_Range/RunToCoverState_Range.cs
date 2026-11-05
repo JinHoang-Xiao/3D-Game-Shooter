@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RunToCoverState_Range : EnemyState
@@ -38,8 +40,6 @@ public class RunToCoverState_Range : EnemyState
         enemy.FaceTarget(GetNextPathPoint());
 
         if (Vector3.Distance(enemy.transform.position, destination) < .5f)
-        {
             stateMachine.ChangeState(enemy.battleState);
-        }
     }
 }

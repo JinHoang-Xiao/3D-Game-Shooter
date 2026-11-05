@@ -9,7 +9,7 @@ public class Enemy_Shield : MonoBehaviour
         enemy = GetComponentInParent<Enemy_Melee>();
     }
 
-    public void ReduceDuarbility()
+    public void ReduceDurability()
     {
         durability--;
 

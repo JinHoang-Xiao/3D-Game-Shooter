@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class BattleState_Range : EnemyState
 {
-
     private Enemy_Range enemy;
 
     private float lastTimeShot = -10;
@@ -13,16 +12,13 @@ public class BattleState_Range : EnemyState
 
     private float coverCheckTimer;
     private bool firstTimeAttack = true;
-
     public BattleState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
         enemy = enemyBase as Enemy_Range;
     }
-
     public override void Enter()
     {
         base.Enter();
-
         SetupValuesForFirstAttack();
 
         enemy.agent.isStopped = true;
@@ -32,6 +28,7 @@ public class BattleState_Range : EnemyState
 
         stateTimer = enemy.attackDelay;
     }
+
 
     public override void Update()
     {
@@ -59,10 +56,9 @@ public class BattleState_Range : EnemyState
                 stateMachine.ChangeState(enemy.advancePlayerState);
             }
 
-            if (WeaponCooldownOver())
-            {
+            if (WeaponOnCooldown())
                 AttemptToResetWeapon();
-            }
+
             return;
         }
 
@@ -78,9 +74,8 @@ public class BattleState_Range : EnemyState
         if (enemy.IsUnstopppable())
             return false;
 
-        return enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover();
+        return enemy.IsPlayerInAgrresionRange() == false && ReadyToLeaveCover();
     }
-
 
     private bool UnstoppableWalkReady()
     {
@@ -92,13 +87,13 @@ public class BattleState_Range : EnemyState
         return outOfStoppingDistance && unstoppableWalkOnCooldown == false;
     }
 
-    #region Cover System Region
+    #region Cover system region
+
 
     private bool ReadyToLeaveCover()
     {
         return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeTookCover;
     }
-
 
     private void ChangeCoverIfShould()
     {
@@ -109,7 +104,7 @@ public class BattleState_Range : EnemyState
 
         if (coverCheckTimer < 0)
         {
-            coverCheckTimer = .5f; // We do cover check each 0.5 seconds
+            coverCheckTimer = .5f; // We do cover check each .5f seconds
 
             if (ReadyToChangeCover() && ReadyToLeaveCover())
             {
@@ -127,6 +122,7 @@ public class BattleState_Range : EnemyState
         return inDanger && advanceTimeIsOver;
     }
 
+
     private bool IsPlayerClose()
     {
         return Vector3.Distance(enemy.transform.position, enemy.player.transform.position) < enemy.safeDistance;
@@ -134,36 +130,39 @@ public class BattleState_Range : EnemyState
 
     private bool IsPlayerInClearSight()
     {
-        Vector3 directionToPlayer = (enemy.player.transform.position + Vector3.up * 0.2f) - (enemy.transform.position + Vector3.up * 0.2f);
+        Vector3 directionToPlayer = (enemy.player.transform.position + Vector3.up * 0.5f) - (enemy.transform.position + Vector3.up * 0.5f);
 
-        if (Physics.Raycast(enemy.transform.position + Vector3.up * 0.2f, directionToPlayer, out RaycastHit hit))
+        if (Physics.Raycast( enemy.transform.position + Vector3.up * 0.5f, directionToPlayer,out RaycastHit hit))
+
         {
+            Debug.Log("Raycast hit: " + hit.transform.name);
+
             return hit.transform.parent == enemy.player;
         }
-
         return false;
     }
 
 
-
     #endregion
 
-    #region Weapon Region
+    #region Weapon region
+
     private void AttemptToResetWeapon()
     {
         bulletsShot = 0;
         bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
         weaponCooldown = enemy.weaponData.GetWeaponCooldown();
     }
-    private bool WeaponCooldownOver() => Time.time > lastTimeShot + weaponCooldown;
+    private bool WeaponOnCooldown() => Time.time > lastTimeShot + weaponCooldown;
     private bool WeaponOutOfBullets() => bulletsShot >= bulletsPerAttack;
-    private bool CanShoot() => Time.time > lastTimeShot + 1f / enemy.weaponData.fireRate;
+    private bool CanShoot() => Time.time > lastTimeShot + 1 / enemy.weaponData.fireRate;
     private void Shoot()
     {
         enemy.FireSingleBullet();
         lastTimeShot = Time.time;
         bulletsShot++;
     }
+
     private void SetupValuesForFirstAttack()
     {
         if (firstTimeAttack)

@@ -1,9 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class MoveState_Range : EnemyState
 {
-
     private Enemy_Range enemy;
     private Vector3 destination;
 
@@ -33,9 +33,8 @@ public class MoveState_Range : EnemyState
 
         enemy.FaceTarget(GetNextPathPoint());
 
+
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + .05f)
-        {
             stateMachine.ChangeState(enemy.idleState);
-        }
     }
 }
