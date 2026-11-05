@@ -5,7 +5,6 @@ using UnityEngine;
 public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover }
 public enum UnstoppablePerk { Unavalible, Unstoppable }
 public enum GrenadePerk { Unavalible, CanThrowGrenade }
-
 public class Enemy_Range : Enemy
 {
     [Header("Enemy perks")]

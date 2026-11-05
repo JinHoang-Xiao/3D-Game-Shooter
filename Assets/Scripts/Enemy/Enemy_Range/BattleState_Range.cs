@@ -130,18 +130,16 @@ public class BattleState_Range : EnemyState
 
     private bool IsPlayerInClearSight()
     {
-        Vector3 directionToPlayer = (enemy.player.transform.position + Vector3.up * 0.5f) - (enemy.transform.position + Vector3.up * 0.5f);
+        Vector3 directionToPlayer = enemy.player.transform.position - enemy.transform.position;
 
-        if (Physics.Raycast( enemy.transform.position + Vector3.up * 0.5f, directionToPlayer,out RaycastHit hit))
 
+        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
         {
-            Debug.Log("Raycast hit: " + hit.transform.name);
-
             return hit.transform.parent == enemy.player;
         }
+
         return false;
     }
-
 
     #endregion
 
