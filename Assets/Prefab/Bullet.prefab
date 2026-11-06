@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6e69ea6a09d824e955b1c709ce3027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  impactForce: 0
   bulletImpactFX: {fileID: 5432177796803804911, guid: ed91729e42a1b334caad5ec74eece2bd, type: 3}
 --- !u!96 &1763605612150607646
 TrailRenderer:
