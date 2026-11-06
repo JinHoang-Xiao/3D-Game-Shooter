@@ -15,10 +15,14 @@ public class IdleState_Boss : EnemyState
     {
         base.Enter();
 
+        stateTimer = enemy.idleTime;
+
     }
 
     public override void Update()
     {
         base.Update();
+        if (stateTimer < 0)
+            stateMachine.ChangeState(enemy.moveState);
     }
 }
