@@ -1402,7 +1402,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 5.7800007, y: -3.6338477, z: 10.900001}
+  m_LocalPosition: {x: 4.5, y: -4.4338474, z: 2.9700012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3652,7 +3652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93dfe6d7d0bef7489b3e2ad44fb17e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  walkSpeed: 1.5
+  walkSpeed: 2
   runSpeed: 5
   turnSpeed: 10
 --- !u!143 &935532605
@@ -3689,7 +3689,7 @@ Transform:
   m_GameObject: {fileID: 935532603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.63, y: 0.2, z: -2.75}
+  m_LocalPosition: {x: 17.82, y: 0.2, z: -13.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5300,13 +5300,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383091629}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.020018674, y: -0.010838487, z: -0.00021495983, w: 0.99974084}
-  m_LocalPosition: {x: -0.0006995946, y: 0.042099915, z: 0.20640013}
+  m_LocalRotation: {x: 0.020019582, y: 0.0057249265, z: 0.00011666064, w: 0.9997832}
+  m_LocalPosition: {x: 0.0003, y: 0.0421, z: 0.2055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 883231225}
-  m_LocalEulerAnglesHint: {x: 2.294, y: -1.243, z: -0.05}
+  m_LocalEulerAnglesHint: {x: 2.294, y: 0.657, z: 0.027}
 --- !u!1 &1409290924
 GameObject:
   m_ObjectHideFlags: 0
@@ -6322,7 +6322,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1337210167}
+  m_Follow: {fileID: 935532606}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -6351,7 +6351,7 @@ Transform:
   m_GameObject: {fileID: 1640290634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 5.7800007, y: -3.6338477, z: 10.900001}
+  m_LocalPosition: {x: 4.5, y: -4.4338474, z: 2.9700012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8007,14 +8007,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Boss
   healthPoints: 20
   idleTime: 3
-  aggresionRange: 0
-  walkSpeed: 2
+  aggresionRange: 15
+  walkSpeed: 1.25
   runSpeed: 3
   turnSpeed: 8
   patrolPoints:
   - {fileID: 20965768}
   - {fileID: 1460193789}
   - {fileID: 741995722}
+  attackRange: 1.5
 --- !u!195 &2043459156
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -60729,6 +60730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8284126736331214268}
   - component: {fileID: 2600562379329329094}
+  - component: {fileID: 8772152035838973703}
   m_Layer: 0
   m_Name: character_boss@
   m_TagString: Untagged
@@ -60736,6 +60738,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8772152035838973703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772152035838973702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb1fed84236e98498ee754a329aeabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_AnimationEvents
 --- !u!1 &8775144471288434173
 GameObject:
   m_ObjectHideFlags: 0

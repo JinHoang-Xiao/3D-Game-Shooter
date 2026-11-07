@@ -21,11 +21,6 @@ public class MoveState_Melee : EnemyState
         enemy.agent.SetDestination(destination);
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void Update()
     {
         base.Update();

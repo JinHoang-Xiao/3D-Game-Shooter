@@ -21,7 +21,7 @@ public class Enemy_RangeWeaponData : ScriptableObject
 
 
 
-    public int GetBulletsPerAttack() => Random.Range(minBulletsPerAttack, maxBulletsPerAttack);
+    public int GetBulletsPerAttack() => Random.Range(minBulletsPerAttack, maxBulletsPerAttack + 1); // +1 vì giá trị tối đa của Random.Range không bao gồm chính nó.
     public float GetWeaponCooldown() => Random.Range(minWeaponCooldown, maxWeaponCooldown);
 
     public Vector3 ApplyWeaponSpread(Vector3 originalDirection)

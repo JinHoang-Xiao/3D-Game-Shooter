@@ -15,7 +15,7 @@ public class IdleState_Range : EnemyState
     {
         base.Enter();
 
-        enemy.anim.SetFloat("IdleAnimIndex", Random.Range(0, 2));
+        enemy.anim.SetFloat("IdleAnimIndex", Random.Range(0, 3)); // 3 animation với index chạy từ 0-2
 
         enemy.visuals.EnableIK(true, false);
 
