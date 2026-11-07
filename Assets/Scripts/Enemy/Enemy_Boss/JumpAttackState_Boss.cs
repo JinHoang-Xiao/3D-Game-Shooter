@@ -32,11 +32,6 @@ public class JumpAttackState_Boss : EnemyState
         enemy.FaceTarget(lastPlayerPos, 1000);
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void Update()
     {
         base.Update();
@@ -52,5 +47,11 @@ public class JumpAttackState_Boss : EnemyState
         {
             stateMachine.ChangeState(enemy.moveState);
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        enemy.SetJumpAttackOnCooldown();
     }
 }

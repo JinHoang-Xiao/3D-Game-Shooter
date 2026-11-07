@@ -5,7 +5,7 @@ public class MoveState_Boss : EnemyState
     private Enemy_Boss enemy;
     private Vector3 destination;
 
-    //private float actionTimer;
+    private float actionTimer;
     //private float timeBeforeSpeedUp = 15;
 
     //private bool speedUpActivated;
@@ -20,15 +20,17 @@ public class MoveState_Boss : EnemyState
         enemy.agent.speed = enemy.walkSpeed;
         enemy.agent.isStopped = false;
 
-
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);
+
+        actionTimer = enemy.actionCooldown;
     }
 
     public override void Update()
     {
         base.Update();
 
+        actionTimer -= Time.deltaTime;
         enemy.FaceTarget(GetNextPathPoint());
 
         if(enemy.inBattleMode)
@@ -36,9 +38,10 @@ public class MoveState_Boss : EnemyState
             Vector3 playerPos = enemy.player.position;
             enemy.agent.SetDestination(playerPos);
 
-            if (enemy.CanDoJumpAttack())
-                stateMachine.ChangeState(enemy.jumpAttackState);
-            
+            if(actionTimer <0)
+            {
+                PerformRandomAction();
+            }
             else if (enemy.PlayerInAttackRange())
             {
                 stateMachine.ChangeState(enemy.attackState);
@@ -52,4 +55,20 @@ public class MoveState_Boss : EnemyState
             }
         }     
     }
+    private void PerformRandomAction()
+    {
+        actionTimer = enemy.actionCooldown;
+
+        if (Random.Range(0, 2) == 0) // rolls number from 0 to 1
+        {
+            if (enemy.CanDoAbility())
+                stateMachine.ChangeState(enemy.abilityState);
+        }
+        else
+        {
+            if (enemy.CanDoJumpAttack())
+                stateMachine.ChangeState(enemy.jumpAttackState);
+        }
+    }
+
 }
