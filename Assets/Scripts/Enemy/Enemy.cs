@@ -6,7 +6,9 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] protected int healthPoints = 20;
+
+    public LayerMask whatIsAlly;
+    public int healthPoints = 20;
 
     [Header("Idle data")]
     public float idleTime;
@@ -31,7 +33,8 @@ public class Enemy : MonoBehaviour
     public EnemyStateMachine stateMachine { get; private set; }
     public Enemy_Visuals visuals { get; private set; }
 
-    public Enemy_Ragdoll ragdoll { get; private set; }
+    public Enemy_Health health { get; private set; }
+    public Ragdoll ragdoll { get; private set; }
 
 
 
@@ -39,7 +42,8 @@ public class Enemy : MonoBehaviour
     {
         stateMachine = new EnemyStateMachine();
 
-        ragdoll = GetComponent<Enemy_Ragdoll>();
+        health = GetComponent<Enemy_Health>();
+        ragdoll = GetComponent<Ragdoll>();
         visuals = GetComponent<Enemy_Visuals>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
@@ -82,14 +86,26 @@ public class Enemy : MonoBehaviour
 
     public virtual void GetHit()
     {
+        health.ReduceHealth();
+
+        if (health.ShouldDie())
+            Die();
+
+
         EnterBattleMode();
-        healthPoints--;
     }
 
-    public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    public virtual void Die()
     {
-        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+
     }
+
+    public virtual void BulletImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        if(health.ShouldDie())
+            StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+    }
+
     private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
         yield return new WaitForSeconds(.1f);

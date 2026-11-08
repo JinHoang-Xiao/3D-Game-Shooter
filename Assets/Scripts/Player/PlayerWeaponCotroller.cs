@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerWeaponCotroller : MonoBehaviour
 {
+    [SerializeField] private LayerMask whatIsAlly;
+
+    [Space]
     private Player player;
     private const float REFERENCE_BULLET_SPEED = 20f; // Tham chiếu tốc độ viên đạn để điều chỉnh tốc độ bắn
 
@@ -170,7 +173,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly, currentWeapon.gunDistance, bulletImpactForce);
 
 
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
