@@ -23,6 +23,7 @@ public class Enemy_Boss : Enemy
 
     [Header("Hummer")]
     public GameObject activationPrefab;
+    [SerializeField] private float hummerCheckRadius;
 
     [Header("Jump attack")]
     public float jumpAttackCooldown = 10;
@@ -129,6 +130,8 @@ public class Enemy_Boss : Enemy
     {
         GameObject newActivation = ObjectPool.instance.GetObject(activationPrefab, impactPoint);
         ObjectPool.instance.ReturnObject(newActivation, 1);
+
+        MassDamage(damagePoints[0].position, hummerCheckRadius);
     }
 
     public bool CanDoAbility()
@@ -169,11 +172,13 @@ public class Enemy_Boss : Enemy
 
             if (damagable != null)
             {
+                
                 GameObject rootEntity = hit.transform.root.gameObject;
 
                 if (uniqueEntities.Add(rootEntity) == false)
                     continue;
 
+                Debug.Log(hit.transform.root.name + " Was damaged!!!");
                 damagable.TakeDamage();
             }
 
@@ -256,6 +261,10 @@ public class Enemy_Boss : Enemy
             {
                 Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
             }
+
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(damagePoints[0].position, hummerCheckRadius);
         }
+        
     }
 }
