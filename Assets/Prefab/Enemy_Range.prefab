@@ -2015,6 +2015,9 @@ MonoBehaviour:
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
   healthPoints: 2
   idleTime: 3
   aggresionRange: 15
@@ -2027,7 +2030,7 @@ MonoBehaviour:
   - {fileID: 4139129410997550714}
   coverPerk: 0
   unstoppablePerk: 0
-  grenadePerk: 0
+  grenadePerk: 1
   grenadePrefab: {fileID: 8108181030910222871, guid: 51495a87140c7644a828d6b3bd9c9539, type: 3}
   impactPower: 5
   explosionTimer: 0.75

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4491378677482814853}
   - component: {fileID: 4871506396561807206}
   - component: {fileID: 8825509408490001555}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: weap_enemy_axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2441034631324152489}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1369957048564568274}
   - component: {fileID: 6351998294291325027}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.18589796
+        value: 0.30677807
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -222,7 +222,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.65896606
+        time: 0.7965393
         value: 0
         inSlope: 0
         outSlope: 0
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 2423579513917809654}
   - component: {fileID: 8439511171859613287}
   - component: {fileID: 8608192883404509018}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemy's_Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -356,7 +356,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8608192883404509018
 MonoBehaviour:
   m_ObjectHideFlags: 0
