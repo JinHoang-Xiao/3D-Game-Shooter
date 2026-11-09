@@ -12715,11 +12715,12 @@ MonoBehaviour:
   actionCooldown: 1
   attackRange: 1.6
   minAbilityDistance: 2.25
-  abilityCooldown: 4
+  abilityCooldown: 10
+  flameDamageCooldown: 0
   flamethrower: {fileID: 6010507563053962643}
   flameThrowDuration: 3
   activationPrefab: {fileID: 2965222256817593503, guid: ad72c9890d21af6488b178e8266287c1, type: 3}
-  jumpAttackCooldown: 8
+  jumpAttackCooldown: 6
   travelTimeToTarget: 1
   minJumpDistanceRequired: 5
   impactRadius: 2.5
@@ -12729,6 +12730,10 @@ MonoBehaviour:
   whatToIngore:
     serializedVersion: 2
     m_Bits: 2048
+  damagePoints:
+  - {fileID: 4953406051164502131}
+  attackCheckRadius: 0.6
+  meleeAttackFx: {fileID: 1708328056414604316, guid: 3fe56274cb6472245a47cb0a0ff5b434, type: 3}
 --- !u!114 &8860051542252294179
 MonoBehaviour:
   m_ObjectHideFlags: 0

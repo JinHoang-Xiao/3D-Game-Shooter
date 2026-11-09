@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum BossWeaponType { Flamethrower, Hummer }
@@ -15,13 +16,13 @@ public class Enemy_Boss : Enemy
     private float lastTimeUsedAbility;
 
     [Header("Flamethrower")]
+    public float flameDamageCooldown;
     public ParticleSystem flamethrower;
     public float flameThrowDuration;
     public bool flamethrowActive { get; private set; }
 
     [Header("Hummer")]
     public GameObject activationPrefab;
-
 
     [Header("Jump attack")]
     public float jumpAttackCooldown = 10;
@@ -37,6 +38,12 @@ public class Enemy_Boss : Enemy
 
     [Space]
     [SerializeField] private LayerMask whatToIngore;
+
+    [Header("Attack")]
+    [SerializeField] private Transform[] damagePoints;
+    [SerializeField] private float attackCheckRadius;
+    [SerializeField] private GameObject meleeAttackFx;
+
     public IdleState_Boss idleState { get; private set; }
     public MoveState_Boss moveState { get; private set; }
     public AttackState_Boss attackState { get; private set; }
@@ -74,6 +81,8 @@ public class Enemy_Boss : Enemy
 
         if (ShouldEnterBattleMode())
             EnterBattleMode();
+
+        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFx);
     }
 
     public override void Die()
@@ -146,15 +155,38 @@ public class Enemy_Boss : Enemy
         if (impactPoint == null)
             impactPoint = transform;
 
-        Collider[] colliders = Physics.OverlapSphere(impactPoint.position, impactRadius);
+        MassDamage(impactPoint.position, impactRadius);
+    }
+
+    private void MassDamage(Vector3 impactPoint, float impactRadius)
+    {
+        HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
+        Collider[] colliders = Physics.OverlapSphere(impactPoint, impactRadius, ~whatIsAlly);
 
         foreach (Collider hit in colliders)
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            IDamagable damagable = hit.GetComponent<IDamagable>();
 
-            if (rb != null)
-                rb.AddExplosionForce(impactPower, transform.position, impactRadius, upforceMultiplier, ForceMode.Impulse);
+            if (damagable != null)
+            {
+                GameObject rootEntity = hit.transform.root.gameObject;
+
+                if (uniqueEntities.Add(rootEntity) == false)
+                    continue;
+
+                damagable.TakeDamage();
+            }
+
+            ApplyPhysicalForceTo(impactPoint, impactRadius, hit);
         }
+    }
+
+    private void ApplyPhysicalForceTo(Vector3 impactPoint, float impactRadius, Collider hit)
+    {
+        Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+        if (rb != null)
+            rb.AddExplosionForce(impactPower, impactPoint, impactRadius, upforceMultiplier, ForceMode.Impulse);
     }
 
     public bool CanDoJumpAttack()
@@ -207,13 +239,23 @@ public class Enemy_Boss : Enemy
             Gizmos.DrawLine(myPos, playerPos);
         }
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
+
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, minAbilityDistance);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, impactRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
+
+        if (damagePoints.Length > 0)
+        {
+            foreach (var damagePoint in damagePoints)
+            {
+                Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
+            }
+        }
     }
 }
