@@ -52,6 +52,9 @@ public class Enemy_Melee : Enemy
     private Enemy_WeaponModel currentWeapon;
     private bool isAttackReady;
 
+    [Space]
+    [SerializeField] private GameObject meleeAttackFx;
+
     protected override void Awake()
     {
         base.Awake();
@@ -90,12 +93,29 @@ public class Enemy_Melee : Enemy
         if (isAttackReady == false)
             return;
 
-        foreach(Transform attackPoint in currentWeapon.damagePoints)
+        foreach (Transform attackPoint in currentWeapon.damagePoints)
         {
-            Collider[] detectedHits = 
+            Collider[] detectedHits =
                 Physics.OverlapSphere(attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
+
+            for (int i = 0; i < detectedHits.Length; i++)
+            {
+                IDamagable damagable = detectedHits[i].GetComponent<IDamagable>();
+
+                if (damagable != null)
+                {
+                    damagable?.TakeDamage();
+                    isAttackReady = false;
+                    GameObject newAttackFx = ObjectPool.instance.GetObject(meleeAttackFx, attackPoint);
+
+                    ObjectPool.instance.ReturnObject(newAttackFx, 1);
+                    return;
+                }
+            }
         }
     }
+
+    public void EnableAttackCheck(bool enable) => isAttackReady = enable;
 
     public override void EnterBattleMode()
     {

@@ -16556,11 +16556,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &1488138667294935060 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 260787609475237991, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1493603017359601859
 GameObject:
   m_ObjectHideFlags: 0
@@ -17447,89 +17442,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 384102611709373321, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 384102611709373321, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 384102611709373321, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 3237555311435668360}
-    - target: {fileID: 688303494352624537, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 688303494352624537, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.153
-      objectReference: {fileID: 0}
-    - target: {fileID: 688303494352624537, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 982173696750655080, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 982173696750655080, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 982173696750655080, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 4736459315703602955}
-    - target: {fileID: 982173696750655080, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[1]'
-      value: 
-      objectReference: {fileID: 8595550099020220251}
-    - target: {fileID: 982173696750655080, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1488138667294935060}
-    - target: {fileID: 982173696750655080, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[3]'
-      value: 
-      objectReference: {fileID: 7578080290047953846}
-    - target: {fileID: 1032900133652160925, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1270769623574052643, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1884732580124039674, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1884732580124039674, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1884732580124039674, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8283758555586996787}
-    - target: {fileID: 2066964294534972997, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 2066964294534972997, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 2066964294534972997, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.85
-      objectReference: {fileID: 0}
     - target: {fileID: 2188934389076550857, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: whatIsPlayer.m_Bits
-      value: 256
+      propertyPath: meleeType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2938035175713803447, guid: 903d552ff118156449663a950c0c391b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17571,93 +17486,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3150714742157036227, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150714742157036227, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150714742157036227, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2971272275498585423}
-    - target: {fileID: 3429332505870653829, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: attackRadius
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3429332505870653829, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3429332505870653829, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2212734889901906922}
-    - target: {fileID: 3493983263432865660, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4468831615186128188, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4468831615186128188, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.137
-      objectReference: {fileID: 0}
-    - target: {fileID: 4468831615186128188, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.013
-      objectReference: {fileID: 0}
-    - target: {fileID: 5540834524861152781, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5561396586591879094, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5561396586591879094, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5561396586591879094, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: 'damagePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 7083010397342217633}
-    - target: {fileID: 5603271423508161059, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6472014843134981777, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6472014843134981777, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6472014843134981777, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6975661970692600620, guid: 903d552ff118156449663a950c0c391b, type: 3}
       propertyPath: m_Name
       value: Enemy_Melee
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759695262383131546, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463256167613740498, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463256167613740498, guid: 903d552ff118156449663a950c0c391b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.114
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20310,11 +20141,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2257664196346715116}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2212734889901906922 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 688303494352624537, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &2215158002040481149
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24991,11 +24817,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9026775569272246993}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2971272275498585423 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4468831615186128188, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &2979381823657714817
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -27166,11 +26987,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4140739364648484383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &3237555311435668360 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4311763084494920699, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3241482265867947592
 Transform:
   m_ObjectHideFlags: 0
@@ -36546,11 +36362,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &4736459315703602955 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6233868563730489208, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &4737488538730994666
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -50494,11 +50305,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3856978929734435981}
   m_LocalEulerAnglesHint: {x: 0, y: 20.765, z: 0}
---- !u!4 &7083010397342217633 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8463256167613740498, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7087529525544841659
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -52725,11 +52531,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &7578080290047953846 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9084553293724224453, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7579410975728357258
 GameObject:
   m_ObjectHideFlags: 0
@@ -56996,11 +56797,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &8283758555586996787 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7335726408681302592, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!33 &8291402900882210171
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -58892,11 +58688,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &8595550099020220251 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6949592501021280040, guid: 903d552ff118156449663a950c0c391b, type: 3}
-  m_PrefabInstance: {fileID: 1673209072079011955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!33 &8599535570536320604
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -1088,7 +1088,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.4641935, y: -0.50803095, z: -0.5237437, w: -0.5021171}
   m_LocalPosition: {x: -0.205, y: 0.075, z: 0.024}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 688303494352624537}
@@ -1168,6 +1168,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 8998608143087172532}
+  damagePoints:
+  - {fileID: 688303494352624537}
+  attackRadius: 0.4
 --- !u!1 &1176670739642541007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1414,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 1198412978031889005}
+  damagePoints:
+  - {fileID: 7335726408681302592}
+  attackRadius: 0.3
 --- !u!1 &1307351293030859824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,6 +2849,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 8906768002946559}
+  damagePoints:
+  - {fileID: 8463256167613740498}
+  attackRadius: 0.3
 --- !u!1 &3580087074587412020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4114,7 +4123,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.4641935, y: -0.50803095, z: -0.5237437, w: -0.5021171}
   m_LocalPosition: {x: -0.14230037, y: 0.074600354, z: 0.019699777}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4468831615186128188}
@@ -4194,6 +4203,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 5433690399860190481}
+  damagePoints:
+  - {fileID: 4468831615186128188}
+  attackRadius: 0.3
 --- !u!1 &5603271423508161059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4247,6 +4259,12 @@ MonoBehaviour:
   - {fileID: 1521596013867837189}
   - {fileID: 8571092255189887050}
   - {fileID: 828366677709171688}
+  damagePoints:
+  - {fileID: 6233868563730489208}
+  - {fileID: 6949592501021280040}
+  - {fileID: 260787609475237991}
+  - {fileID: 9084553293724224453}
+  attackRadius: 0.3
 --- !u!1 &5663611145808637084
 GameObject:
   m_ObjectHideFlags: 0
@@ -4960,6 +4978,9 @@ MonoBehaviour:
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
   healthPoints: 3
   idleTime: 60
   aggresionRange: 1
@@ -4970,7 +4991,7 @@ MonoBehaviour:
   - {fileID: 7831435966293749783}
   - {fileID: 7866168534194656160}
   - {fileID: 2804068831824216272}
-  meleeType: 0
+  meleeType: 2
   weaponType: 0
   shieldTransform: {fileID: 5538466639488362498}
   dodgeCooldown: 0
@@ -4999,6 +5020,7 @@ MonoBehaviour:
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFx: {fileID: 1708328056414604316, guid: 0fcf58d09c3513e4195b553c0f2422d2, type: 3}
 --- !u!195 &4481884281385978567
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5641,6 +5663,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 5672943035296512982}
+  damagePoints:
+  - {fileID: 4311763084494920699}
+  attackRadius: 0.3
 --- !u!1 &7763784858051198238
 GameObject:
   m_ObjectHideFlags: 0
@@ -6393,15 +6418,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.131
+      value: 0.137
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.001
+      value: -0.013
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6658,11 +6683,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.123
+      value: 0.153
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.001
+      value: -0.015
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6729,11 +6754,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.085
+      value: 0.114
       objectReference: {fileID: 0}
     - target: {fileID: 3791508920103170915, guid: f491e61057f846d46b269b7c0025524a, type: 3}
       propertyPath: m_LocalPosition.z
