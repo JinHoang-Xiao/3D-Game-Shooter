@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class PlayerAnimationEvents : MonoBehaviour
+public class Player_AnimationEvents : MonoBehaviour
 {
-    private PlayerWeaponVisuals visualController;
-    private PlayerWeaponCotroller weaponController;
+    private Player_WeaponVisuals visualController;
+    private Player_WeaponCotroller weaponController;
 
     private void Start()
     {
-        visualController = GetComponentInParent<PlayerWeaponVisuals>();
-        weaponController = GetComponentInParent<PlayerWeaponCotroller>();
+        visualController = GetComponentInParent<Player_WeaponVisuals>();
+        weaponController = GetComponentInParent<Player_WeaponCotroller>();
     }
 
     public void ReloadIsOver()

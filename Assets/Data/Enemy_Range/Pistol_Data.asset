@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Pistol_Data
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_RangeWeaponData
   weaponType: 0
-  fireRate: 3
+  fireRate: 5
   minBulletsPerAttack: 3
   maxBulletsPerAttack: 4
   minWeaponCooldown: 2
   maxWeaponCooldown: 3
+  bulletDamage: 5
   bulletSpeed: 20
   weaponSpread: 0.1

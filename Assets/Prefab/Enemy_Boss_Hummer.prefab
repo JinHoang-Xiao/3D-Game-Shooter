@@ -5428,6 +5428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &1091667321865911779
 GameObject:
   m_ObjectHideFlags: 0
@@ -5793,6 +5794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &1428093609939565358
 GameObject:
   m_ObjectHideFlags: 0
@@ -6276,6 +6278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &2616587783696524528
 GameObject:
   m_ObjectHideFlags: 0
@@ -6452,6 +6455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1.5
 --- !u!1 &2736808313575389226
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,6 +6630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &2841157578964766891
 GameObject:
   m_ObjectHideFlags: 0
@@ -6771,6 +6776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &2942772804539777282
 GameObject:
   m_ObjectHideFlags: 0
@@ -11890,6 +11896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &3664989466655480727
 GameObject:
   m_ObjectHideFlags: 0
@@ -12255,6 +12262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &4327404836841545693
 GameObject:
   m_ObjectHideFlags: 0
@@ -12621,6 +12629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &5087257059278801187
 GameObject:
   m_ObjectHideFlags: 0
@@ -12630,11 +12639,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8782275105462129038}
+  - component: {fileID: 3540170745896633052}
   - component: {fileID: 453379680283380689}
   - component: {fileID: 4139078578908127048}
   - component: {fileID: 8860051542252294179}
   - component: {fileID: 6730597650144506652}
-  - component: {fileID: 3540170745896633052}
   m_Layer: 11
   m_Name: Enemy_Boss_Hummer
   m_TagString: Untagged
@@ -12661,6 +12670,20 @@ Transform:
   - {fileID: 3495537883490488766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3540170745896633052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087257059278801187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455cee50b5e60c541adf91ca2d7eace4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
+  maxHealth: 2100
+  currentHealth: 0
 --- !u!195 &453379680283380689
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12705,7 +12728,7 @@ MonoBehaviour:
   idleTime: 3
   aggresionRange: 15
   walkSpeed: 1.25
-  runSpeed: 3
+  runSpeed: 4
   turnSpeed: 8
   patrolPoints:
   - {fileID: 3304282449393294725}
@@ -12716,13 +12739,16 @@ MonoBehaviour:
   attackRange: 1.6
   minAbilityDistance: 3
   abilityCooldown: 1
+  flameDamage: 0
   flameDamageCooldown: 0
   flamethrower: {fileID: 6010507563053962643}
   flameThrowDuration: 3
+  hummerActiveDamage: 25
   activationPrefab: {fileID: 2965222256817593503, guid: ad72c9890d21af6488b178e8266287c1, type: 3}
   hummerCheckRadius: 1.25
+  jumpAttackDamage: 25
   jumpAttackCooldown: 6
-  travelTimeToTarget: 1
+  travelTimeToTarget: 0.6
   minJumpDistanceRequired: 5
   impactRadius: 2.5
   impactPower: 15
@@ -12731,6 +12757,7 @@ MonoBehaviour:
   whatToIngore:
     serializedVersion: 2
     m_Bits: 2048
+  meleeAttackDamage: 40
   damagePoints:
   - {fileID: 4953406051164502131}
   attackCheckRadius: 0.6
@@ -12766,20 +12793,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Ragdoll
   ragdollParent: {fileID: 7388409063320635967}
---- !u!114 &3540170745896633052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087257059278801187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 455cee50b5e60c541adf91ca2d7eace4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  maxHealth: 10
-  currentHealth: 0
 --- !u!1 &5120248387096425084
 GameObject:
   m_ObjectHideFlags: 0
@@ -13199,6 +13212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &5704687135047689368
 GameObject:
   m_ObjectHideFlags: 0
@@ -13359,6 +13373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &5958885801740110204
 GameObject:
   m_ObjectHideFlags: 0

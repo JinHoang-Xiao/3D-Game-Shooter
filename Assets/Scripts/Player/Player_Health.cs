@@ -13,19 +13,19 @@ public class Player_Health : HealthController
         player = GetComponent<Player>();
     }
 
-    public override void ReduceHealth()
+    public override void ReduceHealth(int damage)
     {
-        base.ReduceHealth();
+        base.ReduceHealth(damage);
 
         if (ShouldDie())
             Die();
     }
     private void Die()
     {
-        //if (isDead)
-        //    return;
+        if (isDead)
+            return;
 
-        //Debug.Log("Player was killed at " + Time.time);
+        Debug.Log("Player was killed at " + Time.time);
         isDead = true;
         player.anim.enabled = false;
         player.ragdoll.RagdollActive(true);

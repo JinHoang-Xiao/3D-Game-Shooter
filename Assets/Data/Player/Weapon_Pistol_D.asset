@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Weapon_Pistol_D
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_Data
   weaponName: 'Desert Eagle 78 '
-  bulletsInMagazine: 20
-  magazineCapacity: 20
-  totalReserveAmmo: 300
+  bulletDamage: 25
+  bulletsInMagazine: 15
+  magazineCapacity: 15
+  totalReserveAmmo: 200
   shootType: 0
   bulletsPerShot: 1
-  fireRate: 4
+  fireRate: 6
   burstAvalible: 0
   burstActive: 0
   burstBulletsPerShot: 0
@@ -28,7 +29,7 @@ MonoBehaviour:
   maxSpread: 2
   spreadIncreaseRate: 0.15
   weaponType: 0
-  reloadSpeed: 1
-  equipmentSpeed: 1
-  gunDistance: 6
+  reloadSpeed: 2
+  equipmentSpeed: 1.6
+  gunDistance: 25
   cameraDistance: 6

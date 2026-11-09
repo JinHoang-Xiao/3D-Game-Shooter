@@ -10,12 +10,11 @@ public class Player_Hitbox : HitBox
         player = GetComponentInParent<Player>();
     }
 
-    public override void TakeDamage()
+    public override void TakeDamage(int damage)
     {
-        //int newDamage = Mathf.RoundToInt(damage * damageMultiplier);
-        base.TakeDamage();
+        int newDamage = Mathf.RoundToInt(damage * damageMultiplier);
 
-        player.health.ReduceHealth();
+        player.health.ReduceHealth(newDamage);
     }
 
 }

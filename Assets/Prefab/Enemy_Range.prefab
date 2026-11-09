@@ -793,6 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &829771286086753543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,6 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1.5
 --- !u!1 &1123570975886047874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,11 +1971,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2970392541019717003}
+  - component: {fileID: 7477609368216253995}
   - component: {fileID: 5151033615669850031}
   - component: {fileID: 6263590260594232852}
   - component: {fileID: 6027196273008713567}
   - component: {fileID: 2238448967644073185}
-  - component: {fileID: 7477609368216253995}
   m_Layer: 11
   m_Name: Enemy_Range
   m_TagString: Untagged
@@ -2000,6 +2002,20 @@ Transform:
   - {fileID: 7605093487849000028}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7477609368216253995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629579521857507665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455cee50b5e60c541adf91ca2d7eace4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
+  maxHealth: 30
+  currentHealth: 0
 --- !u!114 &5151033615669850031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2030,7 +2046,8 @@ MonoBehaviour:
   - {fileID: 4139129410997550714}
   coverPerk: 0
   unstoppablePerk: 0
-  grenadePerk: 1
+  grenadePerk: 0
+  grenadeDamage: 50
   grenadePrefab: {fileID: 8108181030910222871, guid: 51495a87140c7644a828d6b3bd9c9539, type: 3}
   impactPower: 5
   explosionTimer: 0.75
@@ -2047,7 +2064,7 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   gunPoint: {fileID: 4419407107323694385}
   weaponHolder: {fileID: 2567008772460740757}
-  bulletPrefab: {fileID: 781499979398271465, guid: e4d05de89632c1f41bb11b74456196ee, type: 3}
+  bulletPrefab: {fileID: 781499979398271465, guid: 460b0daa557aa764ea427c80040cdb1e, type: 3}
   slowAim: 4
   fastAim: 20
   aim: {fileID: 7605093487849000028}
@@ -2121,20 +2138,6 @@ MonoBehaviour:
   leftElbowIK: {fileID: 1102891735776250638}
   leftHandIKConstraint: {fileID: 5376761260655693102}
   weaponAimConstraint: {fileID: 4142198124772583001}
---- !u!114 &7477609368216253995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629579521857507665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 455cee50b5e60c541adf91ca2d7eace4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  maxHealth: 20
-  currentHealth: 0
 --- !u!1 &1634133157575450982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,6 +2623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &1843433361710673986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2977,6 +2981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &2128333611320778434
 GameObject:
   m_ObjectHideFlags: 0
@@ -4115,6 +4120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &3102713399157696991
 GameObject:
   m_ObjectHideFlags: 0
@@ -4459,6 +4465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &3520006872465391846
 GameObject:
   m_ObjectHideFlags: 0
@@ -5081,6 +5088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &3937668351076979808
 GameObject:
   m_ObjectHideFlags: 0
@@ -6408,6 +6416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &5323499182163646064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6954,6 +6963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &5993825363636433117
 GameObject:
   m_ObjectHideFlags: 0
@@ -7316,6 +7326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &6269047904657423384
 GameObject:
   m_ObjectHideFlags: 0
@@ -7652,6 +7663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ffbdb6fd49fd40b2eac959bd72aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Hitbox
+  damageMultiplier: 1
 --- !u!1 &6548262181170061354
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ public class Enemy_RangeWeaponData : ScriptableObject
 
 
     [Header("Bullet Details")]
+    public int bulletDamage;
+
+    [Space]
     public float bulletSpeed = 20;
     public float weaponSpread = .1f;
 
@@ -29,7 +32,7 @@ public class Enemy_RangeWeaponData : ScriptableObject
 
         float randomizedValue = Random.Range(-weaponSpread, weaponSpread);
 
-        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue, randomizedValue);
+        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue / 2, randomizedValue);
 
         return spreadRotation * originalDirection;
     }

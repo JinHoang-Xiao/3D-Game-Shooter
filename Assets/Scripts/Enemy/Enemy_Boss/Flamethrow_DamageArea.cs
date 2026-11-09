@@ -14,7 +14,7 @@ public class Flamethrow_DamageArea : MonoBehaviour
     {
         enemy = GetComponentInParent<Enemy_Boss>();
         damageCooldown = enemy.flameDamageCooldown;
-        //flameDamage = enemy.flameDamage;
+        flameDamage = enemy.flameDamage;
     }
 
     private void OnTriggerStay(Collider other)
@@ -30,7 +30,7 @@ public class Flamethrow_DamageArea : MonoBehaviour
 
         if (damagable != null)
         {
-            damagable.TakeDamage();//flameDamage//;
+            damagable.TakeDamage(flameDamage);
             lastTimeDamaged = Time.time; // Update the last tiem damage was applied
             damageCooldown = enemy.flameDamageCooldown; // For easier testing I'm updating
                                                         // cooldown everytime we damage enemy

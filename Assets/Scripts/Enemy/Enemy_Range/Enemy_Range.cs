@@ -11,7 +11,9 @@ public class Enemy_Range : Enemy
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
 
+
     [Header("Grenade perk")]
+    public int grenadeDamage;
     public GameObject grenadePrefab;
     public float impactPower;
     public float explosionTimer = .75f;
@@ -27,11 +29,13 @@ public class Enemy_Range : Enemy
     public float advanceStoppingDistance;
     public float advanceDuration = 2.5f;
 
+
     [Header("Cover system")]
     public float minCoverTime;
     public float safeDistance;
     public CoverPoint currentCover { get; private set; }
     public CoverPoint lastCover { get; private set; }
+
 
     [Header("Weapon details")]
     public float attackDelay;
@@ -42,6 +46,7 @@ public class Enemy_Range : Enemy
     public Transform gunPoint;
     public Transform weaponHolder;
     public GameObject bulletPrefab;
+
 
     [Header("Aim details")]
     public float slowAim = 4;
@@ -130,11 +135,11 @@ public class Enemy_Range : Enemy
 
         if (stateMachine.currentState == deadState)
         {
-            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer, impactPower);
+            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer, impactPower, grenadeDamage);
             return;
         }
 
-        newGrenadeScript.SetupGrenade(whatIsAlly, player.transform.position, timeToTarget, explosionTimer, impactPower);
+        newGrenadeScript.SetupGrenade(whatIsAlly, player.transform.position, timeToTarget, explosionTimer, impactPower, grenadeDamage);
     }
 
     protected override void InitializePerk()
@@ -243,7 +248,7 @@ public class Enemy_Range : Enemy
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, gunPoint);
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
-        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly);
+        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly,weaponData.bulletDamage);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
@@ -299,7 +304,7 @@ public class Enemy_Range : Enemy
 
         if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
         {
-            if (hit.transform == player)
+            if (hit.transform.root == player.root)
             {
                 UpdateAimPosition();
                 return true;

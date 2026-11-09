@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponCotroller : MonoBehaviour
+public class Player_WeaponCotroller : MonoBehaviour
 {
     [SerializeField] private LayerMask whatIsAlly;
 
@@ -173,7 +173,7 @@ public class PlayerWeaponCotroller : MonoBehaviour
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(whatIsAlly, currentWeapon.gunDistance, bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly, currentWeapon.bulletDamage, currentWeapon.gunDistance, bulletImpactForce);
 
 
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());

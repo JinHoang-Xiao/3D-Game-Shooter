@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Weapon_Revolver_D
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_Data
   weaponName: Anaconda Ghetto
+  bulletDamage: 35
   bulletsInMagazine: 6
   magazineCapacity: 6
-  totalReserveAmmo: 300
+  totalReserveAmmo: 180
   shootType: 0
   bulletsPerShot: 1
   fireRate: 3
@@ -28,7 +29,7 @@ MonoBehaviour:
   maxSpread: 2.5
   spreadIncreaseRate: 0.3
   weaponType: 1
-  reloadSpeed: 1
+  reloadSpeed: 1.7
   equipmentSpeed: 1
-  gunDistance: 6
+  gunDistance: 25
   cameraDistance: 6

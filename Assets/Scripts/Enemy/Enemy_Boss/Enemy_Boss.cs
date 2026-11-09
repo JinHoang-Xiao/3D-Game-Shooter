@@ -16,16 +16,19 @@ public class Enemy_Boss : Enemy
     private float lastTimeUsedAbility;
 
     [Header("Flamethrower")]
+    public int flameDamage;
     public float flameDamageCooldown;
     public ParticleSystem flamethrower;
     public float flameThrowDuration;
     public bool flamethrowActive { get; private set; }
 
     [Header("Hummer")]
+    public int hummerActiveDamage;
     public GameObject activationPrefab;
     [SerializeField] private float hummerCheckRadius;
 
     [Header("Jump attack")]
+    public int jumpAttackDamage;
     public float jumpAttackCooldown = 10;
     private float lastTimeJumped;
     public float travelTimeToTarget = 1;
@@ -41,9 +44,11 @@ public class Enemy_Boss : Enemy
     [SerializeField] private LayerMask whatToIngore;
 
     [Header("Attack")]
+    [SerializeField] private int meleeAttackDamage;
     [SerializeField] private Transform[] damagePoints;
     [SerializeField] private float attackCheckRadius;
     [SerializeField] private GameObject meleeAttackFx;
+
 
     public IdleState_Boss idleState { get; private set; }
     public MoveState_Boss moveState { get; private set; }
@@ -83,7 +88,7 @@ public class Enemy_Boss : Enemy
         if (ShouldEnterBattleMode())
             EnterBattleMode();
 
-        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFx);
+        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFx, meleeAttackDamage);
     }
 
     public override void Die()
@@ -131,7 +136,7 @@ public class Enemy_Boss : Enemy
         GameObject newActivation = ObjectPool.instance.GetObject(activationPrefab, impactPoint);
         ObjectPool.instance.ReturnObject(newActivation, 1);
 
-        MassDamage(damagePoints[0].position, hummerCheckRadius);
+        MassDamage(damagePoints[0].position, hummerCheckRadius, hummerActiveDamage);
     }
 
     public bool CanDoAbility()
@@ -158,10 +163,10 @@ public class Enemy_Boss : Enemy
         if (impactPoint == null)
             impactPoint = transform;
 
-        MassDamage(impactPoint.position, impactRadius);
+        MassDamage(impactPoint.position, impactRadius, jumpAttackDamage);
     }
 
-    private void MassDamage(Vector3 impactPoint, float impactRadius)
+    private void MassDamage(Vector3 impactPoint, float impactRadius, int damage)
     {
         HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
         Collider[] colliders = Physics.OverlapSphere(impactPoint, impactRadius, ~whatIsAlly);
@@ -172,14 +177,14 @@ public class Enemy_Boss : Enemy
 
             if (damagable != null)
             {
-                
+
                 GameObject rootEntity = hit.transform.root.gameObject;
 
                 if (uniqueEntities.Add(rootEntity) == false)
                     continue;
 
                 Debug.Log(hit.transform.root.name + " Was damaged!!!");
-                damagable.TakeDamage();
+                damagable.TakeDamage(damage);
             }
 
             ApplyPhysicalForceTo(impactPoint, impactRadius, hit);
@@ -219,7 +224,7 @@ public class Enemy_Boss : Enemy
 
         if (Physics.Raycast(myPos, directionToPlayer, out RaycastHit hit, 100, ~whatToIngore))
         {
-            if (hit.transform == player || hit.transform.parent == player)
+            if (hit.transform.root == player.root)
                 return true;
         }
 
@@ -265,6 +270,6 @@ public class Enemy_Boss : Enemy
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(damagePoints[0].position, hummerCheckRadius);
         }
-        
+
     }
 }

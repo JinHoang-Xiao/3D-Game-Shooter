@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitBox : MonoBehaviour, IDamagable
 {
-    //[SerializeField] protected float damageMultiplier = 1f;
+    [SerializeField] protected float damageMultiplier = 1f;
 
     protected virtual void Awake()
     {
@@ -12,7 +12,7 @@ public class HitBox : MonoBehaviour, IDamagable
     }
 
 
-    public virtual void TakeDamage()
+    public virtual void TakeDamage(int damage)
     {
 
     }

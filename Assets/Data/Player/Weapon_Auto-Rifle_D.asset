@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_Auto-Rifle_D
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_Data
   weaponName: SCAR Light 47
+  bulletDamage: 15
   bulletsInMagazine: 40
   magazineCapacity: 40
   totalReserveAmmo: 500
@@ -22,13 +23,13 @@ MonoBehaviour:
   burstAvalible: 1
   burstActive: 0
   burstBulletsPerShot: 3
-  burstFireRate: 15
+  burstFireRate: 1.5
   burstFireDelay: 0.1
   baseSpread: 0.15
   maxSpread: 3
   spreadIncreaseRate: 0.15
   weaponType: 2
-  reloadSpeed: 1
-  equipmentSpeed: 1
-  gunDistance: 6
+  reloadSpeed: 1.2
+  equipmentSpeed: 1.3
+  gunDistance: 25
   cameraDistance: 6
