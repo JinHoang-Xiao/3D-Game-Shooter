@@ -2014,7 +2014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455cee50b5e60c541adf91ca2d7eace4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  maxHealth: 30
+  maxHealth: 100
   currentHealth: 0
 --- !u!114 &5151033615669850031
 MonoBehaviour:
@@ -2033,8 +2033,7 @@ MonoBehaviour:
     m_Bits: 2048
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
-  healthPoints: 2
+    m_Bits: 256
   idleTime: 3
   aggresionRange: 15
   walkSpeed: 1.5
@@ -2044,6 +2043,7 @@ MonoBehaviour:
   - {fileID: 3812071855713651055}
   - {fileID: 6032243913635938713}
   - {fileID: 4139129410997550714}
+  weaponType: 0
   coverPerk: 0
   unstoppablePerk: 0
   grenadePerk: 0
@@ -2060,7 +2060,6 @@ MonoBehaviour:
   minCoverTime: 4
   safeDistance: 2
   attackDelay: 1
-  weaponType: 0
   weaponData: {fileID: 0}
   gunPoint: {fileID: 4419407107323694385}
   weaponHolder: {fileID: 2567008772460740757}

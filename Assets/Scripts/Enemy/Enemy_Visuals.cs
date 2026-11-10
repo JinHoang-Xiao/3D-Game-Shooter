@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 public enum Enemy_MeleeWeaponType { OneHand, Throw, Unarmed }
-public enum Enemy_RangeWeaponType { Pistol, Revolver, Shotgun, AutoRifle, Rifle }
+public enum Enemy_RangeWeaponType { Pistol, Revolver, Shotgun, AutoRifle, Rifle, Random }
 
 public class Enemy_Visuals : MonoBehaviour
 {
@@ -33,10 +31,10 @@ public class Enemy_Visuals : MonoBehaviour
 
     private void Update()
     {
-        if(leftHandIKConstraint != null)
+        if (leftHandIKConstraint != null)
             leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
 
-        if(weaponAimConstraint !=null)
+        if (weaponAimConstraint != null)
             weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
     }
 

@@ -4210,7 +4210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c0eb212e0beb74fa1e58b264b36a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
-  lastLevelPart: {fileID: 3217707764659742990, guid: 101f4b7b8cb33264b972f8f4726e441f, type: 3}
+  lastLevelPart: {fileID: 288280865753160112, guid: c2024de96ac946e40bf33d255e6a873e, type: 3}
   levelParts:
   - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
   - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
@@ -60536,6 +60536,10 @@ PrefabInstance:
     - target: {fileID: 4979832681344247049, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
       propertyPath: m_Name
       value: Demo - LevelPart - Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791699562312519023, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
+      propertyPath: intersectionLayer.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7586181719298267139, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
       propertyPath: pointType
