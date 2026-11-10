@@ -4216,7 +4216,7 @@ MonoBehaviour:
   - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
   - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
   nextSnapPoint: {fileID: 8918821802920963447}
-  generationCooldown: 0.25
+  generationCooldown: 0
 --- !u!4 &1081919558
 Transform:
   m_ObjectHideFlags: 0
