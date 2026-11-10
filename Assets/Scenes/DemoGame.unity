@@ -4212,9 +4212,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
   lastLevelPart: {fileID: 3217707764659742990, guid: 101f4b7b8cb33264b972f8f4726e441f, type: 3}
   levelParts:
+  - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
   - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
-  - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
-  - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
+  - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
   nextSnapPoint: {fileID: 8918821802920963447}
   generationCooldown: 0
 --- !u!4 &1081919558
@@ -60495,7 +60495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4018100122646807574, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 256.8
+      value: 186.1
       objectReference: {fileID: 0}
     - target: {fileID: 4018100122646807574, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
       propertyPath: m_LocalPosition.y
