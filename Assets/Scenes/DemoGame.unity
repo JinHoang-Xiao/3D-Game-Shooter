@@ -4210,11 +4210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c0eb212e0beb74fa1e58b264b36a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
-  lastLevelPart: {fileID: 0}
+  lastLevelPart: {fileID: 3217707764659742990, guid: 101f4b7b8cb33264b972f8f4726e441f, type: 3}
   levelParts:
   - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
   - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
-  - {fileID: 4018100122646807574, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
+  - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
   nextSnapPoint: {fileID: 8918821802920963447}
   generationCooldown: 0
 --- !u!4 &1081919558
