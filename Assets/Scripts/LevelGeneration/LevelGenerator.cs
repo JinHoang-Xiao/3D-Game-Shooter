@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -12,7 +11,7 @@ public class LevelGenerator : MonoBehaviour
 
     // Snap points
     [SerializeField] private SnapPoint nextSnapPoint;
-    //private SnapPoint defaultSnapPoint;
+    private SnapPoint defaultSnapPoint;
 
 
     // Cooldown
@@ -24,9 +23,8 @@ public class LevelGenerator : MonoBehaviour
     private void Start()
     {
         //enemyList = new List<Enemy>();
-        //defaultSnapPoint = nextSnapPoint;
-        //InitializeGeneration();
-        currentLevelParts = new List<Transform>(levelParts);
+        defaultSnapPoint = nextSnapPoint;
+        InitializeGeneration();
     }
 
 
@@ -51,15 +49,27 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    //[ContextMenu("Restart generation")]
-    //private void InitializeGeneration()
-    //{
-    //    nextSnapPoint = defaultSnapPoint;
-    //    generationOver = false;
-    //    currentLevelParts = new List<Transform>(levelParts);
+    [ContextMenu("Restart generation")]
+    private void InitializeGeneration()
+    {
+        nextSnapPoint = defaultSnapPoint;
+        generationOver = false;
+        currentLevelParts = new List<Transform>(levelParts);
 
-    //    DestroyOldLevelPartsAndEnemies();
-    //}
+        DestroyOldLevelParts();
+
+        //DestroyOldLevelPartsAndEnemies();
+    }
+
+    private void DestroyOldLevelParts()
+    {
+        foreach (Transform t in generatedLevelParts)
+        {
+            Destroy(t.gameObject);
+        }
+
+        generatedLevelParts = new List<Transform>();
+    }
 
     //private void DestroyOldLevelPartsAndEnemies()
     //{
@@ -81,19 +91,30 @@ public class LevelGenerator : MonoBehaviour
     private void FinishGeneration()
     {
         generationOver = true;
-        Transform levelPart = Instantiate(lastLevelPart);
-        LevelPart levelPartScript = levelPart.GetComponent<LevelPart>();
-
-        levelPartScript.SnapAndAlignPartTo(nextSnapPoint);
+        GenerateNextLevelPart();
     }
 
     [ContextMenu("Create next level part")]
     private void GenerateNextLevelPart()
     {
-        Transform newPart = Instantiate(ChooseRandomPart());
-        LevelPart levelPartScript = newPart.GetComponent<LevelPart>();
+        Transform newPart = null;
 
+        if (generationOver)
+            newPart = Instantiate(lastLevelPart);
+        else
+            newPart = Instantiate(ChooseRandomPart());
+
+        generatedLevelParts.Add(newPart);
+
+        LevelPart levelPartScript = newPart.GetComponent<LevelPart>();
         levelPartScript.SnapAndAlignPartTo(nextSnapPoint);
+
+        if (levelPartScript.IntersectionDetected())
+        {
+            InitializeGeneration();
+            return;
+        }
+
         nextSnapPoint = levelPartScript.GetExitPoint();
 
     }
