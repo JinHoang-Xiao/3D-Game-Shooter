@@ -799,8 +799,9 @@ GameObject:
   - component: {fileID: 1104808010162949820}
   - component: {fileID: 5228821391418392547}
   - component: {fileID: 4219433132128463063}
+  - component: {fileID: 2458589992402228885}
   m_Layer: 6
-  m_Name: Demo - LevelPart - Small Square 2
+  m_Name: Demo - LevelPart - T Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,7 +815,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578986085009934531}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 351.7, y: 0, z: -1.2000008}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
@@ -823,10 +824,10 @@ Transform:
   - {fileID: 4703294975494152067}
   - {fileID: 4257783684877878875}
   - {fileID: 3623403518340944235}
-  - {fileID: 4094925064153381310}
   - {fileID: 8622211211318578778}
+  - {fileID: 4094925064153381310}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &9004189826467413757
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -938,6 +939,18 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
+--- !u!114 &2458589992402228885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578986085009934531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730f3d10590da204c8a1ef173182bcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelPart
 --- !u!1 &628074753810213713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8622211211318578778
 Transform:
   m_ObjectHideFlags: 0
@@ -1539,7 +1552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3623403518340944235
 Transform:
   m_ObjectHideFlags: 0
@@ -1548,13 +1561,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105704833672084540}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 65.8, y: 0.08, z: -30.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.4, y: 0.08, z: 0.9}
   m_LocalScale: {x: 41.11, y: 1.5, z: 13.11}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7278203623060033168}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2993838807631252633
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4880,7 +4893,7 @@ GameObject:
   - component: {fileID: 2680668699582903156}
   - component: {fileID: 100714001167302608}
   m_Layer: 6
-  m_Name: SnapPoint - Enter
+  m_Name: SnapPoint - Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4991,7 +5004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c740f19a24ed00a4a92d99db4df4494c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnapPoint
-  pointType: 0
+  pointType: 1
 --- !u!1 &3905353891809756701
 GameObject:
   m_ObjectHideFlags: 0

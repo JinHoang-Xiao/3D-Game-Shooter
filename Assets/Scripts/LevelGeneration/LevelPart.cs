@@ -3,63 +3,6 @@ using UnityEngine;
 
 public class LevelPart : MonoBehaviour
 {
-    //    [Header("Intersection check")]
-    //    [SerializeField] private LayerMask intersectionLayer;
-    //    [SerializeField] private Collider[] intersectionCheckColliders;
-    //    [SerializeField] private Transform intersectionCheckParent;
-
-
-    //    [ContextMenu("Set static to envoirment layer")]
-    //    private void AdjustLayerForStaticObjcets()
-    //    {
-    //        foreach (Transform childTransorm in transform.GetComponentsInChildren<Transform>(true))
-    //        {
-    //            if (childTransorm.gameObject.isStatic)
-    //            {
-    //                childTransorm.gameObject.layer = LayerMask.NameToLayer("Environment");
-    //            }
-    //        }
-    //    }
-
-    //    private void Start()
-    //    {
-    //        if (intersectionCheckColliders.Length <= 0)
-    //        {
-    //            intersectionCheckColliders = intersectionCheckParent.GetComponentsInChildren<Collider>();
-    //        }
-    //    }
-
-    //    public bool IntersectionDetected()
-    //    {
-    //        Physics.SyncTransforms();
-
-    //        foreach (var collider in intersectionCheckColliders)
-    //        {
-    //            Collider[] hitColliders =
-    //Physics.OverlapBox(collider.bounds.center, collider.bounds.extents, Quaternion.identity, intersectionLayer);
-
-    //            foreach (var hit in hitColliders)
-    //            {
-    //                InteresectionCheck interesectionCheck = hit.GetComponentInParent<InteresectionCheck>();
-
-    //                if (interesectionCheck != null && intersectionCheckParent != interesectionCheck.transform)
-    //                    return true;
-    //            }
-
-    //        }
-
-    //        return false;
-
-    //    }
-
-
-    //    public void SnapAndAlignPartTo(SnapPoint targetSnapPoint)
-    //    {
-    //        SnapPoint entrancePoint = GetEntrancePoint();
-
-    //        AlignTo(entrancePoint, targetSnapPoint); // IMPROTANT: Alignment should be before position snapping
-    //        SnapTo(entrancePoint, targetSnapPoint);
-    //    }
     public void SnapAndAlignPartTo(SnapPoint targetSnapPoint)
     {
         SnapPoint entrancePoint = GetEntrancePoint();

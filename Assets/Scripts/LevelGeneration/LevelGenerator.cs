@@ -4,59 +4,52 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    //// Enemies
-    //private List<Enemy> enemyList;
-
-    //// NavMesh
-    //[SerializeField] private NavMeshSurface navMeshSurface;
-    //[Space]
-
     // Level parts
-    //[SerializeField] private Transform lastLevelPart;
+    [SerializeField] private Transform lastLevelPart;
     [SerializeField] private List<Transform> levelParts;
-    //private List<Transform> currentLevelParts;
-    //private List<Transform> generatedLevelParts = new List<Transform>();
+    private List<Transform> currentLevelParts;
+    private List<Transform> generatedLevelParts = new List<Transform>();
 
     // Snap points
     [SerializeField] private SnapPoint nextSnapPoint;
     //private SnapPoint defaultSnapPoint;
 
 
-    //// Cooldown
-    //[Space]
-    //[SerializeField] private float generationCooldown;
-    //private float cooldownTimer;
-    //private bool generationOver;
+    // Cooldown
+    [Space]
+    [SerializeField] private float generationCooldown;
+    private float cooldownTimer;
+    private bool generationOver;
 
     private void Start()
     {
         //enemyList = new List<Enemy>();
         //defaultSnapPoint = nextSnapPoint;
         //InitializeGeneration();
-        GenerateNextLevelPart();
+        currentLevelParts = new List<Transform>(levelParts);
     }
 
 
-    //private void Update()
-    //{
-    //    if (generationOver)
-    //        return;
+    private void Update()
+    {
+        if (generationOver)
+            return;
 
-    //    cooldownTimer -= Time.deltaTime;
+        cooldownTimer -= Time.deltaTime;
 
-    //    if (cooldownTimer < 0)
-    //    {
-    //        if (currentLevelParts.Count > 0)
-    //        {
-    //            cooldownTimer = generationCooldown;
-    //            GenerateNextLevelPart();
-    //        }
-    //        else if (generationOver == false)
-    //        {
-    //            FinishGeneration();
-    //        }
-    //    }
-    //}
+        if (cooldownTimer < 0)
+        {
+            if (currentLevelParts.Count > 0)
+            {
+                cooldownTimer = generationCooldown;
+                GenerateNextLevelPart();
+            }
+            else if (generationOver == false)
+            {
+                FinishGeneration();
+            }
+        }
+    }
 
     //[ContextMenu("Restart generation")]
     //private void InitializeGeneration()
@@ -85,55 +78,14 @@ public class LevelGenerator : MonoBehaviour
     //    enemyList = new List<Enemy>();
     //}
 
-    //private void FinishGeneration()
-    //{
-    //    generationOver = true;
-    //    GenerateNextLevelPart();
+    private void FinishGeneration()
+    {
+        generationOver = true;
+        Transform levelPart = Instantiate(lastLevelPart);
+        LevelPart levelPartScript = levelPart.GetComponent<LevelPart>();
 
-    //    navMeshSurface.BuildNavMesh();
-
-    //    foreach (Enemy enemy in enemyList)
-    //    {
-    //        enemy.transform.parent = null;
-    //        enemy.gameObject.SetActive(true);
-    //    }
-    //}
-
-    //[ContextMenu("Create next level part")]
-    //private void GenerateNextLevelPart()
-    //{
-    //    Transform newPart = null;
-
-    //    if (generationOver)
-    //        newPart = Instantiate(lastLevelPart);
-    //    else
-    //        newPart = Instantiate(ChooseRandomPart());
-
-    //    generatedLevelParts.Add(newPart);
-
-    //    LevelPart levelPartScript = newPart.GetComponent<LevelPart>();
-    //    levelPartScript.SnapAndAlignPartTo(nextSnapPoint);
-
-    //    if (levelPartScript.IntersectionDetected())
-    //    {
-    //        InitializeGeneration();
-    //        return;
-    //    }
-
-    //    nextSnapPoint = levelPartScript.GetExitPoint();
-    //    enemyList.AddRange(levelPartScript.MyEnemies());
-    //}
-
-    //private Transform ChooseRandomPart()
-    //{
-    //    int randomIndex = Random.Range(0, currentLevelParts.Count);
-
-    //    Transform choosenPart = currentLevelParts[randomIndex];
-
-    //    currentLevelParts.RemoveAt(randomIndex);
-
-    //    return choosenPart;
-    //}
+        levelPartScript.SnapAndAlignPartTo(nextSnapPoint);
+    }
 
     [ContextMenu("Create next level part")]
     private void GenerateNextLevelPart()
@@ -148,11 +100,11 @@ public class LevelGenerator : MonoBehaviour
 
     private Transform ChooseRandomPart()
     {
-        int randomIndex = Random.Range(0, levelParts.Count);
+        int randomIndex = Random.Range(0, currentLevelParts.Count);
 
-        Transform choosenPart = levelParts[randomIndex];
+        Transform choosenPart = currentLevelParts[randomIndex];
 
-        levelParts.RemoveAt(randomIndex);
+        currentLevelParts.RemoveAt(randomIndex);
 
         return choosenPart;
     }
