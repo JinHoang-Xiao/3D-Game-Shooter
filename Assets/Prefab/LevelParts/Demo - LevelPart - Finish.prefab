@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelPart
   intersectionLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 0
   intersectionCheckColliders:
   - {fileID: 1058805015391526750}
   intersectionCheckParent: {fileID: 870910460441280911}
