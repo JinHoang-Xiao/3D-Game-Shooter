@@ -248,7 +248,7 @@ MonoBehaviour:
   whatToIngore:
     serializedVersion: 2
     m_Bits: 2048
-  meleeAttackDamage: 45
+  meleeAttackDamage: 40
   damagePoints:
   - {fileID: 6236989095798901032}
   - {fileID: 1496835098006052535}
