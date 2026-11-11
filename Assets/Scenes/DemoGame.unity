@@ -1265,7 +1265,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -10.0199995, y: -4.604848, z: 15.150002}
+  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 2.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2355,6 +2355,17 @@ Transform:
   - {fileID: 1750562978}
   m_Father: {fileID: 1586540819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658249005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6021288887113468599, guid: c58800add177f3146a6e7bab1949c293, type: 3}
+  m_PrefabInstance: {fileID: 2164719168684077341}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689678317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,7 +3290,7 @@ Transform:
   m_GameObject: {fileID: 935532603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.3, y: 0.029, z: -1.8}
+  m_LocalPosition: {x: 3.61, y: 0.029, z: -14.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3699,7 +3710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c0eb212e0beb74fa1e58b264b36a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
-  navMeshSurface: {fileID: 0}
+  navMeshSurface: {fileID: 658249005}
   lastLevelPart: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
   levelParts:
   - {fileID: 2761732783408733036, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
@@ -5980,7 +5991,7 @@ Transform:
   m_GameObject: {fileID: 1640290634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -10.0199995, y: -4.604848, z: 15.150002}
+  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 2.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6603,7 +6614,7 @@ Transform:
   m_GameObject: {fileID: 1811426422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.22, y: 0.74, z: -12.31}
+  m_LocalPosition: {x: -1.2, y: 0.74, z: 1.4}
   m_LocalScale: {x: 0.5, y: 1.25, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8813,6 +8824,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 410490822754696086, guid: c58800add177f3146a6e7bab1949c293, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 461882992322676646, guid: c58800add177f3146a6e7bab1949c293, type: 3}
       propertyPath: m_Name
       value: LevelPart - Start
@@ -8860,7 +8875,7 @@ PrefabInstance:
     - target: {fileID: 6021288887113468599, guid: c58800add177f3146a6e7bab1949c293, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: 987f4b70873540d4f818b22f586fdc10, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6021288887113468599, guid: c58800add177f3146a6e7bab1949c293, type: 3}
       propertyPath: m_UseGeometry
       value: 1

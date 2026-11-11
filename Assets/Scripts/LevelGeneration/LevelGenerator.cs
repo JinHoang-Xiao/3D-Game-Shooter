@@ -78,6 +78,15 @@ public class LevelGenerator : MonoBehaviour
     {
         generationOver = true;
         GenerateNextLevelPart();
+
+        navMeshSurface.BuildNavMesh();
+
+        //foreach (Enemy enemy in enemyList)
+        //{
+        //    enemy.transform.parent = null;
+        //    enemy.gameObject.SetActive(true);
+        //}
+
     }
 
     [ContextMenu("Create next level part")]
