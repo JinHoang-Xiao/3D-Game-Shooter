@@ -1224,7 +1224,7 @@ GameObject:
   - component: {fileID: 7543869285160702219}
   - component: {fileID: 4483560789240621902}
   m_Layer: 0
-  m_Name: LevelPart - Square_3
+  m_Name: LevelPart - Square_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
