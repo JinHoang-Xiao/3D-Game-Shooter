@@ -19,8 +19,8 @@ TagManager:
   - Aim
   - Enemy
   - Enemy's_Ability
-  - 
-  - 
+  - IntersectionCheck
+  - ZoneLimit
   - 
   - 
   - 

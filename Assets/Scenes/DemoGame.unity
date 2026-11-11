@@ -4674,9 +4674,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
   lastLevelPart: {fileID: 288280865753160112, guid: c2024de96ac946e40bf33d255e6a873e, type: 3}
   levelParts:
-  - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
   - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
-  - {fileID: 5298587754378920523, guid: e1eadc0c5b818604bb0419fdd97d4fc7, type: 3}
+  - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
+  - {fileID: 7278203623060033168, guid: 2f509e6abaf82e64991cb4d13f3cc101, type: 3}
   nextSnapPoint: {fileID: 8918821802920963447}
   generationCooldown: 0.25
 --- !u!4 &1081919558
@@ -11096,9 +11096,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7400808609111291832}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: c740f19a24ed00a4a92d99db4df4494c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointType: 1
 --- !u!4 &53247517690365106
 Transform:
   m_ObjectHideFlags: 0
@@ -17181,7 +17182,7 @@ GameObject:
   - component: {fileID: 7519412730920598905}
   - component: {fileID: 502892552222078308}
   - component: {fileID: 8238384801787225204}
-  - component: {fileID: 1548745477594994806}
+  - component: {fileID: 8238384801787225205}
   m_Layer: 0
   m_Name: SnapPoint - Enter
   m_TagString: Untagged
@@ -24274,9 +24275,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4828368503049998289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!33 &1117188261341554566
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26296,18 +26302,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2761732783525462809}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1283692160456764291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4817400976234464243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &1285959965976017012
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -29513,18 +29507,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &1548745477594994806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533281307947875936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1552640776016158555
 GameObject:
   m_ObjectHideFlags: 0
@@ -43752,7 +43734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4901468406359307643}
-  - component: {fileID: 7504219985309735019}
+  - component: {fileID: 4901468406359307644}
   m_Layer: 7
   m_Name: Cover (1)
   m_TagString: Untagged
@@ -44993,7 +44975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8486359467285934298}
-  - component: {fileID: 7524248604838257977}
+  - component: {fileID: 8486359467285934299}
   m_Layer: 6
   m_Name: IntersectionCheckParent (1)
   m_TagString: Untagged
@@ -45339,9 +45321,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5203156155400990136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!64 &2818189577479293666
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -47493,18 +47480,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2984594740241553118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6357741794201724355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2985238008350788392
 Transform:
   m_ObjectHideFlags: 0
@@ -58969,7 +58944,7 @@ GameObject:
   - component: {fileID: 4776831832141087493}
   - component: {fileID: 5595986862769590123}
   - component: {fileID: 2812359310793149989}
-  - component: {fileID: 6038289784887689416}
+  - component: {fileID: 8851455940418022156}
   m_Layer: 7
   m_Name: wooden_pallet (5)
   m_TagString: Untagged
@@ -67563,7 +67538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 634907529532323814}
-  - component: {fileID: 7017513862443391878}
+  - component: {fileID: 4438639134207073366}
   m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
@@ -67571,6 +67546,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4438639134207073366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438639134207073365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!65 &4439520207929891692
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73145,7 +73137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5594236078130047890}
-  - component: {fileID: 1283692160456764291}
+  - component: {fileID: 5594236078130047891}
   m_Layer: 7
   m_Name: Cover
   m_TagString: Untagged
@@ -73396,18 +73388,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6297961357495575253}
   m_Mesh: {fileID: -3743281507657293643, guid: 816898cca74b93e4cbaae930b6f1b802, type: 3}
---- !u!114 &4842650744137389309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5155287999124953092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &4843840704508342460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74186,6 +74166,23 @@ Transform:
   - {fileID: 1062289771716554566}
   m_Father: {fileID: 4673926456021006663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4901468406359307644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702040506759644469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.4
+  zOffset: 1
 --- !u!4 &4907811955577299785
 Transform:
   m_ObjectHideFlags: 0
@@ -77615,7 +77612,7 @@ GameObject:
   - component: {fileID: 253170833483074850}
   - component: {fileID: 8373744203084322932}
   - component: {fileID: 6269648412203842810}
-  - component: {fileID: 4842650744137389309}
+  - component: {fileID: 8373744203084322933}
   m_Layer: 7
   m_Name: Cube (33)
   m_TagString: Untagged
@@ -81758,18 +81755,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5948371177539954988}
   m_Mesh: {fileID: 5106970095228917275, guid: 986ccecd6edd47845abe932f5f674bb8, type: 3}
---- !u!114 &5468854537657070455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7245870521098582879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5469744050800463688
 GameObject:
   m_ObjectHideFlags: 0
@@ -83773,6 +83758,23 @@ Transform:
   - {fileID: 4229663413214814748}
   m_Father: {fileID: 4673926456021006663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5594236078130047891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817400976234464243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.4
+  zOffset: 1
 --- !u!1 &5594559180174122019
 GameObject:
   m_ObjectHideFlags: 0
@@ -89467,18 +89469,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06630361, y: 0.28207278, z: 0.066304}
   m_Center: {x: 0.0000067744404, y: 0.13815331, z: -0.000000009313226}
---- !u!114 &6038289784887689416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3801551231955378178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &6038748731619050011
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -93246,7 +93236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 850621263314447225}
-  - component: {fileID: 6530432063468677307}
+  - component: {fileID: 6295057222303780185}
   m_Layer: 7
   m_Name: Cover (2)
   m_TagString: Untagged
@@ -93254,6 +93244,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6295057222303780185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295057222303780184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.4
+  zOffset: 1
 --- !u!65 &6295623264288973516
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94260,8 +94267,8 @@ GameObject:
   - component: {fileID: 4331242594094151489}
   - component: {fileID: 6845557493276831747}
   - component: {fileID: 2307553747407320363}
-  - component: {fileID: 2984594740241553118}
   - component: {fileID: 4004856819165694807}
+  - component: {fileID: 6845557493276831748}
   m_Layer: 7
   m_Name: crashed_car_3 (4)
   m_TagString: Untagged
@@ -96881,18 +96888,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.635393, y: 0.08277803, z: 2.8599603}
   m_Center: {x: 0.24176608, y: 0.00000018910815, z: 0.07831481}
---- !u!114 &6530432063468677307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6295057222303780184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6537094897061174172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100339,18 +100334,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6805816139792107549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7576908786908113567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6807282132149227783
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100961,6 +100944,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6357741794201724355}
   m_Mesh: {fileID: 913850814907718598, guid: 4292b5b59f56ad64ba543dd154f416ce, type: 3}
+--- !u!114 &6845557493276831748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357741794201724355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1.2
+  yOffset: 0.3
+  zOffset: 2
 --- !u!23 &6849685893672942351
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -101413,9 +101413,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3724957266325339727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!1 &6896094003579655619
 GameObject:
   m_ObjectHideFlags: 0
@@ -102995,18 +103000,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8359485692609803637, guid: 816898cca74b93e4cbaae930b6f1b802, type: 3}
---- !u!114 &7011979886332934623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7337102746820595986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &7012722161120169168
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -103057,18 +103050,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7826675171368022368}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &7017513862443391878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4438639134207073365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &7017960361907701874
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -105808,7 +105789,7 @@ GameObject:
   - component: {fileID: 1963054992434751795}
   - component: {fileID: 8289791620265558640}
   - component: {fileID: 2398313900778022195}
-  - component: {fileID: 5468854537657070455}
+  - component: {fileID: 8289791620265558641}
   m_Layer: 7
   m_Name: barrel_red (4)
   m_TagString: Untagged
@@ -107015,8 +106996,8 @@ GameObject:
   - component: {fileID: 5720582732263663725}
   - component: {fileID: 3752482836473382026}
   - component: {fileID: 517385266475618268}
-  - component: {fileID: 7011979886332934623}
   - component: {fileID: 3344173936000720203}
+  - component: {fileID: 7337102746820595987}
   m_Layer: 7
   m_Name: desert_stone_7
   m_TagString: Untagged
@@ -107024,6 +107005,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &7337102746820595987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337102746820595986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!23 &7341482106574315789
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109542,18 +109540,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7504219985309735019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702040506759644469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &7504253741037087500
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109822,18 +109808,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.39462882, y: 0.40182984, z: 0.3905491}
   m_Center: {x: 0.0124598965, y: 0.016102813, z: -0.0035089552}
---- !u!114 &7524248604838257977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2792865400736150723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &7525784898386845271
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -110570,7 +110544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3442604556913843496}
-  - component: {fileID: 6805816139792107549}
+  - component: {fileID: 7576908786908113568}
   m_Layer: 0
   m_Name: LevelPart - Square_2
   m_TagString: Untagged
@@ -110578,6 +110552,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7576908786908113568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576908786908113567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730f3d10590da204c8a1ef173182bcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelPart
+  intersectionLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  intersectionCheckColliders: []
+  intersectionCheckParent: {fileID: 8486359467285934298}
 --- !u!1 &7579410975728357258
 GameObject:
   m_ObjectHideFlags: 0
@@ -115361,9 +115352,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7716265636528821542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!33 &7944836166946014871
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -119098,6 +119094,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8238384801787225205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533281307947875936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c740f19a24ed00a4a92d99db4df4494c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnapPoint
+  pointType: 0
 --- !u!1 &8240901611181093434
 GameObject:
   m_ObjectHideFlags: 0
@@ -119790,6 +119799,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2402616959074947463, guid: 986ccecd6edd47845abe932f5f674bb8, type: 3}
+--- !u!114 &8289791620265558641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245870521098582879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1
+  yOffset: 0.2
+  zOffset: 1
 --- !u!65 &8290009292800191268
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121019,6 +121045,23 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8373744203084322933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5155287999124953092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1.5
+  yOffset: 0.2
+  zOffset: 1.5
 --- !u!33 &8375477240391279107
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -122376,6 +122419,18 @@ Transform:
   - {fileID: 9126320335072648603}
   m_Father: {fileID: 3442604556913843496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8486359467285934299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2792865400736150723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b6a98d912cd6b4d8dfbe101fa9cb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteresectionCheck
 --- !u!23 &8486494401925408972
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -126735,6 +126790,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3801551231955378178}
   m_Mesh: {fileID: 4601580855478281331, guid: 986ccecd6edd47845abe932f5f674bb8, type: 3}
+--- !u!114 &8851455940418022156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801551231955378178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a7dab5e26c3b45bac28f38e004d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cover
+  coverPointPrefab: {fileID: 6051377753058728728, guid: 6749ab5393e036549bd8ec2602998b8b, type: 3}
+  coverPoints: []
+  xOffset: 1.2
+  yOffset: 0.2
+  zOffset: 1.2
 --- !u!65 &8853615570425755630
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -127524,7 +127596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6791699562312519023, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
       propertyPath: intersectionLayer.m_Bits
-      value: 0
+      value: 8192
       objectReference: {fileID: 0}
     - target: {fileID: 7586181719298267139, guid: 9432838d1f24a9b4ca777c7deb0271bf, type: 3}
       propertyPath: pointType
