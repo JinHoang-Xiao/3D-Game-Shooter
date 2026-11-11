@@ -1,8 +1,19 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+
+    public static LevelGenerator instance;
+
+    // Enemies
+    private List<Enemy> enemyList;
+
+    // NavMesh
+    [SerializeField] private NavMeshSurface navMeshSurface;
+    [Space]
+
     // Level parts
     [SerializeField] private Transform lastLevelPart;
     [SerializeField] private List<Transform> levelParts;
@@ -20,9 +31,14 @@ public class LevelGenerator : MonoBehaviour
     private float cooldownTimer;
     private bool generationOver;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
-        //enemyList = new List<Enemy>();
+        enemyList = new List<Enemy>();
         defaultSnapPoint = nextSnapPoint;
         InitializeGeneration();
     }
@@ -56,23 +72,38 @@ public class LevelGenerator : MonoBehaviour
         generationOver = false;
         currentLevelParts = new List<Transform>(levelParts);
 
-        DestroyOldLevelParts();
+        DestroyOldLevelPartsAndEnemies();
     }
 
-    private void DestroyOldLevelParts()
+    private void DestroyOldLevelPartsAndEnemies()
     {
+        foreach (Enemy enemy in enemyList)
+        {
+            Destroy(enemy.gameObject);
+        }
+
         foreach (Transform t in generatedLevelParts)
         {
             Destroy(t.gameObject);
         }
 
         generatedLevelParts = new List<Transform>();
+        enemyList = new List<Enemy>();
     }
 
     private void FinishGeneration()
     {
         generationOver = true;
         GenerateNextLevelPart();
+
+        navMeshSurface.BuildNavMesh();
+
+        foreach (Enemy enemy in enemyList)
+        {
+            enemy.transform.parent = null;
+            enemy.gameObject.SetActive(true);
+        }
+
     }
 
     [ContextMenu("Create next level part")]
@@ -98,7 +129,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         nextSnapPoint = levelPartScript.GetExitPoint();
-
+        enemyList.AddRange(levelPartScript.MyEnemies());
     }
 
     private Transform ChooseRandomPart()
@@ -111,4 +142,12 @@ public class LevelGenerator : MonoBehaviour
 
         return choosenPart;
     }
+    public Enemy GetRandomEnemy()
+    {
+        int randomIndex = Random.Range(0, enemyList.Count);
+
+        return enemyList[randomIndex];
+    }
+
+    public List<Enemy> GetEnemyList() => enemyList;
 }

@@ -383,7 +383,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.083333336
+  m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelPart
   intersectionLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 0
   intersectionCheckColliders:
   - {fileID: 1734843844212610600}
   intersectionCheckParent: {fileID: 4220419796413311866}

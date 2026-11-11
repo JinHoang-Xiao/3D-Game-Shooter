@@ -9,8 +9,8 @@ public class SnapPoint : MonoBehaviour
 
     private void Start()
     {
-        //GetComponent<BoxCollider>().enabled = false;
-        //GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void OnValidate()

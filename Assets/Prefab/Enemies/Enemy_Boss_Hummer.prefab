@@ -12644,6 +12644,7 @@ GameObject:
   - component: {fileID: 4139078578908127048}
   - component: {fileID: 8860051542252294179}
   - component: {fileID: 6730597650144506652}
+  - component: {fileID: -6368915157240798632}
   m_Layer: 11
   m_Name: Enemy_Boss_Hummer
   m_TagString: Untagged
@@ -12718,13 +12719,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383c0e2e1f4696e408bed246b5d9e970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Boss
+  enemyType: 2
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  healthPoints: 5
   idleTime: 3
   aggresionRange: 15
   walkSpeed: 1.25
@@ -12793,6 +12794,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Ragdoll
   ragdollParent: {fileID: 7388409063320635967}
+--- !u!114 &-6368915157240798632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087257059278801187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b176a0d36b8416d44bb23ee598ef3b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_DropController
+  missionObjectKey: {fileID: 0}
 --- !u!1 &5120248387096425084
 GameObject:
   m_ObjectHideFlags: 0
