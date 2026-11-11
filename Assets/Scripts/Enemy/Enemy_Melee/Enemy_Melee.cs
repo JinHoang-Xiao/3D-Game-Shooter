@@ -149,6 +149,7 @@ public class Enemy_Melee : Enemy
     public override void Die()
     {
         base.Die();
+
         if (stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }

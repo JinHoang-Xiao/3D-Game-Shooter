@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e1c5790852fbb41a04277b4f8b45ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissionManager
-  currentMission: {fileID: 11400000, guid: e2e51fec0f9bc704eb904734b2a86da4, type: 2}
+  currentMission: {fileID: 11400000, guid: 35bbfef1d79a5c945b9a61432cce70e1, type: 2}
 --- !u!1 &105970757
 GameObject:
   m_ObjectHideFlags: 0
@@ -12537,7 +12537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.2
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12545,7 +12545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 79.1
+      value: 69.6
       objectReference: {fileID: 0}
     - target: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
       propertyPath: m_LocalRotation.w

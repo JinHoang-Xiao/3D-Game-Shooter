@@ -4933,6 +4933,7 @@ GameObject:
   - component: {fileID: 4481884281385978567}
   - component: {fileID: 2292704981240693015}
   - component: {fileID: 6184821542127792931}
+  - component: {fileID: 7869048125658797946}
   m_Layer: 11
   m_Name: Enemy_Melee
   m_TagString: Untagged
@@ -4990,7 +4991,6 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  healthPoints: 4
   idleTime: 60
   aggresionRange: 10
   walkSpeed: 1.5
@@ -5095,6 +5095,18 @@ MonoBehaviour:
   leftElbowIK: {fileID: 0}
   leftHandIKConstraint: {fileID: 0}
   weaponAimConstraint: {fileID: 0}
+--- !u!114 &7869048125658797946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6975661970692600620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b176a0d36b8416d44bb23ee598ef3b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_DropController
 --- !u!1 &6994832659010851899
 GameObject:
   m_ObjectHideFlags: 0
