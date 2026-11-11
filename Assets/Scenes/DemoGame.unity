@@ -1265,7 +1265,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 2.25}
+  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 3.6499996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3290,7 +3290,7 @@ Transform:
   m_GameObject: {fileID: 935532603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.61, y: 0.029, z: -14.7}
+  m_LocalPosition: {x: 3.61, y: 0.029, z: -13.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3713,7 +3713,9 @@ MonoBehaviour:
   navMeshSurface: {fileID: 658249005}
   lastLevelPart: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
   levelParts:
+  - {fileID: 3088031989723910240, guid: 3c6c90b6f6a563448977c41d3c3befef, type: 3}
   - {fileID: 2761732783408733036, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
+  - {fileID: 2396855797294430796, guid: aa1101ba4e9758d48821296d2b371a33, type: 3}
   nextSnapPoint: {fileID: 1196236296}
   generationCooldown: 0.25
 --- !u!4 &1081919558
@@ -5991,7 +5993,7 @@ Transform:
   m_GameObject: {fileID: 1640290634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 2.25}
+  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 3.6499996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

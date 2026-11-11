@@ -119,7 +119,7 @@ Physics.OverlapBox(collider.bounds.center, collider.bounds.extents, Quaternion.i
         return null;
     }
 
-    //public Enemy[] MyEnemies() => GetComponentsInChildren<Enemy>(true);
+    public Enemy[] MyEnemies() => GetComponentsInChildren<Enemy>(true);
 }
 
 
