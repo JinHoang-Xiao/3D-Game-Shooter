@@ -1279,7 +1279,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 11.05}
+  m_LocalPosition: {x: 5.7800007, y: -3.6338477, z: 10.900001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3727,7 +3727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
   navMeshSurface: {fileID: 658249005}
   lastLevelPart: {fileID: 7490612435640527355, guid: a485ab8561cafe14ca6e4c5e4cb8a0bd, type: 3}
-  levelParts: []
+  levelParts:
+  - {fileID: 2761732783408733036, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
   nextSnapPoint: {fileID: 1196236296}
   generationCooldown: 0.25
 --- !u!4 &1081919558
@@ -6080,7 +6081,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 935532606}
+  m_Follow: {fileID: 1337210167}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -6109,7 +6110,7 @@ Transform:
   m_GameObject: {fileID: 1640290634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -9.71, y: -4.6048474, z: 11.05}
+  m_LocalPosition: {x: 5.7800007, y: -3.6338477, z: 10.900001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
