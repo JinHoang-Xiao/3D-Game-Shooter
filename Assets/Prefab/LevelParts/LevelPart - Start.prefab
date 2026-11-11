@@ -341,7 +341,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: fca373423f21b384b900f058d59037f5, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 665ab463097fe4f41b56058960876963, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &824122963965714109
 MonoBehaviour:
@@ -2322,7 +2322,7 @@ GameObject:
   - component: {fileID: 8566026548829800473}
   - component: {fileID: 8428730922392047014}
   - component: {fileID: 3101321838244388543}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: hill_terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2435,7 +2435,7 @@ GameObject:
   - component: {fileID: 7763800663496272524}
   - component: {fileID: 3805702847660663574}
   - component: {fileID: 926744200620066989}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: base_terrain_square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    // NavMesh
+    [SerializeField] private NavMeshSurface navMeshSurface;
+
+    [Space]
     // Level parts
     [SerializeField] private Transform lastLevelPart;
     [SerializeField] private List<Transform> levelParts;

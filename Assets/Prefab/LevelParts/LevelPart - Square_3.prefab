@@ -5958,7 +5958,7 @@ GameObject:
   - component: {fileID: 3209533622850310944}
   - component: {fileID: 6952233683184026772}
   - component: {fileID: 3579372576548391458}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: base_terrain_square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
