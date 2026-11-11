@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyType { Melee, Range, Boss, Random }
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
 
+    public EnemyType enemyType;
     public LayerMask whatIsAlly;
     public LayerMask whatIsPlayer;
 
@@ -70,6 +72,15 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public virtual void MakeEnemyVIP()
+    {
+        int additionalHealth = Mathf.RoundToInt(health.currentHealth * 1.5f);
+
+        health.currentHealth += additionalHealth;
+
+        transform.localScale = transform.localScale * 1.15f;
+    }
+
     protected bool ShouldEnterBattleMode()
     {
         if (IsPlayerInAgrresionRange() && !inBattleMode)
@@ -91,18 +102,17 @@ public class Enemy : MonoBehaviour
         health.ReduceHealth(damage);
 
         if (health.ShouldDie())
-        {
-            dropController.DropItems();
             Die();
-        }
-
 
         EnterBattleMode();
     }
 
     public virtual void Die()
     {
+        dropController.DropItems();
 
+        MissionObject_HuntTarget huntTarget = GetComponent<MissionObject_HuntTarget>();
+        huntTarget?.InvokeOnTargetKilled();
     }
 
     public virtual void MeleeAttackCheck(Transform[] damagePoints, float attackCheckRadius, GameObject fx, int damage)

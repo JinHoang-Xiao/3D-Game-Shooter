@@ -13,10 +13,10 @@ public class Mission_KeyFind : Mission
     {
         MissionObject_Key.OnKeyPickedUp += PickUpKey;
 
-        //Debug.Log("mission begun");
+        Debug.Log("mission begun");
         Enemy enemy = LevelGenerator.instance.GetRandomEnemy();
         enemy.GetComponent<Enemy_DropController>()?.GiveKey(key);
-        //enemy.MakeEnemyVIP();
+        enemy.MakeEnemyVIP();
     }
 
     public override bool MissionCompleted()

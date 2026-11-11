@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383c0e2e1f4696e408bed246b5d9e970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Boss
+  enemyType: 2
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
@@ -300,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b176a0d36b8416d44bb23ee598ef3b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_DropController
+  missionObjectKey: {fileID: 0}
 --- !u!1 &500496463596134729
 GameObject:
   m_ObjectHideFlags: 0
