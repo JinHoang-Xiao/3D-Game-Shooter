@@ -5644,6 +5644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup_Ammo - Big (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2958060937623059636, guid: 02dd8b667bc6d314ab6daa7526f84550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5105870357628278094, guid: 02dd8b667bc6d314ab6daa7526f84550, type: 3}
       propertyPath: m_LocalPosition.x
       value: 47.46
@@ -10939,6 +10943,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup_Ammo - Big
       objectReference: {fileID: 0}
+    - target: {fileID: 2958060937623059636, guid: 02dd8b667bc6d314ab6daa7526f84550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5105870357628278094, guid: 02dd8b667bc6d314ab6daa7526f84550, type: 3}
       propertyPath: m_LocalPosition.x
       value: 53.867897
@@ -15530,6 +15538,10 @@ PrefabInstance:
     - target: {fileID: 5224673678765946960, guid: c43dffaf547b80542bce08e9b7928808, type: 3}
       propertyPath: m_Name
       value: Pickup_Ammo - Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224673678765946960, guid: c43dffaf547b80542bce08e9b7928808, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8453513749387571489, guid: c43dffaf547b80542bce08e9b7928808, type: 3}
       propertyPath: m_LocalPosition.x
