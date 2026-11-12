@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Mission_EnemyHunt
   missionName: Hunt Enemy
   missionDescription: 
-  amountToKill: 1
+  amountToKill: 12
   enemyType: 0
