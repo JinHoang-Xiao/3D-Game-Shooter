@@ -6086,6 +6086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Boss_FlameThrower
       objectReference: {fileID: 0}
+    - target: {fileID: 162320132674719671, guid: 01546bcaeb5a816408e7aab1596f2d56, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5205415625528960401, guid: 01546bcaeb5a816408e7aab1596f2d56, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.861746
