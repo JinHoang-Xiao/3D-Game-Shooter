@@ -27,7 +27,10 @@ public class Mission_Timer : Mission
 
         string timeText = System.TimeSpan.FromSeconds(currentTime).ToString("mm':'ss");
 
-        Debug.Log(timeText);
+        string missionText = "Tới điếm tập kết trước khi máy bay cất cánh.";
+        string missionDetails = "Thời gian còn lại: " + timeText;
+
+        UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
     }
 
     public override bool MissionCompleted()
