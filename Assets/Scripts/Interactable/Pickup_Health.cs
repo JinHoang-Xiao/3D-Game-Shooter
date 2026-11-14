@@ -24,9 +24,7 @@ public class Pickup_Health : Interactable
         if (playerHealth == null || playerHealth.currentHealth >= playerHealth.maxHealth)
             return;
 
-        playerHealth.currentHealth = Mathf.Min(
-            playerHealth.currentHealth + healAmount,
-            playerHealth.maxHealth);
+        playerHealth.Heal(healAmount);
 
         ObjectPool.instance.ReturnObject(gameObject);
     }
