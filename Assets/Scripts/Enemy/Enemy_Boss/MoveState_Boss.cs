@@ -59,8 +59,13 @@ public class MoveState_Boss : EnemyState
         }
         else
         {
-            if (Vector3.Distance(enemy.transform.position, destination) < .25f)
+            if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= 0.2f)
+            {
+                enemy.agent.isStopped = true;
+                enemy.agent.velocity = Vector3.zero;
+
                 stateMachine.ChangeState(enemy.idleState);
+            }
         }
     }
 

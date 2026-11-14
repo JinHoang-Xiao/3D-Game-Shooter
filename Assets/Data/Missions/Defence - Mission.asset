@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382abc0235525394a8d2527701660f10, type: 3}
+  m_Name: Defence - Mission
+  m_EditorClassIdentifier: Assembly-CSharp::Mission_LastDefence
+  missionName: Final Defence
+  missionDescription: "H\xE3y \u0111\u1EBFn \u0111i\u1EC3m tho\xE1t hi\u1EC3m v\xE0
+    b\u1EA3o v\u1EC7 m\xE1y bay cho \u0111\u1EBFn khi n\xF3 s\u1EB5n s\xE0ng c\u1EA5t
+    c\xE1nh."
+  defenceBegun: 0
+  defenceDuration: 120
+  waveCooldown: 15
+  amountOfRespawnPoints: 2
+  respawnPoints: []
+  enemiesPerWave: 3
+  possibleEnemies:
+  - {fileID: 5517786861892789960, guid: 8d26b7755d830c044a8fcb3ca0d2a198, type: 3}
+  - {fileID: 2084399483581411975, guid: cb9cd010086e02d4d9d645449369e8fd, type: 3}
+  - {fileID: 4832181724759359692, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+  - {fileID: 4983429847741716924, guid: ee8f864fa64f16240aeed1dd7b4b8e98, type: 3}
+  - {fileID: 5991731174473179875, guid: 3e643a022c8d18844b31ba1ff39d3441, type: 3}
+  - {fileID: 7229844580814841027, guid: 1be01c5dcdeddb945b852899e57ca738, type: 3}
+  - {fileID: 3270235849841103265, guid: 84e03368bcd82724c8eae375f3b236d9, type: 3}
+  - {fileID: 1999832062543685575, guid: 24af86bc2afab474892a3e954c9a8af3, type: 3}

@@ -271,6 +271,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UI Mission ToolTip Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""f89679a6-9fb9-43d5-b960-e802eadbb4c3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -766,6 +775,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adee8460-4fce-432f-895f-25dc585802c2"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UI Mission ToolTip Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1373,6 +1393,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_ToggleWeaponMode = m_Character.FindAction("Toggle Weapon Mode", throwIfNotFound: true);
         m_Character_Interaction = m_Character.FindAction("Interaction", throwIfNotFound: true);
         m_Character_Newaction = m_Character.FindAction("New action", throwIfNotFound: true);
+        m_Character_UIMissionToolTipSwitch = m_Character.FindAction("UI Mission ToolTip Switch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1486,6 +1507,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_ToggleWeaponMode;
     private readonly InputAction m_Character_Interaction;
     private readonly InputAction m_Character_Newaction;
+    private readonly InputAction m_Character_UIMissionToolTipSwitch;
     /// <summary>
     /// Provides access to input actions defined in input action map "Character".
     /// </summary>
@@ -1578,6 +1600,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Newaction => m_Wrapper.m_Character_Newaction;
         /// <summary>
+        /// Provides access to the underlying input action "Character/UIMissionToolTipSwitch".
+        /// </summary>
+        public InputAction @UIMissionToolTipSwitch => m_Wrapper.m_Character_UIMissionToolTipSwitch;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Character; }
@@ -1663,6 +1689,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Newaction.started += instance.OnNewaction;
             @Newaction.performed += instance.OnNewaction;
             @Newaction.canceled += instance.OnNewaction;
+            @UIMissionToolTipSwitch.started += instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.performed += instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.canceled += instance.OnUIMissionToolTipSwitch;
         }
 
         /// <summary>
@@ -1734,6 +1763,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Newaction.started -= instance.OnNewaction;
             @Newaction.performed -= instance.OnNewaction;
             @Newaction.canceled -= instance.OnNewaction;
+            @UIMissionToolTipSwitch.started -= instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.performed -= instance.OnUIMissionToolTipSwitch;
+            @UIMissionToolTipSwitch.canceled -= instance.OnUIMissionToolTipSwitch;
         }
 
         /// <summary>
@@ -2174,6 +2206,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNewaction(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UI Mission ToolTip Switch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUIMissionToolTipSwitch(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

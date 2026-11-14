@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0f067ef07a8b046be34dbc6d143043, type: 3}
   m_Name: Hunt - Mission
   m_EditorClassIdentifier: Assembly-CSharp::Mission_EnemyHunt
-  missionName: Hunt Enemy
-  missionDescription: 
-  amountToKill: 1
+  missionName: "M\u1EE5c ti\xEAu ch\u1EC9 \u0111\u1ECBnh "
+  missionDescription: "H\xE3y s\u0103n l\xF9ng 12 k\u1EBB \u0111\u1ECBch \u0111\u01B0\u1EE3c
+    trang b\u1ECB thi\u1EBFt b\u1ECB g\xE2y nhi\u1EC5u t\xEDn hi\u1EC7u. Nh\u1EEFng
+    thi\u1EBFt b\u1ECB n\xE0y \u0111ang l\xE0m nhi\u1EC5u h\u1EC7 th\u1ED1ng radar
+    c\u1EE7a m\xE1y bay, khi\u1EBFn m\xE1y bay kh\xF4ng th\u1EC3 c\u1EA5t c\xE1nh
+    an to\xE0n. H\xE3y lo\u1EA1i b\u1ECF m\u1ED1i \u0111e d\u1ECDa v\xE0 d\u1ECDn
+    \u0111\u01B0\u1EDDng cho cu\u1ED9c tr\u1ED1n tho\xE1t c\u1EE7a b\u1EA1n"
+  amountToKill: 12
   enemyType: 0

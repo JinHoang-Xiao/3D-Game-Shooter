@@ -14,6 +14,8 @@ public class Mission_EnemyHunt : Mission
     public override void StartMission()
     {
         killsToGo = amountToKill;
+        UpdateMissionUI();
+
         MissionObject_HuntTarget.OnTargetKilled += EliminateTarget;
 
         List<Enemy> validEnemies = new List<Enemy>();
@@ -48,9 +50,20 @@ public class Mission_EnemyHunt : Mission
     private void EliminateTarget()
     {
         killsToGo--;
+        UpdateMissionUI();
 
         if (killsToGo <= 0)
+        {
+            UI.instance.inGameUI.UpdateMissionInfo("Hãy đến điểm sơ tán.");
             MissionObject_HuntTarget.OnTargetKilled -= EliminateTarget;
+        }
     }
 
+    private void UpdateMissionUI()
+    {
+        string missionText = "Hãy săn lùng " + amountToKill + " mục tiêu được trang bị thiết bị gây nhiễu tín hiệu.";
+        string missionDetails = "Mục tiêu còn lại: " + killsToGo;
+
+        UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
+    }
 }

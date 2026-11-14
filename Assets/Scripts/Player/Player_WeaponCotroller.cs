@@ -71,7 +71,9 @@ public class Player_WeaponCotroller : MonoBehaviour
         player.weaponVisuals.SwitchOffWeaponModels(); // Tắt hình ảnh vũ khí khi thay đổi vũ khí để không bị kỳ khi thay đổi cầm vũ khí khác
         player.weaponVisuals.PlayWeaponEquipAnimation();
 
-        CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance);
+        //CameraManager.instance.ChangeCameraDistance(currentWeapon.cameraDistance); Có thể xóa vì không cần thay đổi góc mỗi khi mang súng mới
+
+        UpdateWeaponUI();
     }
     public void PickupWeapon(Weapon newWeapon)
     {
@@ -96,6 +98,8 @@ public class Player_WeaponCotroller : MonoBehaviour
 
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwithOnBackupWeaponModels();
+
+        UpdateWeaponUI();
     }
     private void DropWeapon()
     {
@@ -120,6 +124,13 @@ public class Player_WeaponCotroller : MonoBehaviour
     public bool WeaponReady() => weaponReady;
 
     #endregion
+
+    public void UpdateWeaponUI()
+    {
+        UI.instance.inGameUI.UpdateWeaponUI(weaponSlots, currentWeapon);
+    }
+
+
 
     private IEnumerator BurstFire()
     {
@@ -164,7 +175,7 @@ public class Player_WeaponCotroller : MonoBehaviour
     private void FireSingleBullet()
     {
         currentWeapon.bulletsInMagazine--;
-
+        UpdateWeaponUI();
 
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, GunPoint()); //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
 
@@ -186,6 +197,9 @@ public class Player_WeaponCotroller : MonoBehaviour
     {
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
+
+        // Refill of bullets ở trong Player_AnimationEvents
+        // Nên Đã UpdateWeaponUI trong Player_AnimationEvents
     }
 
     public Vector3 BulletDirection()
