@@ -33,7 +33,7 @@ public class UI_WeaponSelection : MonoBehaviour
         if (AtLeastOneWeaponSelected())
         {
             UI.instance.SwitchTo(nextUIToSwitchOn);
-            //UI.instance.StartLevelGeneration();
+            UI.instance.StartLevelGeneration();
         }
         else
             ShowWarningMessage("Select at least one weapon.");

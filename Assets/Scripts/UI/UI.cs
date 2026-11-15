@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class UI : MonoBehaviour
     public UI_GameOver gameOverUI { get; private set; }
     public GameObject victoryScreenUI;
     public GameObject pauseUI;
+
 
     [SerializeField] private GameObject[] UIElements;
 
@@ -30,8 +32,21 @@ public class UI : MonoBehaviour
         AssignInputsUI();
 
         StartCoroutine(ChangeImageAlpha(0, 1.5f, null));
-    }
 
+
+        // Remove this if statement before build, it's for easier testing
+        if (GameManager.instance.quickStart)
+        {
+            StartCoroutine(QuickStartAfterInitialization());
+        }
+    }
+    private IEnumerator QuickStartAfterInitialization()
+    {
+        yield return null;
+
+        LevelGenerator.instance.InitializeGeneration();
+        StartTheGame();
+    }
     public void SwitchTo(GameObject uiToSwitchOn)
     {
         foreach (GameObject go in UIElements)
@@ -42,14 +57,9 @@ public class UI : MonoBehaviour
         uiToSwitchOn.SetActive(true);
     }
 
-    public void StartTheGame()
-    {
-        SwitchTo(inGameUI.gameObject);
-        GameManager.instance.GameStart();
-    }
+    public void StartTheGame() => StartCoroutine(StartGameSequence());
 
     public void QuitTheGame() => Application.Quit();
-
     public void StartLevelGeneration() => LevelGenerator.instance.InitializeGeneration();
 
     public void RestartTheGame()
@@ -74,10 +84,27 @@ public class UI : MonoBehaviour
             TimeManager.instance.PauseTime();
         }
     }
+
     public void ShowGameOverUI(string message = "GAME OVER!")
     {
         SwitchTo(gameOverUI.gameObject);
         gameOverUI.ShowGameOverMessage(message);
+    }
+
+    public void ShowVictoryScreenUI()
+    {
+        StartCoroutine(ChangeImageAlpha(1, 1.5f, SwitchToVictoryScreenUI));
+    }
+
+    private void SwitchToVictoryScreenUI()
+    {
+        SwitchTo(victoryScreenUI);
+
+        Color color = fadeImage.color;
+        color.a = 0;
+
+        fadeImage.color = color;
+
     }
 
     private void AssignInputsUI()
@@ -86,6 +113,7 @@ public class UI : MonoBehaviour
 
         controls.UI.UIPause.performed += ctx => PauseSwitch();
     }
+
     private IEnumerator StartGameSequence()
     {
 
@@ -121,7 +149,4 @@ public class UI : MonoBehaviour
         // Call the cimpletion method if it exists
         onComplete?.Invoke();
     }
-
-
-
 }

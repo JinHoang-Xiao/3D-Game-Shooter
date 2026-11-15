@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Settings")]
     public bool friendlyFire;
+    [Space]
+    public bool quickStart;
 
     private void Awake()
     {
@@ -22,12 +24,19 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         SetDefaultWeaponsForPlayer();
-        LevelGenerator.instance.InitializeGeneration();
 
+        //LevelGenerator.instance.InitializeGeneration();
         //Bắt đầu nhiệm vụ đã chọn trong một script LevelGenerator, sau khi quá trình tạo màn chơi hoàn tất
     }
 
     public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    public void GameCompleted()
+    {
+        UI.instance.ShowVictoryScreenUI();
+        ControlsManager.instance.controls.Character.Disable();
+        player.health.currentHealth += 99999; // Player se khong chet vao may giay cuoi
+    }
 
     public void GameOver()
     {
