@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0eee40601bd9524a958ee27acab30eb, type: 3}
   m_Name: Car delivery - Mission
   m_EditorClassIdentifier: Assembly-CSharp::Mission_CarDelivery
-  missionName: "Ph\u01B0\u01A1ng ti\u1EC7n s\u1ED1ng c\xF2n"
-  missionDescription: "B\u1EA1n c\u1EA7n t\xECm m\u1ED9t chi\u1EBFc xe c\xF2n ho\u1EA1t
-    \u0111\u1ED9ng v\xE0 \u0111\u01B0a n\xF3 \u0111\u1EBFn \u0111i\u1EC3m s\u01A1
-    t\xE1n. C\xE1c b\u1ED9 ph\u1EADn c\u1EE7a xe c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c
-    d\xF9ng \u0111\u1EC3 s\u1EEDa ch\u1EEFa m\xE1y bay s\u01A1 t\xE1n."
+  missionName: A Mechanical Lifeline
+  missionDescription: Find a working vehicle and deliver it to the evacuation site.
+    Its parts can be used to repair the evacuation plane.

@@ -7,12 +7,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public sealed class SceneLinks : MonoBehaviour
 {
-    [SerializeField] private float delaySeconds = 1f;
-
-    private void Start()
-    {
-        Invoke(nameof(OpenGame), delaySeconds);
-    }
 
     public void OpenGame()
     {
@@ -22,5 +16,9 @@ public sealed class SceneLinks : MonoBehaviour
     public void OpenMenu()
     {
         SceneManager.LoadScene("UI Scene");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

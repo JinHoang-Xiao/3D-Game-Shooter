@@ -54,15 +54,15 @@ public class Mission_EnemyHunt : Mission
 
         if (killsToGo <= 0)
         {
-            UI.instance.inGameUI.UpdateMissionInfo("Hãy đến điểm sơ tán.");
+            UI.instance.inGameUI.UpdateMissionInfo("Reach the assembly point.");
             MissionObject_HuntTarget.OnTargetKilled -= EliminateTarget;
         }
     }
 
     private void UpdateMissionUI()
     {
-        string missionText = "Hãy săn lùng " + amountToKill + " mục tiêu được trang bị thiết bị gây nhiễu tín hiệu.";
-        string missionDetails = "Mục tiêu còn lại: " + killsToGo;
+        string missionText = "Hunt down " + amountToKill + " targets equipped with a signal-jamming device.";
+        string missionDetails = "Target left: " + killsToGo;
 
         UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
     }

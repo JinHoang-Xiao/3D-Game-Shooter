@@ -34,7 +34,7 @@ public class Mission_LastDefence : Mission
         defencePoint = FindFirstObjectByType<MissionEnd_Trigger>().transform.position;
         respawnPoints = new List<Transform>(ClosestPoints(amountOfRespawnPoints));
 
-        UI.instance.inGameUI.UpdateMissionInfo("Hãy đến điểm tập kết.");
+        UI.instance.inGameUI.UpdateMissionInfo("Reach the assembly point.");
     }
 
     public override bool MissionCompleted()
@@ -67,8 +67,8 @@ public class Mission_LastDefence : Mission
 
         defenceTimerText = System.TimeSpan.FromSeconds(defenceTimer).ToString("mm':'ss");
 
-        string missionText = "Hãy phòng thủ đến khi động cơ máy bay sẵn sàng.";
-        string missionDetails = "Thời gian còn lại: " + defenceTimerText;
+        string missionText = "Hold your position until the aircraft engines are ready..";
+        string missionDetails = "Time left: " + defenceTimerText;
 
         UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
     }

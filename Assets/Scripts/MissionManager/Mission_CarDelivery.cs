@@ -12,8 +12,8 @@ public class Mission_CarDelivery : Mission
     {
         FindFirstObjectByType<MissionObject_CarDeliveryZone>(FindObjectsInactive.Include).gameObject.SetActive(true);
 
-        string missionText = "Tìm một phương tiện còn hoạt động được.";
-        string missionDetails = "Lái xe đến điểm tập kết.";
+        string missionText = "Find a vehicle that is still in working order.";
+        string missionDetails = "Drive to the assembly point.";
 
         UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
 
@@ -39,7 +39,7 @@ public class Mission_CarDelivery : Mission
         carWasDelivered = true;
         MissionObject_CarToDeliver.OnCarDelivery -= CarDeliveryCompleted;
 
-        UI.instance.inGameUI.UpdateMissionInfo("Di chuyển đến điểm sơ tán");
+        UI.instance.inGameUI.UpdateMissionInfo("Drive to the assembly point.");
     }
 
 }

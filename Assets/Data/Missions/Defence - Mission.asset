@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Defence - Mission
   m_EditorClassIdentifier: Assembly-CSharp::Mission_LastDefence
   missionName: Final Defence
-  missionDescription: "H\xE3y \u0111\u1EBFn \u0111i\u1EC3m tho\xE1t hi\u1EC3m v\xE0
-    b\u1EA3o v\u1EC7 m\xE1y bay cho \u0111\u1EBFn khi n\xF3 s\u1EB5n s\xE0ng c\u1EA5t
-    c\xE1nh."
+  missionDescription: Reach the exit point and defend the airplane until it is ready
+    to take off.
   defenceBegun: 0
   defenceDuration: 120
   waveCooldown: 15

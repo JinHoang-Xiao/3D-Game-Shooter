@@ -13,7 +13,7 @@ public class Mission_KeyFind : Mission
     {
         MissionObject_Key.OnKeyPickedUp += PickUpKey;
 
-        UI.instance.inGameUI.UpdateMissionInfo("Tìm mục tiêu giữ chìa khóa. Lấy lại chiếc chìa khóa đó.");
+        UI.instance.inGameUI.UpdateMissionInfo("Find the target holding the key. Retrieve that key.");
 
         Enemy enemy = LevelGenerator.instance.GetRandomEnemy();
         enemy.GetComponent<Enemy_DropController>()?.GiveKey(key);
@@ -30,6 +30,6 @@ public class Mission_KeyFind : Mission
         keyFound = true;
         MissionObject_Key.OnKeyPickedUp -= PickUpKey;
 
-        UI.instance.inGameUI.UpdateMissionInfo("Bạn đã tìm tháy chìa khóa! \n Hãy đến điểm tập kết.");
+        UI.instance.inGameUI.UpdateMissionInfo("You have found the key! \n Head to the rendezvous point.");
     }
 }
