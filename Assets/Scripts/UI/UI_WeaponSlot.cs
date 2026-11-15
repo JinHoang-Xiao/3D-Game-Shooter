@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,5 +30,6 @@ public class UI_WeaponSlot : MonoBehaviour
         weaponIcon.sprite = myWeapon.weaponData.weaponIcon;
 
         ammoText.text = myWeapon.bulletsInMagazine + "/" + myWeapon.totalReserveAmmo;
+        ammoText.color = Color.white;
     }
 }

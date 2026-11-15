@@ -6,9 +6,27 @@ public class UI : MonoBehaviour
 
     public UI_InGame inGameUI { get; private set; }
 
+    [SerializeField] private GameObject[] UIElements;
+
     private void Awake()
     {
         instance = this;
-        inGameUI = GetComponentInChildren<UI_InGame>();
+        inGameUI = GetComponentInChildren<UI_InGame>(true);
     }
+
+    public void SwithTo(GameObject uiToSwitchOn)
+    {
+        foreach(GameObject go in UIElements)
+        {
+            go.SetActive(false);
+        }
+
+        uiToSwitchOn.SetActive(true);
+    }    
+
+    public void SwitchToInGameUI()
+    {
+        SwithTo(inGameUI.gameObject);
+    }
+    public void QuitTheGame() => Application.Quit();
 }

@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b519b8ffe5c1e445b149be11b583867, type: 3}
   m_Name: Timer - Mission
   m_EditorClassIdentifier: Assembly-CSharp::Mission_Timer
-  missionName: "Cu\u1ED9c \u0111ua v\u1EDBi th\u1EDDi gian"
-  missionDescription: "M\xE1y qu\xE9t c\u1EE7a b\u1EA1n ph\xE1t hi\u1EC7n m\u1ED9t
-    c\u01A1n b\xE3o c\xE1t \u0111ang \u0111\u1EBFn g\u1EA7n. B\u1EA1n c\xF2n ch\u01B0a
-    \u0111\u1EA7y 15 ph\xFAt \u0111\u1EC3 \u0111\u1EBFn ch\u1ED7 m\xE1y bay tr\u01B0\u1EDBc
-    khi th\u1EDDi ti\u1EBFt tr\u1EDF n\xEAn qu\xE1 kh\u1EAFc nghi\u1EC7t \u0111\u1EC3
-    c\u1EA5t c\xE1nh an to\xE0n."
+  missionName: Race Against Time
+  missionDescription: Your scanners have detected an approaching sandstorm. You have
+    less than 15 minutes to reach the airplane before conditions become too dangerous
+    for a safe takeoff.
   time: 300
