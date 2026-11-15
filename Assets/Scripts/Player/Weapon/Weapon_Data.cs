@@ -50,4 +50,5 @@ public class Weapon_Data : ScriptableObject
 
     [Header("UI Elements")]
     public Sprite weaponIcon;
+    public string weaponInfo;
 }

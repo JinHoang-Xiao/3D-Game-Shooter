@@ -49,6 +49,9 @@ public class Player_AimController : MonoBehaviour
         if (player.health.isDead)
             return;
 
+        if (player.controlsEnabled == false)
+            return;
+
         if(Input.GetKeyDown(KeyCode.P))
         {
             isAimingPrecisly = !isAimingPrecisly;

@@ -280,6 +280,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UI Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed24f380-b6b3-4de0-a9fa-73158f7d1273"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -788,6 +797,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""UI Mission ToolTip Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a188c987-bc06-4010-9d61-5af56999fa98"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UI Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -808,7 +828,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -817,7 +837,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -881,6 +901,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UI Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6f46345-92c8-427b-a8b9-41dfbfce6123"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1304,6 +1333,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92ac8dea-0e76-4760-b0fd-554b3c975b7d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UI Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1394,6 +1434,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_Interaction = m_Character.FindAction("Interaction", throwIfNotFound: true);
         m_Character_Newaction = m_Character.FindAction("New action", throwIfNotFound: true);
         m_Character_UIMissionToolTipSwitch = m_Character.FindAction("UI Mission ToolTip Switch", throwIfNotFound: true);
+        m_Character_UIPause = m_Character.FindAction("UI Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1406,6 +1447,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_UIPause = m_UI.FindAction("UI Pause", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -1508,6 +1550,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Interaction;
     private readonly InputAction m_Character_Newaction;
     private readonly InputAction m_Character_UIMissionToolTipSwitch;
+    private readonly InputAction m_Character_UIPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Character".
     /// </summary>
@@ -1604,6 +1647,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @UIMissionToolTipSwitch => m_Wrapper.m_Character_UIMissionToolTipSwitch;
         /// <summary>
+        /// Provides access to the underlying input action "Character/UIPause".
+        /// </summary>
+        public InputAction @UIPause => m_Wrapper.m_Character_UIPause;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Character; }
@@ -1692,6 +1739,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @UIMissionToolTipSwitch.started += instance.OnUIMissionToolTipSwitch;
             @UIMissionToolTipSwitch.performed += instance.OnUIMissionToolTipSwitch;
             @UIMissionToolTipSwitch.canceled += instance.OnUIMissionToolTipSwitch;
+            @UIPause.started += instance.OnUIPause;
+            @UIPause.performed += instance.OnUIPause;
+            @UIPause.canceled += instance.OnUIPause;
         }
 
         /// <summary>
@@ -1766,6 +1816,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @UIMissionToolTipSwitch.started -= instance.OnUIMissionToolTipSwitch;
             @UIMissionToolTipSwitch.performed -= instance.OnUIMissionToolTipSwitch;
             @UIMissionToolTipSwitch.canceled -= instance.OnUIMissionToolTipSwitch;
+            @UIPause.started -= instance.OnUIPause;
+            @UIPause.performed -= instance.OnUIPause;
+            @UIPause.canceled -= instance.OnUIPause;
         }
 
         /// <summary>
@@ -1813,6 +1866,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_UIPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1864,6 +1918,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/TrackedDeviceOrientation".
         /// </summary>
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/UIPause".
+        /// </summary>
+        public InputAction @UIPause => m_Wrapper.m_UI_UIPause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1920,6 +1978,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+            @UIPause.started += instance.OnUIPause;
+            @UIPause.performed += instance.OnUIPause;
+            @UIPause.canceled += instance.OnUIPause;
         }
 
         /// <summary>
@@ -1961,6 +2022,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
+            @UIPause.started -= instance.OnUIPause;
+            @UIPause.performed -= instance.OnUIPause;
+            @UIPause.canceled -= instance.OnUIPause;
         }
 
         /// <summary>
@@ -2213,6 +2277,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUIMissionToolTipSwitch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UI Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUIPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -2291,5 +2362,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UI Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUIPause(InputAction.CallbackContext context);
     }
 }

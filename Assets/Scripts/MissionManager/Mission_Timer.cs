@@ -22,7 +22,7 @@ public class Mission_Timer : Mission
 
         if (currentTime < 0)
         {
-            Debug.Log("GAME OVER");
+            //GameManager.instance.GameOver();
         }
 
         string timeText = System.TimeSpan.FromSeconds(currentTime).ToString("mm':'ss");
