@@ -24,11 +24,11 @@ public class Car_Interaction : Interactable
         player = GameManager.instance.player.transform;
 
 
-        //foreach (var point in exitPoints)
-        //{
-        //    point.GetComponent<MeshRenderer>().enabled = false;
-        //    point.GetComponent<SphereCollider>().enabled = false;
-        //}
+        foreach (var point in exitPoints)
+        {
+            point.GetComponent<MeshRenderer>().enabled = false;
+            point.GetComponent<SphereCollider>().enabled = false;
+        }
     }
 
     public override void Interaction()

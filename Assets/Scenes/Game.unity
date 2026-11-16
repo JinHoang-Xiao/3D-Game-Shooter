@@ -4887,7 +4887,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -5.12, y: -2.9017968, z: 270.8961}
+  m_LocalPosition: {x: -5.12, y: -2.9017968, z: 267.538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10990,6 +10990,67 @@ MonoBehaviour:
   holdType: 1
   gunPoint: {fileID: 1383091630}
   holdPoint: {fileID: 258093205}
+--- !u!1001 &887560234
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 271.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793798306935996247, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832181724759359692, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Melee - Axe throw Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832181724759359692, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c147e48a0f07c04c8a579e784c98a99, type: 3}
 --- !u!1 &888223907
 GameObject:
   m_ObjectHideFlags: 0
@@ -11631,6 +11692,7 @@ GameObject:
   - component: {fileID: 925492134}
   - component: {fileID: 925492131}
   - component: {fileID: 925492133}
+  - component: {fileID: 925492135}
   m_Layer: 0
   m_Name: Car_Jeep
   m_TagString: Untagged
@@ -11715,6 +11777,7 @@ Transform:
   - {fileID: 2819987131999114725}
   - {fileID: 274573029}
   - {fileID: 1138868505}
+  - {fileID: 1973533855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &925492133
@@ -11754,10 +11817,30 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 4a280b02d446f3a439dcd4753cb20af7, type: 2}
   defaultMaterial: {fileID: 3758952881610933197, guid: d2858e1f48611f643b7ba488af654dd9, type: 3}
   exitCheckRadius: 0.2
-  exitPoints: []
+  exitPoints:
+  - {fileID: 767647502}
+  - {fileID: 1874062396}
+  - {fileID: 1701041779}
+  - {fileID: 1189418361}
   whatToIngoreForExit:
     serializedVersion: 2
     m_Bits: 3649
+--- !u!208 &925492135
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925492129}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.95, y: 0.65, z: 1.9}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0.6, z: -0.19}
+  m_TimeToStationary: 0.5
 --- !u!1 &925716775
 GameObject:
   m_ObjectHideFlags: 0
@@ -11868,7 +11951,7 @@ Transform:
   m_GameObject: {fileID: 935532603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.2, y: 0, z: 254.94608}
+  m_LocalPosition: {x: 8.2, y: 0, z: 251.588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17824,6 +17907,7 @@ GameObject:
   - component: {fileID: 1434334466}
   - component: {fileID: 1434334463}
   - component: {fileID: 1434334465}
+  - component: {fileID: 1434334467}
   m_Layer: 0
   m_Name: Car_Truck
   m_TagString: Untagged
@@ -17949,10 +18033,30 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 4a280b02d446f3a439dcd4753cb20af7, type: 2}
   defaultMaterial: {fileID: 3758952881610933197, guid: d2858e1f48611f643b7ba488af654dd9, type: 3}
   exitCheckRadius: 0.2
-  exitPoints: []
+  exitPoints:
+  - {fileID: 584207495}
+  - {fileID: 1870051698}
+  - {fileID: 1214819911}
+  - {fileID: 952786769}
   whatToIngoreForExit:
     serializedVersion: 2
     m_Bits: 3649
+--- !u!208 &1434334467
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434334461}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.365, y: 1.24, z: 3.215}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 1.24, z: -1}
+  m_TimeToStationary: 0.5
 --- !u!1 &1457575079
 GameObject:
   m_ObjectHideFlags: 0
@@ -19140,7 +19244,7 @@ GameObject:
   - component: {fileID: 1552221536}
   - component: {fileID: 1552221535}
   - component: {fileID: 1552221534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20261,13 +20365,13 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611057037}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!4 &1611057042
@@ -20530,7 +20634,7 @@ Transform:
   m_GameObject: {fileID: 1640290634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: -5.12, y: -2.9017968, z: 270.8961}
+  m_LocalPosition: {x: -5.12, y: -2.9017968, z: 267.538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24427,6 +24531,76 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966199031}
   m_Mesh: {fileID: 7005862561380833248, guid: 2b2c4688169dfcc468f4088c51922427, type: 3}
+--- !u!1 &1973533854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1973533855}
+  - component: {fileID: 1973533857}
+  - component: {fileID: 1973533856}
+  m_Layer: 15
+  m_Name: car_damageZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1973533855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973533854}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.602, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 925492132}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1973533856
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973533854}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.781204, y: 0.23134843, z: 3.7001038}
+  m_Center: {x: 0, y: 0.021662354, z: -0.26753235}
+--- !u!114 &1973533857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973533854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a26e5c311c1e5e47a72a890c1b4787d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Car_DamageZone
+  minSpeedToDamage: 2.5
+  carDamage: 200
+  impactForce: 150
+  upwardsMultiplier: 3
 --- !u!1 &1978483336
 GameObject:
   m_ObjectHideFlags: 0
@@ -33406,3 +33580,4 @@ SceneRoots:
   - {fileID: 1611057042}
   - {fileID: 1434334464}
   - {fileID: 925492132}
+  - {fileID: 887560234}
