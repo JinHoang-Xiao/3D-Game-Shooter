@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
     public UI_WeaponSelection weaponSelection { get; private set; }
     public UI_GameOver gameOverUI { get; private set; }
     public GameObject victoryScreenUI;
+
     public GameObject pauseUI;
 
 
@@ -37,16 +38,11 @@ public class UI : MonoBehaviour
         // Remove this if statement before build, it's for easier testing
         if (GameManager.instance.quickStart)
         {
-            StartCoroutine(QuickStartAfterInitialization());
+            LevelGenerator.instance.InitializeGeneration();
+            StartTheGame();
         }
     }
-    private IEnumerator QuickStartAfterInitialization()
-    {
-        yield return null;
 
-        LevelGenerator.instance.InitializeGeneration();
-        StartTheGame();
-    }
     public void SwitchTo(GameObject uiToSwitchOn)
     {
         foreach (GameObject go in UIElements)

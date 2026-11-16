@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public static LevelGenerator instance;
 
     // Enemies
-    private List<Enemy> enemyList;
+    private List<Enemy> enemyList = new List<Enemy>();
 
     // NavMesh
     [SerializeField] private NavMeshSurface navMeshSurface;
@@ -34,13 +34,14 @@ public class LevelGenerator : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
-        enemyList = new List<Enemy>();
         defaultSnapPoint = nextSnapPoint;
     }
+
+    //private void Start()
+    //{
+    //    enemyList = new List<Enemy>();
+    //    defaultSnapPoint = nextSnapPoint;
+    //}
 
     private void Update()
     {
