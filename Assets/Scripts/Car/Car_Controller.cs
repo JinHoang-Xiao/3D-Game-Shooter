@@ -1,17 +1,16 @@
 using System;
 using UnityEngine;
 
-//public enum DriveType { FrontWheelDrive, RearWheelDrive, AllWheelDrive }
+public enum DriveType { FrontWheelDrive, RearWheelDrive, AllWheelDrive }
 
 //[RequireComponent(typeof(NavMeshObstacle))]
 ////[RequireComponent(typeof(Car_HealthController))]
 ////[RequireComponent(typeof(Car_Interaction))]
 //[RequireComponent(typeof(BoxCollider))]
-//[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class Car_Controller : MonoBehaviour
 {
-    //public bool carActive { get; private set; }
-
+    public bool carActive { get; private set; }
     private PlayerControls controls;
     public Rigidbody rb { get; private set; }
     private float moveInput;
@@ -19,58 +18,124 @@ public class Car_Controller : MonoBehaviour
 
     public float speed;
 
-    public float turnSensetivity;
+    [Range(30, 60)]
+    [SerializeField] private float turnSensetivity = 30;
+
     [Header("Car Settings")]
+    [SerializeField] private DriveType driveType;
     [SerializeField] private Transform centerOfMass;
 
+    [Range(350, 1000)]
+    [SerializeField] private float carMass = 400;
+
+    [Range(20, 80)]
+    [SerializeField] private float wheelsMass = 30;
+
+    [Range(.5f, 2f)]
+    [SerializeField] private float frontWheelTraction = 1;
+
+    [Range(.5f, 2f)]
+    [SerializeField] private float backWheelTraction = 1;
+
+
     [Header("Engine Settings")]
-    public float currentSpeed;
+    [SerializeField] private float currentSpeed; 
+
     [Range(7, 12)]
-    public float maxSpeed;
-    [Range(.5f, 5)]
-    public float accelerationSpeed;
-    [Range(1500, 3000)]
-    public float motorForce = 1500f;
+    [SerializeField] private float maxSpeed = 7;
+
+    [Range(.5f, 10)]
+    [SerializeField] private float accelerationSpeed = 2;
+
+    [Range(1500, 5000)]
+    [SerializeField] private float motorForce = 1500f;
 
 
     [Header("Brakes Settings")]
-    [Range(4, 10)]
-    public float brakeSensetivity = 5;
+    [Range(0, 10)]
+    [SerializeField] private float frontBrakesSensetivity = 5;
+
+    [Range(0, 10)]
+    [SerializeField] private float backBrakesSensetivity = 5;
+
     [Range(4000, 6000)]
-    public float brakePower = 5000;
+    [SerializeField] private float brakePower = 5000;
     private bool isBraking;
+
+    [Header("Drift Settings")]
+    [Range(0, 1)]
+    [SerializeField] private float frontDriftFactor = .5f;
+
+    [Range(0, 1)]
+    [SerializeField] private float backDriftFactor = .5f;
+    [SerializeField] private float driftDuration = 1f;
+    private float driftTimer;
+    private bool isDrifting;
+
 
     private Car_Wheel[] wheels;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = centerOfMass.localPosition;
-
-        controls = ControlsManager.instance.controls;
-        ControlsManager.instance.SwitchToCarControls();
-
         wheels = GetComponentsInChildren<Car_Wheel>();
-
-        AssignInputEvents();
-
         //ui = UI.instance;
 
-        //SetupDefaultValues();
+        controls = ControlsManager.instance.controls;
+        //ControlsManager.instance.SwitchToCarControls();
+
+
+        AssignInputEvents();
+        SetupDefaultValues();
         //ActivateCar(false);
     }
+
+    private void SetupDefaultValues()
+    {
+        rb.centerOfMass = centerOfMass.localPosition;
+        rb.mass = carMass;
+
+        foreach (var wheel in wheels)
+        {
+            wheel.cd.mass = wheelsMass;
+
+            if (wheel.axelType == AxelType.Front)
+                wheel.SetDefaultStiffnes(frontWheelTraction);
+
+            if (wheel.axelType == AxelType.Back)
+                wheel.SetDefaultStiffnes(backWheelTraction);
+        }
+
+    }
+
     private void Update()
     {
+        if (carActive == false)
+            return;
+
         speed = rb.linearVelocity.magnitude;
+
+        driftTimer -= Time.deltaTime;
+
+        if (driftTimer < 0)
+            isDrifting = false;
     }
 
     private void FixedUpdate()
     {
+        if (carActive == false)
+            return;
+
         ApplyAnimationToWheels();
         ApplyDrive();
         ApplySteering();
         ApllyBrakes();
         ApplySpeedLimit();
+
+        if (isDrifting)
+            ApplyDrift();
+        else
+            StopDrift();
     }
 
     private void ApplyDrive()
@@ -81,7 +146,19 @@ public class Car_Controller : MonoBehaviour
 
         foreach (var wheel in wheels)
         {
-            if (wheel.axelType == AxelType.Front)
+            if (driveType == DriveType.FrontWheelDrive)
+            {
+                if (wheel.axelType == AxelType.Front)
+                    wheel.cd.motorTorque = motorTorqueValue;
+            }
+
+            else if (driveType == DriveType.RearWheelDrive)
+            {
+                if (wheel.axelType == AxelType.Back)
+                    wheel.cd.motorTorque = motorTorqueValue;
+            }
+
+            else
             {
                 wheel.cd.motorTorque = motorTorqueValue;
             }
@@ -110,14 +187,39 @@ public class Car_Controller : MonoBehaviour
 
     private void ApllyBrakes()
     {
-        float newBrakeTorque = brakePower * brakeSensetivity * Time.deltaTime;
-        float currentBrakeTorque = isBraking ? newBrakeTorque : 0;
 
         foreach (var wheel in wheels)
         {
-            if (wheel.axelType == AxelType.Front)
-                wheel.cd.brakeTorque = currentBrakeTorque;
-        }    
+            bool frontBrakes = wheel.axelType == AxelType.Front;
+            float brakeSensetivity = frontBrakes ? frontBrakesSensetivity : backBrakesSensetivity;
+
+            float newBrakeTorque = brakePower * brakeSensetivity * Time.deltaTime;
+            float currentBrakeTorque = isBraking ? newBrakeTorque : 0;
+
+            wheel.cd.brakeTorque = currentBrakeTorque;
+        }
+    }
+
+    private void ApplyDrift()
+    {
+        foreach (var wheel in wheels)
+        {
+            bool frontWheel = wheel.axelType == AxelType.Front;
+            float driftFactor = frontWheel ? frontDriftFactor : backDriftFactor;
+
+            WheelFrictionCurve sidewaysFriction = wheel.cd.sidewaysFriction;
+
+            sidewaysFriction.stiffness *= (1 - driftFactor);
+            wheel.cd.sidewaysFriction = sidewaysFriction;
+        }
+    }
+
+    private void StopDrift()
+    {
+        foreach (var wheel in wheels)
+        {
+            wheel.RestoreDefaultStiffnes();
+        }
     }
 
     private void ApplyAnimationToWheels()
@@ -138,6 +240,16 @@ public class Car_Controller : MonoBehaviour
 
         }
     }
+    public void ActivateCar(bool activate)
+    {
+        carActive = activate;
+
+        //if(!activate)
+        //    rb.constraints = RigidbodyConstraints.FreezeAll;
+        //else
+        //    rb.constraints = RigidbodyConstraints.None;
+    }
+
 
     private void AssignInputEvents()
     {
@@ -155,8 +267,24 @@ public class Car_Controller : MonoBehaviour
             steerInput = 0;
         };
 
-        controls.Car.Brake.performed += ctx => isBraking = true;
+        controls.Car.Brake.performed += ctx =>
+        {
+            isBraking = true;
+            isDrifting = true;
+            driftTimer = driftDuration;
+        };
         controls.Car.Brake.canceled += ctx => isBraking = false;
 
+
+
+        controls.Car.CarExit.performed += ctx => GetComponent<Car_Interaction>().GetOutOfTheCar();
     }
+
+    [ContextMenu("Focus camera and enable")]
+    public void TestThisCar()
+    {
+        ActivateCar(true);
+        CameraManager.instance.ChangeCameraTarget(transform, 12);
+    }
+
 }

@@ -8,7 +8,7 @@ public class Player_AimController : MonoBehaviour
 
     [Header("Aim Visual - Laser")]
     [SerializeField] private LineRenderer aimLaser; // component này được dùng để vẽ đường laser từ súng đến điểm nhắm, giúp người chơi thấy rõ hướng bắn.(on the weapon holder (child of player))
-    
+
 
 
     [Header("Aim Control")]
@@ -33,7 +33,7 @@ public class Player_AimController : MonoBehaviour
 
     [Space]
     [SerializeField] private LayerMask aimLayerMask;
-    
+
     private Vector2 mouseInput;
     private RaycastHit lastKnownMouseHit;
 
@@ -52,12 +52,12 @@ public class Player_AimController : MonoBehaviour
         if (player.controlsEnabled == false)
             return;
 
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             isAimingPrecisly = !isAimingPrecisly;
         }
 
-        if(Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             isLockingToTarget = !isLockingToTarget;
         }
@@ -66,13 +66,20 @@ public class Player_AimController : MonoBehaviour
         UpdateAimPosition();
         UpdateCameraPosition();
     }
-    
+
+    public Transform GetAimCameraTarget()
+    {
+        cameraTarget.position = player.transform.position;
+        return cameraTarget;
+    }
+
+    public void EnableAimLaser(bool enable) => aimLaser.enabled = enable;
 
     private void UpdateAimVisuals()
     {
         aimLaser.enabled = player.weapon.WeaponReady();
 
-        if(aimLaser.enabled == false)
+        if (aimLaser.enabled == false)
         {
             return;
         }
@@ -90,7 +97,7 @@ public class Player_AimController : MonoBehaviour
 
         Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
 
-        if(Physics.Raycast(gunPoint.position,laserDirection,out RaycastHit hit, gunDistance))
+        if (Physics.Raycast(gunPoint.position, laserDirection, out RaycastHit hit, gunDistance))
         {
             endPoint = hit.point;
             laserTipLength = 0f;
@@ -130,7 +137,7 @@ public class Player_AimController : MonoBehaviour
     {
         Transform target = null;
 
-        if(GetMouseHitInfo().transform.GetComponent<Target>() != null)
+        if (GetMouseHitInfo().transform.GetComponent<Target>() != null)
         {
             target = GetMouseHitInfo().transform;
         }
@@ -186,7 +193,7 @@ public class Player_AimController : MonoBehaviour
     public RaycastHit GetMouseHitInfo()
     {
         Ray ray = Camera.main.ScreenPointToRay(mouseInput);
-        if (Physics.Raycast(ray, out var hitInfo,Mathf.Infinity,aimLayerMask))
+        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, aimLayerMask))
         {
             lastKnownMouseHit = hitInfo;
             return hitInfo;
