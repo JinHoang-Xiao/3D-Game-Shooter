@@ -1348,6 +1348,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Brake"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6d6cca1-fbe2-4a0f-ae89-c5ef2a56c610"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1493,6 +1502,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""CarExit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ba910cd-0737-48bf-ba81-8bd485cb0fb5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1600,6 +1620,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Car = asset.FindActionMap("Car", throwIfNotFound: true);
         m_Car_Movement = m_Car.FindAction("Movement", throwIfNotFound: true);
         m_Car_CarExit = m_Car.FindAction("CarExit", throwIfNotFound: true);
+        m_Car_Brake = m_Car.FindAction("Brake", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -2206,6 +2227,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<ICarActions> m_CarActionsCallbackInterfaces = new List<ICarActions>();
     private readonly InputAction m_Car_Movement;
     private readonly InputAction m_Car_CarExit;
+    private readonly InputAction m_Car_Brake;
     /// <summary>
     /// Provides access to input actions defined in input action map "Car".
     /// </summary>
@@ -2225,6 +2247,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Car/CarExit".
         /// </summary>
         public InputAction @CarExit => m_Wrapper.m_Car_CarExit;
+        /// <summary>
+        /// Provides access to the underlying input action "Car/Brake".
+        /// </summary>
+        public InputAction @Brake => m_Wrapper.m_Car_Brake;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2257,6 +2283,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CarExit.started += instance.OnCarExit;
             @CarExit.performed += instance.OnCarExit;
             @CarExit.canceled += instance.OnCarExit;
+            @Brake.started += instance.OnBrake;
+            @Brake.performed += instance.OnBrake;
+            @Brake.canceled += instance.OnBrake;
         }
 
         /// <summary>
@@ -2274,6 +2303,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CarExit.started -= instance.OnCarExit;
             @CarExit.performed -= instance.OnCarExit;
             @CarExit.canceled -= instance.OnCarExit;
+            @Brake.started -= instance.OnBrake;
+            @Brake.performed -= instance.OnBrake;
+            @Brake.canceled -= instance.OnBrake;
         }
 
         /// <summary>
@@ -2633,5 +2665,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCarExit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Brake" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBrake(InputAction.CallbackContext context);
     }
 }
