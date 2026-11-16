@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public static LevelGenerator instance;
 
     // Enemies
-    private List<Enemy> enemyList;
+    private List<Enemy> enemyList = new List<Enemy>();
 
     // NavMesh
     [SerializeField] private NavMeshSurface navMeshSurface;
@@ -29,20 +29,19 @@ public class LevelGenerator : MonoBehaviour
     [Space]
     [SerializeField] private float generationCooldown;
     private float cooldownTimer;
-    private bool generationOver;
+    private bool generationOver = true;
 
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
-        enemyList = new List<Enemy>();
         defaultSnapPoint = nextSnapPoint;
-        InitializeGeneration();
     }
 
+    //private void Start()
+    //{
+    //    enemyList = new List<Enemy>();
+    //    defaultSnapPoint = nextSnapPoint;
+    //}
 
     private void Update()
     {
@@ -66,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     [ContextMenu("Restart generation")]
-    private void InitializeGeneration()
+    public void InitializeGeneration()
     {
         nextSnapPoint = defaultSnapPoint;
         generationOver = false;
@@ -103,6 +102,8 @@ public class LevelGenerator : MonoBehaviour
             enemy.transform.parent = null;
             enemy.gameObject.SetActive(true);
         }
+
+        MissionManager.instance.StartMission();
 
     }
 

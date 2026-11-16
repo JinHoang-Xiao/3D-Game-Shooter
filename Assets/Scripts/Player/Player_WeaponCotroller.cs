@@ -11,7 +11,7 @@ public class Player_WeaponCotroller : MonoBehaviour
     private const float REFERENCE_BULLET_SPEED = 20f; // Tham chiếu tốc độ viên đạn để điều chỉnh tốc độ bắn
 
 
-    [SerializeField] private Weapon_Data defaultWeaponData;
+    [SerializeField] private List<Weapon_Data> defaultWeaponData;
     [SerializeField] private Weapon currentWeapon; // Tham chiếu đến vũ khí hiện tại của người chơi
     private bool weaponReady;
     private bool isShooting;
@@ -38,7 +38,6 @@ public class Player_WeaponCotroller : MonoBehaviour
         player = GetComponent<Player>();
         AssignInputEvents();
 
-        Invoke(nameof(EquipStartingWeapon), .1f);
     }
 
     private void Update()
@@ -50,9 +49,15 @@ public class Player_WeaponCotroller : MonoBehaviour
 
     #region Slots Manager - Pickup/Equip/Drop/Ready Weapon
 
-    private void EquipStartingWeapon()
+    public void SetDefaultWeapon(List<Weapon_Data> newWeaponData)
     {
-        weaponSlots[0] = new Weapon(defaultWeaponData);
+        defaultWeaponData = new List<Weapon_Data>(newWeaponData);
+        weaponSlots.Clear();
+
+        foreach(Weapon_Data weaponData in defaultWeaponData)
+        {
+            PickupWeapon(new Weapon(weaponData));
+        }
 
         EquipWeapon(0);
     }
