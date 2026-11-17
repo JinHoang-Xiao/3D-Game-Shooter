@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class Car_Interaction : Interactable
@@ -49,7 +46,7 @@ public class Car_Interaction : Interactable
         player.transform.parent = transform;
         player.transform.localPosition = Vector3.up / 2;
 
-        CameraManager.instance.ChangeCameraTarget(transform); //, 12, .5f
+        CameraManager.instance.ChangeCameraTarget(transform, 12, .5f);
 
     }
 
@@ -67,7 +64,7 @@ public class Car_Interaction : Interactable
         ControlsManager.instance.SwitchToCharacterControls();
         Player_AimController aim = GameManager.instance.player.aim;
 
-        CameraManager.instance.ChangeCameraTarget(aim.GetAimCameraTarget());//, 8, .5f
+        CameraManager.instance.ChangeCameraTarget(aim.GetAimCameraTarget(), 8.5f);
 
     }
 

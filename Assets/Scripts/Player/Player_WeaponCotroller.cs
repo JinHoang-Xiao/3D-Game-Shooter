@@ -54,7 +54,7 @@ public class Player_WeaponCotroller : MonoBehaviour
         defaultWeaponData = new List<Weapon_Data>(newWeaponData);
         weaponSlots.Clear();
 
-        foreach(Weapon_Data weaponData in defaultWeaponData)
+        foreach (Weapon_Data weaponData in defaultWeaponData)
         {
             PickupWeapon(new Weapon(weaponData));
         }
@@ -93,7 +93,7 @@ public class Player_WeaponCotroller : MonoBehaviour
         {
             int weaponIndex = weaponSlots.IndexOf(currentWeapon);
 
-            //player.weaponVisuals.SwitchOffWeaponModels();
+            //player.weaponVisuals.SwitchOffWeaponModels(); Tắt hình ảnh vũ khí khi thay đổi vũ khí để không bị kỳ khi thay đổi cầm vũ khí khác
             weaponSlots[weaponIndex] = newWeapon;
 
             CreateWeaponOnTheGround();
@@ -125,7 +125,13 @@ public class Player_WeaponCotroller : MonoBehaviour
         droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
-    public void SetWeaponReady(bool ready) => weaponReady = ready;
+    public void SetWeaponReady(bool ready)
+    {
+        weaponReady = ready;
+        if (ready)
+            player.sound.weaponReady.Play();
+
+    }
     public bool WeaponReady() => weaponReady;
 
     #endregion
@@ -182,6 +188,8 @@ public class Player_WeaponCotroller : MonoBehaviour
         currentWeapon.bulletsInMagazine--;
         UpdateWeaponUI();
 
+        player.weaponVisuals.CurrentWeaponModel().fireSFX.Play();
+
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, GunPoint()); //Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));// Cách gọi lúc đầu để tạo bullets
 
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
@@ -202,6 +210,8 @@ public class Player_WeaponCotroller : MonoBehaviour
     {
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
+
+        player.weaponVisuals.CurrentWeaponModel().realoadSfx.Play();
 
         // Refill of bullets ở trong Player_AnimationEvents
         // Nên Đã UpdateWeaponUI trong Player_AnimationEvents
