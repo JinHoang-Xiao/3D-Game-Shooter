@@ -2065,7 +2065,7 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   gunPoint: {fileID: 4419407107323694385}
   weaponHolder: {fileID: 2567008772460740757}
-  bulletPrefab: {fileID: 781499979398271465, guid: 460b0daa557aa764ea427c80040cdb1e, type: 3}
+  bulletPrefab: {fileID: 781499979398271465, guid: 1f692e85285cbbb44a7feb92beb5c3f8, type: 3}
   slowAim: 4
   fastAim: 20
   aim: {fileID: 7605093487849000028}

@@ -16,7 +16,9 @@ public class LevelGenerator : MonoBehaviour
 
     // Level parts
     [SerializeField] private Transform lastLevelPart;
-    [SerializeField] private List<Transform> levelParts;
+    [SerializeField] private Transform fixedFirstLevelPart;
+    [SerializeField] private List<Transform> randomLevelParts;
+    [SerializeField] private Transform bossRoomLevelPart;
     private List<Transform> currentLevelParts;
     private List<Transform> generatedLevelParts = new List<Transform>();
 
@@ -69,7 +71,19 @@ public class LevelGenerator : MonoBehaviour
     {
         nextSnapPoint = defaultSnapPoint;
         generationOver = false;
-        currentLevelParts = new List<Transform>(levelParts);
+        currentLevelParts = new List<Transform>();
+
+        if (fixedFirstLevelPart != null)
+            currentLevelParts.Add(fixedFirstLevelPart);
+
+        if (randomLevelParts != null && randomLevelParts.Count > 0)
+        {
+            int randomIndex = Random.Range(0, randomLevelParts.Count);
+            currentLevelParts.Add(randomLevelParts[randomIndex]);
+        }
+
+        if (bossRoomLevelPart != null)
+            currentLevelParts.Add(bossRoomLevelPart);
 
         DestroyOldLevelPartsAndEnemies();
     }
@@ -135,13 +149,9 @@ public class LevelGenerator : MonoBehaviour
 
     private Transform ChooseRandomPart()
     {
-        int randomIndex = Random.Range(0, currentLevelParts.Count);
-
-        Transform choosenPart = currentLevelParts[randomIndex];
-
-        currentLevelParts.RemoveAt(randomIndex);
-
-        return choosenPart;
+        Transform chosenPart = currentLevelParts[0];
+        currentLevelParts.RemoveAt(0);
+        return chosenPart;
     }
     public Enemy GetRandomEnemy()
     {

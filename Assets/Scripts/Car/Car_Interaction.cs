@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class Car_Interaction : Interactable
 {
-    //private Car_HealthController carHealthController;
+    private Car_HealthController carHealthController;
     private Car_Controller carController;
     private Transform player;
 
@@ -19,7 +16,7 @@ public class Car_Interaction : Interactable
 
     private void Start()
     {
-        //carHealthController = GetComponent<Car_HealthController>();
+        carHealthController = GetComponent<Car_HealthController>();
         carController = GetComponent<Car_Controller>();
         player = GameManager.instance.player.transform;
 
@@ -40,7 +37,7 @@ public class Car_Interaction : Interactable
     private void GetIntoTheCar()
     {
         ControlsManager.instance.SwitchToCarControls();
-        //carHealthController.UpdateCarHealthUI();
+        carHealthController.UpdateCarHealthUI();
         carController.ActivateCar(true);
 
         defaultPlayerScale = player.localScale.x;
@@ -49,7 +46,7 @@ public class Car_Interaction : Interactable
         player.transform.parent = transform;
         player.transform.localPosition = Vector3.up / 2;
 
-        CameraManager.instance.ChangeCameraTarget(transform); //, 12, .5f
+        CameraManager.instance.ChangeCameraTarget(transform, 12, .5f);
 
     }
 
@@ -67,7 +64,7 @@ public class Car_Interaction : Interactable
         ControlsManager.instance.SwitchToCharacterControls();
         Player_AimController aim = GameManager.instance.player.aim;
 
-        CameraManager.instance.ChangeCameraTarget(aim.GetAimCameraTarget());
+        CameraManager.instance.ChangeCameraTarget(aim.GetAimCameraTarget(), 8.5f);
 
     }
 

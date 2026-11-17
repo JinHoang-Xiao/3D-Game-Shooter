@@ -113,15 +113,26 @@ public class UI : MonoBehaviour
     private IEnumerator StartGameSequence()
     {
 
+        bool quickStart = GameManager.instance.quickStart;
+
         //THIS SHOULD BE UNCOMMENTED BEFORE MAKING A BUILD
-        //StartCoroutine(ChangeImageAlpha(1, 1, null));
-        //yield return new WaitForSeconds(1);
+        if (quickStart == false)
+        {
+            fadeImage.color = Color.black;
+            StartCoroutine(ChangeImageAlpha(1, 1, null));
+            yield return new WaitForSeconds(1);
+
+        }
 
         yield return null;
         SwitchTo(inGameUI.gameObject);
         GameManager.instance.GameStart();
-        StartCoroutine(ChangeImageAlpha(0, .1f, null));
-        //StartCoroutine(ChangeImageAlpha(0,1f, null));
+
+        if (quickStart)
+            StartCoroutine(ChangeImageAlpha(0, .1f, null));
+        else
+            StartCoroutine(ChangeImageAlpha(0, 1f, null));
+
     }
 
     private IEnumerator ChangeImageAlpha(float targetAlpha, float duration, System.Action onComplete)
@@ -145,4 +156,15 @@ public class UI : MonoBehaviour
         // Call the cimpletion method if it exists
         onComplete?.Invoke();
     }
+    [ContextMenu("Assign Audio To Buttons")]
+    public void AssignAudioListenesrsToButtons()
+    {
+        UI_Button[] buttons = FindObjectsByType<UI_Button>(FindObjectsInactive.Include,FindObjectsSortMode.None);
+
+        foreach (var button in buttons)
+        {
+            button.AssignAudioSource();
+        }
+    }
+
 }
