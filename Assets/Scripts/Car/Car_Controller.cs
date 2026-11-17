@@ -87,7 +87,7 @@ public class Car_Controller : MonoBehaviour
 
         AssignInputEvents();
         SetupDefaultValues();
-        //ActivateCar(false);
+        ActivateCar(false);
     }
 
     private void SetupDefaultValues()
@@ -244,12 +244,20 @@ public class Car_Controller : MonoBehaviour
     {
         carActive = activate;
 
-        //if(!activate)
+        // DÙNG ĐỂ CHO XE ĐỨNG YÊN KHI 
+        //if (!activate)
         //    rb.constraints = RigidbodyConstraints.FreezeAll;
         //else
         //    rb.constraints = RigidbodyConstraints.None;
     }
 
+    public void BrakeTheCar()
+    {
+        motorForce = 0;
+        isDrifting = true;
+        frontDriftFactor = .9f;
+        backDriftFactor = .9f;
+    }
 
     private void AssignInputEvents()
     {
