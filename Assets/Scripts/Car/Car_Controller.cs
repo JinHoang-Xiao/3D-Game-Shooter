@@ -20,33 +20,26 @@ public class Car_Controller : MonoBehaviour
 
     [Range(30, 60)]
     [SerializeField] private float turnSensetivity = 30;
-
     [Header("Car Settings")]
     [SerializeField] private DriveType driveType;
     [SerializeField] private Transform centerOfMass;
 
     [Range(350, 1000)]
     [SerializeField] private float carMass = 400;
-
     [Range(20, 80)]
     [SerializeField] private float wheelsMass = 30;
-
     [Range(.5f, 2f)]
     [SerializeField] private float frontWheelTraction = 1;
-
     [Range(.5f, 2f)]
     [SerializeField] private float backWheelTraction = 1;
 
 
     [Header("Engine Settings")]
     [SerializeField] private float currentSpeed; 
-
     [Range(7, 12)]
     [SerializeField] private float maxSpeed = 7;
-
     [Range(.5f, 10)]
     [SerializeField] private float accelerationSpeed = 2;
-
     [Range(1500, 5000)]
     [SerializeField] private float motorForce = 1500f;
 
@@ -54,18 +47,16 @@ public class Car_Controller : MonoBehaviour
     [Header("Brakes Settings")]
     [Range(0, 10)]
     [SerializeField] private float frontBrakesSensetivity = 5;
-
     [Range(0, 10)]
     [SerializeField] private float backBrakesSensetivity = 5;
-
     [Range(4000, 6000)]
     [SerializeField] private float brakePower = 5000;
     private bool isBraking;
 
+
     [Header("Drift Settings")]
     [Range(0, 1)]
     [SerializeField] private float frontDriftFactor = .5f;
-
     [Range(0, 1)]
     [SerializeField] private float backDriftFactor = .5f;
     [SerializeField] private float driftDuration = 1f;
@@ -74,12 +65,13 @@ public class Car_Controller : MonoBehaviour
 
 
     private Car_Wheel[] wheels;
+    private UI ui;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<Car_Wheel>();
-        //ui = UI.instance;
+        ui = UI.instance;
 
         controls = ControlsManager.instance.controls;
         //ControlsManager.instance.SwitchToCarControls();
@@ -114,6 +106,7 @@ public class Car_Controller : MonoBehaviour
             return;
 
         speed = rb.linearVelocity.magnitude;
+        ui.inGameUI.UpdateSpeedText(Mathf.RoundToInt(speed * 10) + "km/h");
 
         driftTimer -= Time.deltaTime;
 
@@ -151,13 +144,11 @@ public class Car_Controller : MonoBehaviour
                 if (wheel.axelType == AxelType.Front)
                     wheel.cd.motorTorque = motorTorqueValue;
             }
-
             else if (driveType == DriveType.RearWheelDrive)
             {
                 if (wheel.axelType == AxelType.Back)
                     wheel.cd.motorTorque = motorTorqueValue;
             }
-
             else
             {
                 wheel.cd.motorTorque = motorTorqueValue;
@@ -244,7 +235,7 @@ public class Car_Controller : MonoBehaviour
     {
         carActive = activate;
 
-        // DÙNG ĐỂ CHO XE ĐỨNG YÊN KHI 
+        // DÙNG ĐỂ CHO XE ĐỨNG YÊN KHI KHÔNG DI CHUYỂN
         //if (!activate)
         //    rb.constraints = RigidbodyConstraints.FreezeAll;
         //else
@@ -282,8 +273,6 @@ public class Car_Controller : MonoBehaviour
             driftTimer = driftDuration;
         };
         controls.Car.Brake.canceled += ctx => isBraking = false;
-
-
 
         controls.Car.CarExit.performed += ctx => GetComponent<Car_Interaction>().GetOutOfTheCar();
     }
