@@ -119,7 +119,25 @@ Physics.OverlapBox(collider.bounds.center, collider.bounds.extents, Quaternion.i
         return null;
     }
 
-    public Enemy[] MyEnemies() => GetComponentsInChildren<Enemy>(true);
+    public Enemy[] MyEnemies()
+    {
+        Enemy[] allEnemies = GetComponentsInChildren<Enemy>(true);
+        BossRoomRandomizer bossRoom =
+            GetComponentInChildren<BossRoomRandomizer>(true);
+
+        if (bossRoom == null)
+            return allEnemies;
+
+        List<Enemy> enemies = new List<Enemy>();
+
+        foreach (Enemy enemy in allEnemies)
+        {
+            if (!bossRoom.IsCandidate(enemy) || enemy == bossRoom.SelectedBoss)
+                enemies.Add(enemy);
+        }
+
+        return enemies.ToArray();
+    }
 }
 
 
