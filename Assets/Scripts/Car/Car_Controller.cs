@@ -1,15 +1,20 @@
-using System;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum DriveType { FrontWheelDrive, RearWheelDrive, AllWheelDrive }
 
-//[RequireComponent(typeof(NavMeshObstacle))]
-////[RequireComponent(typeof(Car_HealthController))]
-////[RequireComponent(typeof(Car_Interaction))]
-//[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(NavMeshObstacle))]
+[RequireComponent(typeof(Car_HealthController))]
+[RequireComponent(typeof(Car_Interaction))]
+[RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Car_Controller : MonoBehaviour
 {
+    public Car_Sounds carSounds { get; private set; }
     public Rigidbody rb { get; private set; }
     public bool carActive { get; private set; }
     private PlayerControls controls;
@@ -71,6 +76,7 @@ public class Car_Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<Car_Wheel>();
+        carSounds = GetComponent<Car_Sounds>();
         ui = UI.instance;
 
         controls = ControlsManager.instance.controls;
@@ -227,19 +233,21 @@ public class Car_Controller : MonoBehaviour
                 wheel.model.transform.position = position;
                 wheel.model.transform.rotation = rotation;
             }
-
-
         }
     }
+
     public void ActivateCar(bool activate)
     {
         carActive = activate;
 
+        if (carSounds != null)
+            carSounds.ActivateCarSFX(activate);
+
         // DÙNG ĐỂ CHO XE ĐỨNG YÊN KHI KHÔNG DI CHUYỂN
-        //if (!activate)
-        //    rb.constraints = RigidbodyConstraints.FreezeAll;
-        //else
-        //    rb.constraints = RigidbodyConstraints.None;
+        if (!activate)
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        else
+            rb.constraints = RigidbodyConstraints.None;
     }
 
     public void BrakeTheCar()
