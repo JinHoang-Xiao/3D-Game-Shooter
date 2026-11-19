@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d717be62941c84f988ffe9d715ea45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Car_HealthController
-  maxHealth: 1500
+  maxHealth: 2000
   currentHealth: 0
 --- !u!114 &236451397546132694
 MonoBehaviour:

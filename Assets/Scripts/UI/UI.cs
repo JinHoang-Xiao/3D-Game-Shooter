@@ -65,6 +65,7 @@ public class UI : MonoBehaviour
 
     public void RestartTheGame()
     {
+        TimeManager.instance.ResumeTime();
         StartCoroutine(ChangeImageAlpha(1, 1f, GameManager.instance.RestartScene));
     }
 
@@ -148,7 +149,7 @@ public class UI : MonoBehaviour
 
         while (time < duration)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             float alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
 
             fadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);

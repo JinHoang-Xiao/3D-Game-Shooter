@@ -244,10 +244,10 @@ public class Car_Controller : MonoBehaviour
             carSounds.ActivateCarSFX(activate);
 
         // DÙNG ĐỂ CHO XE ĐỨNG YÊN KHI KHÔNG DI CHUYỂN
-        if (!activate)
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-        else
-            rb.constraints = RigidbodyConstraints.None;
+        //if (!activate)
+        //    rb.constraints = RigidbodyConstraints.FreezeAll;
+        //else
+        //    rb.constraints = RigidbodyConstraints.None;
     }
 
     public void BrakeTheCar()

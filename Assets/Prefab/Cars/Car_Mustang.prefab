@@ -246,8 +246,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.99427134}
+  m_Center: {x: 0, y: 0, z: 0.0028649613}
 --- !u!1 &2092383167157229126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +1986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d717be62941c84f988ffe9d715ea45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Car_HealthController
-  maxHealth: 700
+  maxHealth: 800
   currentHealth: 0
 --- !u!114 &6213093937292962118
 MonoBehaviour:

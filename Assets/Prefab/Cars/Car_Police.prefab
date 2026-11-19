@@ -1938,7 +1938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d717be62941c84f988ffe9d715ea45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Car_HealthController
-  maxHealth: 700
+  maxHealth: 800
   currentHealth: 0
 --- !u!65 &2466838635885154859
 BoxCollider:
